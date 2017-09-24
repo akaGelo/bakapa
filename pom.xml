@@ -24,19 +24,32 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		
 
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 
 	<modules>
+		<module>bakapa-dto</module>
 		<module>bakapa-agent</module>
 		<module>bakapa-admin</module>
 	</modules>
+	
+	
 	<dependencyManagement>
-		<!-- <dependency> <groupId>ru.vy</groupId> <artifactId>core-module</artifactId> 
-			<version>${project.version}</version> </dependency> -->
-
 		<dependencies>
+			<dependency>
+				<groupId>ru.vyukov</groupId>
+				<artifactId>bakapa-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>

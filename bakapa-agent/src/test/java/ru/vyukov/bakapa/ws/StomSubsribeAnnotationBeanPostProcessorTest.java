@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.agent.ws;
+package ru.vyukov.bakapa.ws;
 
 import org.junit.Test;
 

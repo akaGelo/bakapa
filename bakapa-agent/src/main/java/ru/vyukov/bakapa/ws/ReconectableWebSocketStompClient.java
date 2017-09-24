@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.agent.ws;
+package ru.vyukov.bakapa.ws;
 
 import java.net.URI;
 import java.util.concurrent.ExecutionException;

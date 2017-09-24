@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.agent.ws;
+package ru.vyukov.bakapa.ws;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
