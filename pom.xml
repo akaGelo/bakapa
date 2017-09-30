@@ -37,8 +37,9 @@
 
 
 	<modules>
-		<module>bakapa-dto</module>
+		<module>bakapa-core</module>
 		<module>bakapa-agent</module>
+		<module>bakapa-controller</module>
 		<module>bakapa-admin</module>
 	</modules>
 	
@@ -47,7 +48,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>ru.vyukov</groupId>
-				<artifactId>bakapa-dto</artifactId>
+				<artifactId>bakapa-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

@@ -26,11 +26,13 @@ public class SubscribeMethodsInvokerSessionHandler extends StompSessionHandlerAd
 
 	@Override
 	public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-		assert null != subscribeMethodInstances;
-		for (SubscribeMethodInstance smi : subscribeMethodInstances.values()) {
-			session.subscribe(smi.getDestination(), SubscribeMethodsInvokerSessionHandler.this);
-		}
+//		for (SubscribeMethodInstance smi : subscribeMethodInstances.values()) {
+//			session.subscribe(smi.getDestination(), SubscribeMethodsInvokerSessionHandler.this);
+//		}
 		log.info("New session: {}", session.getSessionId());
+		
+	     session.send("/app/hello", "{\"name\":\"Client\"}".getBytes());
+
 	}
 
 	@Override
