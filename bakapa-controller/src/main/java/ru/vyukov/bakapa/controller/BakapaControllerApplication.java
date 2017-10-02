@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BakapaCotrollerApplication {
+public class BakapaControllerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BakapaCotrollerApplication.class, args);
+		SpringApplication.run(BakapaControllerApplication.class, args);
 	}
 }

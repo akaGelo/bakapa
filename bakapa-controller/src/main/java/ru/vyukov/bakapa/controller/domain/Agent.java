@@ -1,7 +1,5 @@
 package ru.vyukov.bakapa.controller.domain;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
