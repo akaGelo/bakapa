@@ -1,7 +1,9 @@
 package ru.vyukov.bakapa.ws;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class StomSubsribeAnnotationBeanPostProcessorTest {
 
 	@Test

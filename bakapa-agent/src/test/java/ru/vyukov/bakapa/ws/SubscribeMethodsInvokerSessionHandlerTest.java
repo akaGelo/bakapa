@@ -2,6 +2,7 @@ package ru.vyukov.bakapa.ws;
 
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -11,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ru.vyukov.bakapa.ws.SubscribeMethodInstance;
 import ru.vyukov.bakapa.ws.SubscribeMethodsInvokerSessionHandler;
 
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class SubscribeMethodsInvokerSessionHandlerTest {
 	@Mock
