@@ -1536,8 +1536,6 @@ textarea.form-control {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase; }
-  .card .author i {
-    font-size: 14px; }
   .card.card-separator:after {
     height: 100%;
     right: -15px;
@@ -1585,8 +1583,7 @@ textarea.form-control {
   margin-top: 110px; }
 .card-user .author {
   text-align: center;
-  text-transform: none;
-  margin-top: -65px; }
+  text-transform: none;  }
   .card-user .author .title {
     color: #403D39; }
     .card-user .author .title small {

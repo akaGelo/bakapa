@@ -56,7 +56,7 @@
                 <li><a th:href="@{/agents/}"> <i class="ti-user"></i>
                     <p>Agents</p>
                 </a></li>
-                <li><a href="table.html"> <i class="ti-view-list-alt"></i>
+                <li><a th:href="@{/backups/}"> <i class="ti-view-list-alt"></i>
                     <p>Backups</p>
                 </a></li>
                 <li><a href="typography.html"> <i class="ti-bell"></i>
@@ -162,7 +162,16 @@
 <script th:src="@{/assets/js/paper-dashboard.js}" src="../static/assets/js/paper-dashboard.js"></script>
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script th:src="@{/assets/js/demo.js}" src="../static/assets/js/demo.js"></script>
+<script th:src="@{/assets/js/custom.js}" src="../static/assets/js/custom.js"></script>
 
+
+<script  type="text/javascript" th:inline="javascript">
+
+    var successMessageGLOBAL = [[${successMessageGLOBAL}]];
+    var dangerMessageGLOBAL = [[${dangerMessageGLOBAL}]];
+    notifi.successAll(successMessageGLOBAL);
+    notifi.dangerAll(dangerMessageGLOBAL);
+
+</script>
 
 </html>

@@ -25,7 +25,7 @@ public class AgentsServiceImplTest {
 
 	@Test
 	public void testLoadUserByUsername() throws Exception {
-		when(agentsRepository.findOne("testAgent")).thenReturn(new Agent());
+		when(agentsRepository.findOne("testAgent")).thenReturn(DemoAgent.newDemoAgent());
 
 		Agent agent = agentsServiceImpl.loadUserByUsername("testAgent");
 		assertNotNull(agent);

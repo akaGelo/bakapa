@@ -1,4 +1,4 @@
-package org.bakapa.dto;
+package org.bakapa.dto.detection;
 
 import java.util.List;
 import java.util.Set;

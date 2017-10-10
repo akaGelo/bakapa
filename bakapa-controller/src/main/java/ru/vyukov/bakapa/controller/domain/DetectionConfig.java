@@ -5,10 +5,12 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.EqualsAndHashCode;
+
 
 @EqualsAndHashCode(of = "id")
 @Document(collection = "detectionConfig")

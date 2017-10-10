@@ -4,14 +4,19 @@ import javax.validation.Validator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 
 @Configuration
 public class MongoDbConfig {
 
-	@Bean
-	public ValidatingMongoEventListener validatingMongoEventListener(Validator validator) {
-		return new ValidatingMongoEventListener(validator);
-	}
+    @Bean
+    public ValidatingMongoEventListener validatingMongoEventListener(Validator validator) {
+        return new ValidatingMongoEventListener(validator);
+    }
+
+
+
 
 }

@@ -30,12 +30,9 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.*;
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = DetectionApiController.class)
 @Import(value = WebMvcTestConfig.class)
-@AutoConfigureRestDocs(outputDir = "target/snippets")
+@AutoConfigureRestDocs(outputDir = "target/generated-snippets")
 public class DetectionApiControllerTest {
 
-	@Rule
-	public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation(
-			"build");
 
 	protected final LinksSnippet pagingLinks = links(
 			linkWithRel("next").optional().description("The next page of results"),
@@ -58,16 +55,12 @@ public class DetectionApiControllerTest {
 				//
 				.andDo(document("detectionConfig",
 
-						links(
-							linkWithRel("self").description("The <<resources-notes,Notes resource>>")),
-
 						responseFields(
 								fieldWithPath("mongoPorts").description("MongoDb ports"),
 								fieldWithPath("mysqlPorts").description("MySql ports"),
-								fieldWithPath("postgresqlPorts").description("Postgres ports"),
-								fieldWithPath("_links").description("<<resources-index-links,Links>> to other resources")				
-								))
-
+								fieldWithPath("postgresqlPorts").description("Postgres ports")
+								)
+				)
 		);
 	}
 

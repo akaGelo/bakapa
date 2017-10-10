@@ -1,0 +1,6 @@
+server:
+  port: 8081
+
+bakapa-controller:
+  ribbon:
+    listOfServers: localhost:8080

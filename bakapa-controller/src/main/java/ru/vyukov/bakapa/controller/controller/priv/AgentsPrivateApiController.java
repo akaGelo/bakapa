@@ -1,26 +1,35 @@
 package ru.vyukov.bakapa.controller.controller.priv;
 
-import java.util.List;
-
-import org.bakapa.dto.AgentDTO;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import ru.vyukov.bakapa.controller.domain.Agent;
+import ru.vyukov.bakapa.controller.domain.Agent.Credentials;
+import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/private")
 public class AgentsPrivateApiController extends SuperPrivateController {
 
-	@Autowired
-	private AgentsService agentsService;
+    @Autowired
+    private AgentsService agentsService;
 
-	@GetMapping("/agents/all")
-	public List<AgentDTO> getAllAgents() {
-		return convertDTO(agentsService.getAllAgetns(), AgentDTO.class);
-	}
-	
-	
-	
 
+    @JsonView(Summary.class)
+    @GetMapping("/agents/")
+    public List<Agent> getAllAgents() {
+        List<Agent> allAgents = agentsService.getAllAgents();
+        return allAgents;
+    }
+
+
+    @JsonView(Credentials.class)
+    @PostMapping("/agents/")
+    public Agent createAgent(@RequestParam String agentId){
+        return agentsService.newAgent(agentId);
+    }
 }
+

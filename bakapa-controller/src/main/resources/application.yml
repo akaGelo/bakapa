@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      database: bakapa-controller
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+  http:
+    converters:
+      preferred-json-mapper: jackson

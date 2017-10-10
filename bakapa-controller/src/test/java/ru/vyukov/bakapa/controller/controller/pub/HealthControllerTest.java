@@ -10,6 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,7 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 import ru.vyukov.bakapa.controller.Greeting;
 
 @RunWith(SpringRunner.class)
+@Ignore
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HealthControllerTest {
 

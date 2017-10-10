@@ -21,9 +21,9 @@ public class AgentsServiceImpl implements AgentsService {
 	@Override
 	public Agent loadUserByUsername(String username) throws UsernameNotFoundException {
 		Agent findOne = agentsRepository.findOne(username);
-//		if (null == findOne) {
-//			throw new UsernameNotFoundException(username + " not agent usernameё");
-//		}
+		if (null == findOne) {
+			throw new UsernameNotFoundException(username + " not agent usernameё");
+		}
 		
 		findOne = Agent.newAgent(username);
 		findOne.setPassword(username);
@@ -33,8 +33,9 @@ public class AgentsServiceImpl implements AgentsService {
 	}
 
 	@Override
-	public List<Agent> getAllAgetns() {
-		return agentsRepository.findAll();
+	public List<Agent> getAllAgents() {
+		List<Agent> agents = agentsRepository.findAll();
+		return agents;
 	}
 
 	@Override

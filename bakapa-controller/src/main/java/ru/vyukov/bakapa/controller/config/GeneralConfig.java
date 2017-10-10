@@ -10,20 +10,19 @@ import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
+@EnableScheduling
 public class GeneralConfig {
 
 	@Bean
-	ModelMapper modelMapper() {
-		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		return modelMapper;
+	ModelMapper modelMapper(){
+		return new ModelMapper();
 	}
 	
-	
 	@Bean
-	HttpMessageConverters httpMessageConverters() {
-		return new HttpMessageConverters(false,asList( new MappingJackson2HttpMessageConverter()));
+	HttpMessageConverters httpMessageConverters(MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {
+		return new HttpMessageConverters(false,asList( mappingJackson2HttpMessageConverter ));
 	}
 }

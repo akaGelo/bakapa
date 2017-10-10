@@ -9,7 +9,11 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,85 +21,108 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
+import ru.vyukov.bakapa.controller.domain.View.Full;
+import ru.vyukov.bakapa.controller.domain.View.Summary;
 
 /**
  * Backup agent
- * 
- * @author gelo
  *
+ * @author gelo
  */
 @Data
+@AllArgsConstructor
 @Document(collection = "agent")
 public class Agent implements UserDetails, CredentialsContainer {
 
-	private static final long serialVersionUID = -5472269654731046147L;
+    private static final long serialVersionUID = -5472269654731046147L;
 
-	public final static List<GrantedAuthority> agentDefaultAuthority = Collections
-			.singletonList(new SimpleGrantedAuthority("ROLE_AGENT"));
+    public final static List<GrantedAuthority> agentDefaultAuthority = Collections
+            .singletonList(new SimpleGrantedAuthority("ROLE_AGENT"));
 
-	@NotNull
-	@NotEmpty
-	private String agetntId;
 
-	@NotNull
-	@NotEmpty
-	private String password;
+    /**
+     * View for new Agent
+     */
+    public interface Credentials extends Full {  };
 
-	@NotNull
-	private LocalDateTime createDate;
 
-	private String note;
 
-	public static Agent newAgent(String agentId) {
-		Objects.requireNonNull(agentId);
-		Agent agent = new Agent();
-		agent.agetntId = agentId;
-		agent.password = UUID.randomUUID().toString();
-		agent.createDate = LocalDateTime.now();
-		return agent;
-	}
 
-	// -------------------------------------------------
+    @Id
+    @NotNull
+    @NotEmpty
+    @JsonView({Full.class, Summary.class})
+    private String agentId;
 
-	@Override
-	public void eraseCredentials() {
-		password = null;
+    @NotNull
+    @NotEmpty
+    @JsonView(Credentials.class)
+    private String password;
 
-	}
+    @NotNull
+    @JsonView({Full.class, Summary.class})
+    private LocalDateTime createDate;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return agentDefaultAuthority;
-	}
+    @JsonView({Full.class, Summary.class})
+    private String note;
 
-	@Override
-	public String getUsername() {
-		return getAgetntId();
-	}
+    public static Agent newAgent(String agentId) {
+        Objects.requireNonNull(agentId);
+        String password = UUID.randomUUID().toString();
+        Agent agent = new Agent(agentId,password,LocalDateTime.now(),null);
+        return agent;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    // -------------------------------------------------
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public void eraseCredentials() {
+        password = null;
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-	
-	
-	public static String getDefaultAgentRole() {
-		return agentDefaultAuthority.get(0).getAuthority();
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return agentDefaultAuthority;
+    }
 
+    @Override
+    public String getUsername() {
+        return getAgentId();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+    public static String getDefaultAgentRole() {
+        return agentDefaultAuthority.get(0).getAuthority();
+    }
+
+    /**
+     * For tests
+     * @param agentId
+     * @return
+     */
+    public static Agent demo(String agentId) {
+
+        return new Agent(agentId, agentId,LocalDateTime.now(),"for tests");
+    }
 }

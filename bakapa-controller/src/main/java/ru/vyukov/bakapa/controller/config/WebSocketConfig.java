@@ -10,7 +10,6 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
-@EnableScheduling
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
