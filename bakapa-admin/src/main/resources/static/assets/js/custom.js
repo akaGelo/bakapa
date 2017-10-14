@@ -1,8 +1,7 @@
 notifi = {
     success: function (text) {
         $.notify({
-            message: "text"
-
+            message: text
         }, {
             type: "success", timer: 4000, placement: {from: "top", align: "center"}
         });
@@ -10,8 +9,7 @@ notifi = {
 
     danger: function (text) {
         $.notify({
-            message: "text"
-
+            message: text
         }, {
             type: "danger", timer: 8000, placement: {from: "top", align: "center"}
         });

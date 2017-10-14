@@ -56,9 +56,34 @@
                 <li><a th:href="@{/agents/}"> <i class="ti-user"></i>
                     <p>Agents</p>
                 </a></li>
-                <li><a th:href="@{/backups/}"> <i class="ti-view-list-alt"></i>
-                    <p>Backups</p>
-                </a></li>
+                <li>
+                    <a data-toggle="collapse" href="#backupsSidebar">
+                        <i class="ti-view-list-alt"></i>
+                        <p>Backups</p>
+                    </a>
+                    <div class="collapse" id="backupsSidebar">
+                        <ul class="nav sub-sidebar-menu">
+                            <li>
+                                <a th:href="@{/backups/}">
+                                    <b class="sidebar-icon ti-view-list-alt"></b>
+                                    <span class="sidebar-normal">All backups</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/backups/new/edit/database}">
+                                    <b class="sidebar-icon ti-plus"></b>
+                                    <span class="sidebar-normal">New database backup</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/backups/new/edit/filesystem}">
+                                    <b class="sidebar-icon ti-plus"></b>
+                                    <span class="sidebar-normal">New directory backup</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li><a href="typography.html"> <i class="ti-bell"></i>
                     <p>Detection</p>
                 </a></li>
@@ -165,7 +190,7 @@
 <script th:src="@{/assets/js/custom.js}" src="../static/assets/js/custom.js"></script>
 
 
-<script  type="text/javascript" th:inline="javascript">
+<script type="text/javascript" th:inline="javascript">
 
     var successMessageGLOBAL = [[${successMessageGLOBAL}]];
     var dangerMessageGLOBAL = [[${dangerMessageGLOBAL}]];

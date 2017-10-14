@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.vyukov.bakapa.admin.controller.SuperUIController;
 import ru.vyukov.bakapa.admin.service.agents.AgentsApiClient;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class AgentsController extends SuperUIController {
     @PostMapping("/")
     public String createAgent(@Validated NewAgent newAgent, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            dangerMessage(bindingResult.getAllErrors().get(0).getDefaultMessage(), model);
+            dangerMessage(model, bindingResult.getAllErrors().get(0).getDefaultMessage());
             return "agents/agents";
         }
         //redirect

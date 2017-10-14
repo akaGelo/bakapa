@@ -2,11 +2,9 @@ package ru.vyukov.bakapa.admin.service.agents;
 
 import org.bakapa.dto.agent.AgentAndCredentialsDTO;
 import org.bakapa.dto.agent.AgentDTO;
+import org.bakapa.dto.backups.AbstractBackupTargetDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.vyukov.bakapa.admin.controller.backups.BackupsController;
 
 import java.util.List;
@@ -22,4 +20,13 @@ public interface AgentsApiClient {
 
     @PostMapping("/agents/")
     public AgentAndCredentialsDTO create(@RequestParam("agentId") String agentId);
+
+
+    //-----------------------------------------------------------------------------------------------------------------
+
+    @GetMapping("/agents/backups/")
+    public List<AbstractBackupTargetDTO> getBackups();
+
+    @GetMapping("/agents/{agentId}/backups/")
+    public List<AbstractBackupTargetDTO> getBackups(@PathVariable("agentId") String agentId);
 }

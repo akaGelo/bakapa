@@ -5,13 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
+import ru.vyukov.bakapa.admin.controller.SuperUIController;
 
 @Controller
 @RequestMapping("/agents")
-public class NewAgentController extends  SuperUIController{
+public class NewAgentController extends SuperUIController {
 
 
     @GetMapping("/new/")

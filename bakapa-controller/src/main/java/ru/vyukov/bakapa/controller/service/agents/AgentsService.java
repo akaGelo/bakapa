@@ -17,4 +17,6 @@ public interface AgentsService extends UserDetailsService {
 	
 	@Override
 	public Agent loadUserByUsername(String username) throws UsernameNotFoundException ;
+
+    Agent getAgent(String agentId) throws AgentNotFoundException;
 }

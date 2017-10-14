@@ -68,3 +68,18 @@
 .table-upgrade td:nth-child(3){
     text-align: center;
 }
+
+
+.sub-sidebar-menu li{
+	margin-left: 2em;
+}
+
+.sub-sidebar-menu span{
+	margin-left: 0.2em;
+}
+
+.sub-sidebar-menu li{
+	margin-left: 2em;
+	color: red;
+	font-size: 1em;
+}

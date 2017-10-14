@@ -2,6 +2,7 @@ package org.bakapa.dto.agent;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  */
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class AgentAndCredentialsDTO extends  AgentDTO{
 
     private String password;

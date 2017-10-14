@@ -1,6 +1,9 @@
-package ru.vyukov.bakapa.admin.controller.agents;
+package ru.vyukov.bakapa.admin.controller;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ abstract public class SuperUIController {
     private static final String DANGER_MESSAGE_GLOBAL = "dangerMessageGLOBAL";
 
 
-    public void successMessage(String text, Model model) {
+    public void successMessage(Model model, String text) {
         Map<String, Object> map = model.asMap();
         add(text, map, SUCCESS_MESSAGE_GLOBAL);
     }
@@ -31,7 +34,7 @@ abstract public class SuperUIController {
 
 
 
-    public void dangerMessage(String text, Model model) {
+    public void dangerMessage(Model model, String text) {
         Map<String, Object> map = model.asMap();
         add(text, map, DANGER_MESSAGE_GLOBAL);
     }
@@ -39,5 +42,18 @@ abstract public class SuperUIController {
     public void dangerMessage(String text, RedirectAttributes redirectAttributes) {
         Map<String, Object> map = redirectAttributes.asMap();
         add(text, map, DANGER_MESSAGE_GLOBAL);
+    }
+
+    protected void dangerMessage(Model model, BindingResult bindingResult) {
+        List<ObjectError> allErrors = bindingResult.getGlobalErrors();
+        allErrors.forEach(objectError -> {
+            dangerMessage(model,objectError.getDefaultMessage());
+        });
+
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        fieldErrors.forEach(fieldError -> {
+            String message =  fieldError.getField() + ": " + fieldError.getDefaultMessage();
+            dangerMessage(model,message);
+        });
     }
 }

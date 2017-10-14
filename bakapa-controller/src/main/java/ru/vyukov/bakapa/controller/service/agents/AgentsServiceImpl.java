@@ -18,18 +18,28 @@ public class AgentsServiceImpl implements AgentsService {
 		this.agentsRepository = agentsRepository;
 	}
 
+	/**
+	 * For spring security
+	 * @param username
+	 * @return
+	 * @throws UsernameNotFoundException
+	 */
 	@Override
 	public Agent loadUserByUsername(String username) throws UsernameNotFoundException {
 		Agent findOne = agentsRepository.findOne(username);
 		if (null == findOne) {
-			throw new UsernameNotFoundException(username + " not agent usernameё");
+			throw new UsernameNotFoundException(username + " not agent username");
 		}
-		
-		findOne = Agent.newAgent(username);
-		findOne.setPassword(username);
-		
-
 		return findOne;
+	}
+
+	@Override
+	public Agent getAgent(String agentId) throws AgentNotFoundException {
+		Agent agent = agentsRepository.findOne(agentId);
+		if (null == agent) {
+			throw new AgentNotFoundException(agentId);
+		}
+		return agent;
 	}
 
 	@Override

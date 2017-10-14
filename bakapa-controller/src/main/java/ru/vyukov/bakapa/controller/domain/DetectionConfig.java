@@ -19,7 +19,7 @@ public class DetectionConfig {
 	public static final String INSTANCE_ID = "INSTANCE";
 
 	@Id
-	private final String id = INSTANCE_ID;
+	private static final String id = INSTANCE_ID;
 
 	@NotNull
 	private Set<Integer> mongoPorts;

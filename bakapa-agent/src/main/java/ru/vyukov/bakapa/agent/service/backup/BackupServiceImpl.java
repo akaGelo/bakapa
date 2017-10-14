@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.SystemUtils;
@@ -80,19 +82,19 @@ public class BackupServiceImpl implements BackupService {
 
 		File file = createTmpFile(backupId, partNumber);
 		long sumReadedBytes = 0;
-		try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-			BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+		try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+
 			byte[] buf = new byte[8 * 1024];
 			int read = -1;
 			while (-1 != (read = bufferedInputStream.read(buf))) {
 				bufferedOutputStream.write(buf, 0, read);
 				sumReadedBytes += read;
 			}
-			bufferedInputStream.close();
+
 		}
 
 		if (0 == sumReadedBytes) {
-			file.delete();
+			Files.delete(file.toPath());
 			return null;
 		}
 		return file;

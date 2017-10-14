@@ -1,12 +1,15 @@
 package org.bakapa.dto.backups;
 
-import lombok.Builder;
-import lombok.NonNull;
+import lombok.*;
 import org.bakapa.domain.BackupTargetType;
+import org.bakapa.dto.agent.AgentDTO;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class DirectoryBackupTargetDTO extends  AbstractBackupTargetDTO {
 
     @NonNull
@@ -15,8 +18,8 @@ public class DirectoryBackupTargetDTO extends  AbstractBackupTargetDTO {
     private String path;
 
     @Builder
-    public DirectoryBackupTargetDTO(BackupTargetType targetType, String path) {
-        super(targetType);
+    public DirectoryBackupTargetDTO(AgentDTO agent, String path) {
+        super(BackupTargetType.FILESYSTEM);
         this.path = path;
     }
 
