@@ -28,13 +28,15 @@
             <version>0.2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>ru.vyukov</groupId>
+            <artifactId>bakapa-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -65,8 +67,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ru.vyukov</groupId>
-            <artifactId>bakapa-core</artifactId>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

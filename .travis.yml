@@ -1,12 +1,24 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
+
+env:
+  global:
+      #SAUCE_ACCESS_KEY=
+    - secure: "PH1JVMI1T8V4hNDsQB6n9sVZxOaX/iMBX7U5s0dwrGgJhUWRHStLiFheBoTvQ4WuBpckhA6RE1sD+YIyPOi3pNlzHRPow4eU1D3yW4KK5LVJnjeC3QyyjRspRh/TGSkTvCIm4i8OD001hsGBbIXG7DHi4rb6pEYVbC7DUwlWFpuFkmkfhHc3glD6xB59MQmuv7gZXaBznbLACM5gT45d4dVwRDpvf76mGW5odwPVZarwf3r/Ep/XcJa5DtcVlfHSskEo9Klad9r/kzvvOxRObKW+JACsTiQLOInDiLzETuRvgsCt2b+LhZUvQV8LcYPWzvohkM4XHC9vDODXDMiCUB4/pzodgx43gjfI/fZRqeFFCzyjbaVpGxOYC4B99BggUsxqwE7OpJTvkEEZjKZQtwsN2Rn46nzjEB2Hn7HvPbPvPHKjFNHIePfXN0fv2FxGThq6sjoKUARZUNCtUuq0j97DytgKS8ZJuRrA1wT08VjLxh4I8lXOgX2Frgzdr1VT8jkLGNo4fzTaoB/VB8fh0x5MLEu9aO4tgtWEnSJdt9cmCe4iOYpzQ1622mHZ2dQBZx001CBGeLz3Cav6x9jzv91WhOfT20kwBfTZarw4jL8PIORgN77n+CLOARtDvU4NBlZZbjD3cUVA+wBsUSZ54SdbSbH0MJPNOFskmmD6GSo="
+      #SAUCE_USERNAME=
+    - secure: "aYE0govZBAHMxPZZ6+GjZDtOg5utLbq3aqzOBCSJKIatOvIvX3ptOCMB0Xk7fOD5XSd/+i8Z44P+UAtMydYSX+ehkSBBBvv0iIcXc60W2bunA+0dz11yQzWnt4gWBB0HG+ELM3vvM4FKYr/xUwV4OTr2WMv9ao84FsgAzGsSd25J4JPF+VYkvcWOPvcET6+87zXvaF+WNNszLbCzMSOCXDLW6hvOZ7696/N4qu3w0dlJ0XPtwf0FoaODTZGFIqVAYtIPLsJaU6BOLJ61bLRlsZ5CBAsEQTOa2CAFa+m6awasJio9houSNODotdi/lGJpEllE878o3gjWJChbcxEgxKLmvPeYrZPLwSGcGq9lCz/xiWVTs64G7zbThfZrDBseA4lWWSB+8j11IE7LVUzDHn+wvD0suftdiOGlXfwcis7owJGI5bB05VPdoRyTVxZunbN20xOpiyvnOgcwqxPqaQ6/COhcdXxZts1FKcVXsZp0fsZkcFUDkHKy8Jb00GQ+5oXgnncxlCRKbZfYqrPiTQPULPqdwXQqrOBf8HJJ5O3TTf6hliRF/dJQpReD3IJZdDqNRqvoRVrcyfJMZQsqAAeECUiTiaDLAr9Nkr/vn29cxIUNG5wIC6vyE7lJBu0ujHOwcjd47CfnToI4ZT4SvtyhHGpNlyHTfsBl9LWm3Sk="
+
 
 sudo: required
 
+addons:
+  sauce_connect: true # secured ENV ; -Dcapabilities.tunnel-identifier=$TRAVIS_JOB_NUMBER in script
+  firefox: latest
+
 services:
-  - docker
-  - mongodb
+- docker
+- mongodb
 
 before_install:
   - docker pull minio/minio
@@ -14,11 +26,12 @@ before_install:
   - docker run -d  -p 9000:9000 -v "/tmp/minio/:/minio/"  -e "MINIO_ACCESS_KEY=DEVMINIOACCESSKEY" -e "MINIO_SECRET_KEY=DEVMINIOSECRET"  minio/minio server /minio
   - docker ps -a
 
+
 install: true
 
 cache:
   directories:
-   - $HOME/.m2
-
-script: mvn install
+  - "$HOME/.m2"
+script:
+ - mvn install -Dremote="https://${SAUCE_USERNAME}:${SAUCE_ACCESS_KEY}@ondemand.saucelabs.com:443/wd/hub"   -Dcapabilities.browser=firefox -Dcapabilities.tunnel-identifier=$TRAVIS_JOB_NUMBER
 
