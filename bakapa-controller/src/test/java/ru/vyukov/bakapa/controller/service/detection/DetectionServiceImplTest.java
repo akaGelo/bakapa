@@ -11,22 +11,23 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ru.vyukov.bakapa.controller.domain.DetectionConfig;
-import ru.vyukov.bakapa.controller.repo.DetectionConfigRepository;
+import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DetectionServiceImplTest {
 	@Mock
-	private DetectionConfigRepository detectionConfigRepository;
+	private ConfigsRepository configsRepository;
+
 	@InjectMocks
 	private DetectionServiceImpl detectionServiceImpl;
 
 	@Test
 	public void testInit() throws Exception {
-		when(detectionConfigRepository.findOne(DetectionConfig.INSTANCE_ID)).thenReturn(null);
+		when(configsRepository.findOneDetectionConfigBy(DetectionConfig.INSTANCE_ID)).thenReturn(null);
 
 		detectionServiceImpl.init();
 
-		verify(detectionConfigRepository).save(any(DetectionConfig.class));
+		verify(configsRepository).save(any(DetectionConfig.class));
 	}
 
 }

@@ -102,72 +102,23 @@
         <div layout:fragment="content" class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8 col-md-7">
+                    <div class="col-lg-4 col-md-7">
                         <div class="card">
                             <div class="content">
-                                <form th:action="@{./database}" method="post" th:object="${backupTarget}">
-
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Host</label>
-                                                <input type="text" class="form-control border-input"
-                                                       th:field="*{host}"
-                                                       placeholder="localhost"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Port</label>
-                                                <input th:field="*{port}" type="text" class="form-control border-input"
-                                                       placeholder="5432"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Type</label>
-                                                <select th:field="*{targetType}" type="text"
-                                                        class="form-control border-input"
-                                                        placeholder="5432">
-                                                    <option th:each="tt :  ${databasesTargetTypes}" th:value="${tt}"
-                                                            th:text="${tt}">123
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input th:field="*{username}" type="text"
-                                                       class="form-control border-input"
-                                                       placeholder="bakapa"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input th:field="*{password}" type="password"
-                                                       class="form-control border-input"
-                                                       placeholder="qwerty"/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <form th:action="@{./filesystem}" method="post" th:object="${backupTarget}">
 
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Exclude tables</label>
-                                                <textarea th:field="*{excludeTables}" rows="2"
-                                                          class="form-control border-input"
-                                                          placeholder="table1,table2,table3"></textarea>
+                                                <label>Path</label>
+                                                <input th:field="*{path}" type="text"
+                                                       class="form-control border-input"
+                                                       placeholder="/etc/nginx/"/>
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-info btn-fill btn-wd">Save</button>
                                     </div>

@@ -10,16 +10,17 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DirectoryBackupTargetDTO extends  AbstractBackupTargetDTO {
+public class DirectoryBackupTargetDTO extends AbstractBackupTargetDTO {
 
     @NonNull
     @NotNull
     @NotEmpty
     private String path;
 
+
     @Builder
-    public DirectoryBackupTargetDTO(AgentDTO agent, String path) {
-        super(BackupTargetType.FILESYSTEM);
+    public DirectoryBackupTargetDTO(String backupTargetId, AgentDTO agent, String path) {
+        super(backupTargetId, BackupTargetType.FILESYSTEM);
         this.path = path;
     }
 

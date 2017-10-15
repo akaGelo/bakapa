@@ -19,8 +19,8 @@ import ru.vyukov.bakapa.admin.service.agents.backups.BackupTargetsFactory;
 import java.util.List;
 
 @Controller
-@RequestMapping("/backups/{backupId}")
-public class EditBackupTargetController extends SuperUIController{
+@RequestMapping("/agents/{agentId}/backups/{backupId}")
+public class EditBackupTargetController extends SuperUIController {
 
     private final static String NEW_ID = "new";
 
@@ -32,10 +32,10 @@ public class EditBackupTargetController extends SuperUIController{
 
 
     @ModelAttribute
-    public void model(Model model){
-        model.addAttribute("databasesTargetTypes",BackupTargetType.databases());
-        model.addAttribute("filesystemTargetTypes",BackupTargetType.filesystem());
-        model.addAttribute("agents",agentsApiClient.getAgents());
+    public void model(@PathVariable("agentId") String agentId, Model model) {
+        model.addAttribute("databasesTargetTypes", BackupTargetType.databases());
+        model.addAttribute("filesystemTargetTypes", BackupTargetType.filesystem());
+        model.addAttribute("agent", agentsApiClient.getAgent(agentId));
     }
 
     @GetMapping("/edit/database")
@@ -58,20 +58,25 @@ public class EditBackupTargetController extends SuperUIController{
     }
 
     @PostMapping("/edit/database")
-    public String save(@Validated @ModelAttribute("backupTarget") DatabaseBackupTargetDTO databaseBackupTargetDTO, BindingResult bindingResult,Model model) {
+    public String save(@Validated @ModelAttribute("backupTarget") DatabaseBackupTargetDTO databaseBackupTargetDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            dangerMessage(model, bindingResult);
+        } else {
+            if (isNewId(databaseBackupTargetDTO)) {
+                //todo create target
+            } else {
+                //todo update target
+            }
 
-        if (bindingResult.hasErrors()){
-            dangerMessage(model,bindingResult);
-        }else{
-            //TODO send to controller
+
         }
 
         return "backups/edit-database";
     }
 
 
-    private boolean isNewId(String backupId) {
-        return NEW_ID.equals(backupId);
+    private boolean isNewId(AbstractBackupTargetDTO abstractBackupTargetDTO) {
+        return NEW_ID.equals(abstractBackupTargetDTO.getAbstractBackupTargetId());
     }
 
 

@@ -9,6 +9,7 @@ import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backups.BackupTargetNotFoundException;
 import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class BackupsPrivateApiController extends SuperPrivateController {
     @GetMapping("/backups/")
     public List<Backup> getBackups(@ModelAttribute AbstractBackupTarget backupTarget) {
 
-        return null;
+        return Collections.emptyList();
     }
 
     @GetMapping("/backups/{backupId}/")

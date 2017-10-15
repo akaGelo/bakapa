@@ -3,13 +3,11 @@ package ru.vyukov.bakapa.controller.controller.priv;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.restdocs.hypermedia.LinksSnippet;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,10 +25,10 @@ import ru.vyukov.bakapa.controller.service.detection.DetectionService;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = DetectionApiController.class)
+@WebMvcTest(controllers = DetectionPrivateApiController.class)
 @Import(value = WebMvcTestConfig.class)
 @AutoConfigureRestDocs(outputDir = "target/generated-snippets")
-public class DetectionApiControllerTest {
+public class DetectionPrivateApiControllerTest {
 
 
 	protected final LinksSnippet pagingLinks = links(

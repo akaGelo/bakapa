@@ -130,8 +130,8 @@
                                                 <button class=" btn btn-sm btn-success btn-icon btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">New backup
                                                     <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a th:href="@{/angents/{agentId}/backups/new/database(agentId=${agent.agentId})}" href="#">Database</a></li>
-                                                    <li><a th:href="@{/angents/{agentId}/backups/new/filesystem(agentId=${agent.agentId})}" href="#">Filesystem</a></li>
+                                                    <li><a th:href="@{/agents/{agentId}/backups/{backupTargetId}/edit/database(agentId=${agent.agentId},backupTargetId='new')}" href="#">Database</a></li>
+                                                    <li><a th:href="@{/agents/{agentId}/backups/{backupTargetId}/edit/filesystem(agentId=${agent.agentId},backupTargetId='new')}" href="#">Filesystem</a></li>
                                                 </ul>
                                             </div>
 

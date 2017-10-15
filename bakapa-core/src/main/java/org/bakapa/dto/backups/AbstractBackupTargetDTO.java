@@ -3,6 +3,7 @@ package org.bakapa.dto.backups;
 import lombok.*;
 import org.bakapa.domain.BackupTargetType;
 import org.bakapa.dto.agent.AgentDTO;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AbstractBackupTargetDTO {
 
+    @NotEmpty
+    private String abstractBackupTargetId;
 
     @NonNull
     @NotNull

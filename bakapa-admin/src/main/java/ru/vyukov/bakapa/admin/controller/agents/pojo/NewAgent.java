@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.admin.controller.agents;
+package ru.vyukov.bakapa.admin.controller.agents.pojo;
 
 import lombok.Data;
 import lombok.Value;

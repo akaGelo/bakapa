@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.vyukov.bakapa.admin.controller.SuperUIController;
+import ru.vyukov.bakapa.admin.controller.agents.pojo.NewAgent;
 import ru.vyukov.bakapa.admin.service.agents.AgentsApiClient;
 
 import java.util.List;
@@ -38,7 +39,6 @@ public class AgentsController extends SuperUIController {
         //redirect
         AgentAndCredentialsDTO agentAndCredentialsDTO = agentsApiClient.create(newAgent.getAgentId());
         redirectAttributes.addFlashAttribute("newAgent", agentAndCredentialsDTO);
-
         return "redirect:/agents/new/";
     }
 

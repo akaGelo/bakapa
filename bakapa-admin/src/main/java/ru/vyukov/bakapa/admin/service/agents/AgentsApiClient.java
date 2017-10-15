@@ -17,6 +17,9 @@ public interface AgentsApiClient {
     @GetMapping("/agents/")
     public List<AgentDTO> getAgents();
 
+    @GetMapping("/agents/{agentId}/")
+    public AgentDTO getAgent(@PathVariable("agentId") String  agentId);
+
 
     @PostMapping("/agents/")
     public AgentAndCredentialsDTO create(@RequestParam("agentId") String agentId);
@@ -24,9 +27,13 @@ public interface AgentsApiClient {
 
     //-----------------------------------------------------------------------------------------------------------------
 
+
     @GetMapping("/agents/backups/")
     public List<AbstractBackupTargetDTO> getBackups();
 
     @GetMapping("/agents/{agentId}/backups/")
     public List<AbstractBackupTargetDTO> getBackups(@PathVariable("agentId") String agentId);
+
+
+
 }

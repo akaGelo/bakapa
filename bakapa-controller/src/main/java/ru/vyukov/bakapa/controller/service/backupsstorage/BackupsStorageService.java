@@ -7,13 +7,7 @@ import java.util.List;
 public interface BackupsStorageService {
 
 
-    List<BackupsStorage> getAllStorages();
-
-    BackupsStorage getStorage(String storageId);
-
-    void delete(BackupsStorage backupsStorage);
-
-    void create(BackupsStorage backupsStorage);
+    BackupsStorage getStorage();
 
     void update(BackupsStorage backupsStorage);
 }

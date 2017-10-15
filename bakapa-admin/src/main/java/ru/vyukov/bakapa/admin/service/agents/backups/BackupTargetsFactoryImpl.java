@@ -19,7 +19,7 @@ public class BackupTargetsFactoryImpl implements BackupTargetsFactory {
             case MONGODB:
                 return DatabaseBackupTargetDTO.localhostMongoDb();
             case FILESYSTEM:
-                return new DirectoryBackupTargetDTO(null, "/etc/");
+                return new DirectoryBackupTargetDTO(null, null, "/etc/");
             default:
                 throw new IllegalStateException(type + " not implemented");
         }
