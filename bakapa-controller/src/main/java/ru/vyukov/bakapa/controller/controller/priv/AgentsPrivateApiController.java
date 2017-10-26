@@ -18,8 +18,12 @@ import java.util.List;
 @RequestMapping("/private")
 public class AgentsPrivateApiController extends SuperPrivateController {
 
-    @Autowired
     private AgentsService agentsService;
+
+    @Autowired
+    public AgentsPrivateApiController(AgentsService agentsService) {
+        this.agentsService = agentsService;
+    }
 
 
     @JsonView(Summary.class)

@@ -1,6 +1,7 @@
 package ru.vyukov.bakapa.controller.domain;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -24,14 +25,16 @@ import lombok.Data;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 
+import static java.time.ZonedDateTime.now;
+
 /**
- * Backup agent
+ * Backup agents
  *
  * @author gelo
  */
 @Data
 @AllArgsConstructor
-@Document(collection = "agent")
+@Document(collection = "agents")
 public class Agent implements UserDetails, CredentialsContainer {
 
     private static final long serialVersionUID = -5472269654731046147L;
@@ -61,7 +64,7 @@ public class Agent implements UserDetails, CredentialsContainer {
 
     @NotNull
     @JsonView({Full.class, Summary.class})
-    private LocalDateTime createDate;
+    private ZonedDateTime createDate;
 
     @JsonView({Full.class, Summary.class})
     private String note;
@@ -69,7 +72,7 @@ public class Agent implements UserDetails, CredentialsContainer {
     public static Agent newAgent(String agentId) {
         Objects.requireNonNull(agentId);
         String password = UUID.randomUUID().toString();
-        Agent agent = new Agent(agentId,password,LocalDateTime.now(),null);
+        Agent agent = new Agent(agentId,password, now(),null);
         return agent;
     }
 
@@ -123,6 +126,6 @@ public class Agent implements UserDetails, CredentialsContainer {
      */
     public static Agent demo(String agentId) {
 
-        return new Agent(agentId, agentId,LocalDateTime.now(),"for tests");
+        return new Agent(agentId, agentId, now(),"for tests");
     }
 }

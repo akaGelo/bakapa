@@ -16,6 +16,7 @@
 
         <spting.boot.version>1.5.7.RELEASE</spting.boot.version>
         <spring-cloud.version>Dalston.SR4</spring-cloud.version>
+        <spring-cloud-contract.version>1.1.4.RELEASE</spring-cloud-contract.version>
     </properties>
 
     <dependencies>

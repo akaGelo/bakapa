@@ -28,7 +28,7 @@ public class AgentsServiceImpl implements AgentsService {
 	public Agent loadUserByUsername(String username) throws UsernameNotFoundException {
 		Agent findOne = agentsRepository.findOne(username);
 		if (null == findOne) {
-			throw new UsernameNotFoundException(username + " not agent username");
+			throw new UsernameNotFoundException(username + " not agents username");
 		}
 		return findOne;
 	}

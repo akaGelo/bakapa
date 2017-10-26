@@ -31,8 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AgentsPrivateApiControllerTest {
 
     private final FieldDescriptor[] agentsFields = new FieldDescriptor[]{
-            fieldWithPath("agentId").description("Unique agent Id (login)"),
-            fieldWithPath("createDate").description("Create agent timestamp"),
+            fieldWithPath("agentId").description("Unique agents Id (login)"),
+            fieldWithPath("createDate").description("Create agents timestamp"),
             fieldWithPath("note").description("Free-form note. Optional").optional()
     };
 
@@ -68,7 +68,7 @@ public class AgentsPrivateApiControllerTest {
         mockMvc.perform(post("/private/agents/").param("agentId",agentId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.password").exists())
-                .andDo(document("agent",
+                .andDo(document("agents",
                         responseFields(agentsFields)
                         .and(fieldWithPath("password").description("Agent password"))
 

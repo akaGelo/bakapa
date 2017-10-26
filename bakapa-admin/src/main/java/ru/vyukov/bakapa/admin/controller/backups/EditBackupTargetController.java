@@ -35,7 +35,7 @@ public class EditBackupTargetController extends SuperUIController {
     public void model(@PathVariable("agentId") String agentId, Model model) {
         model.addAttribute("databasesTargetTypes", BackupTargetType.databases());
         model.addAttribute("filesystemTargetTypes", BackupTargetType.filesystem());
-        model.addAttribute("agent", agentsApiClient.getAgent(agentId));
+        model.addAttribute("agents", agentsApiClient.getAgent(agentId));
     }
 
     @GetMapping("/edit/database")

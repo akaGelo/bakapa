@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @AllArgsConstructor
@@ -20,12 +21,12 @@ public class AgentDTO {
     @NotEmpty
     private String agentId;
 
-    private LocalDateTime createDate;
+    private ZonedDateTime createDate;
 
     @Nullable
     private String note;
 
     public static AgentDTO demo(String agentId) {
-        return new AgentDTO(agentId, LocalDateTime.now(),"note");
+        return new AgentDTO(agentId, ZonedDateTime.now(),"note");
     }
 }
