@@ -1,4 +1,4 @@
-package contracts.agents
+package contracts
 
 org.springframework.cloud.contract.spec.Contract.make {
     request {

@@ -9,7 +9,7 @@ import ru.vyukov.bakapa.controller.domain.DetectionConfig;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 /**
- * Manages the detection configuration and processes the detected databases
+ * Manages the contracts.controller.controller.contracts.controller.controller.priv.detection configuration and processes the detected databases
  *
  * @author gelo
  */

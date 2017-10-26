@@ -8,8 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ru.vyukov.bakapa.controller.domain.BackupsStorage;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BackupsStorageServiceImplTest {

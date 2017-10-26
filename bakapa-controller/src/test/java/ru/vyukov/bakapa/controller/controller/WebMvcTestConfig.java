@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.controller.priv;
+package ru.vyukov.bakapa.controller.controller;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
