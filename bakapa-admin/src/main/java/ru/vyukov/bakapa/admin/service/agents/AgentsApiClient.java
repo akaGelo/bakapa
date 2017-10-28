@@ -4,6 +4,7 @@ import org.bakapa.dto.agent.AgentAndCredentialsDTO;
 import org.bakapa.dto.agent.AgentDTO;
 import org.bakapa.dto.backups.AbstractBackupTargetDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.vyukov.bakapa.admin.controller.backups.BackupsController;
 
@@ -18,7 +19,7 @@ public interface AgentsApiClient {
     public List<AgentDTO> getAgents();
 
     @GetMapping("/agents/{agentId}/")
-    public AgentDTO getAgent(@PathVariable("agentId") String  agentId);
+    public AgentDTO getAgent(@PathVariable("agentId") String agentId);
 
 
     @PostMapping("/agents/")
@@ -28,12 +29,10 @@ public interface AgentsApiClient {
     //-----------------------------------------------------------------------------------------------------------------
 
 
-    @GetMapping("/agents/backups/")
-    public List<AbstractBackupTargetDTO> getBackups();
+    @GetMapping("/agents/{agentId}/targets/")
+    public List<AbstractBackupTargetDTO> getBackupsTargets(@PathVariable("agentId") String agentId);
 
-    @GetMapping("/agents/{agentId}/backups/")
-    public List<AbstractBackupTargetDTO> getBackups(@PathVariable("agentId") String agentId);
-
-
+    @PostMapping("/agents/{agentId}/targets/")
+    public void updateBackupTarget(@PathVariable("agentId") String agentId, @RequestBody @Validated AbstractBackupTargetDTO backupTarget);
 
 }

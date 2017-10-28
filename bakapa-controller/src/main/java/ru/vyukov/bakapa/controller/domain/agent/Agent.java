@@ -1,7 +1,6 @@
-package ru.vyukov.bakapa.controller.domain;
+package ru.vyukov.bakapa.controller.domain.agent;
 
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,7 +23,7 @@ import lombok.Data;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 
-import static java.time.ZonedDateTime.now;
+import static java.time.Instant.now;
 
 /**
  * Backup agents
@@ -64,7 +62,7 @@ public class Agent implements UserDetails, CredentialsContainer {
 
     @NotNull
     @JsonView({Full.class, Summary.class})
-    private ZonedDateTime createDate;
+    private Instant createDate;
 
     @JsonView({Full.class, Summary.class})
     private String note;

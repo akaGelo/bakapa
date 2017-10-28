@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.domain;
+package ru.vyukov.bakapa.controller.domain.config;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

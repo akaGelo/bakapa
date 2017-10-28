@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import ru.vyukov.bakapa.controller.domain.Agent;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
 
 public interface AgentsService extends UserDetailsService {
 

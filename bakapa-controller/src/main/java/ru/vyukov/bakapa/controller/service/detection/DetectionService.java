@@ -1,6 +1,6 @@
 package ru.vyukov.bakapa.controller.service.detection;
 
-import ru.vyukov.bakapa.controller.domain.DetectionConfig;
+import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 
 public interface DetectionService {
 

@@ -2,7 +2,7 @@ package ru.vyukov.bakapa.controller.service.backupsstorage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.vyukov.bakapa.controller.domain.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +27,7 @@ public class BackupsStorageServiceImpl implements BackupsStorageService {
 
     @Override
     public BackupsStorage getStorage() {
-        BackupsStorage backupsStorage = configsRepository.findOneBackupStorageBy(BackupsStorage.INSTANCE_ID);
+        BackupsStorage backupsStorage = configsRepository.findOneBackupStorageById(BackupsStorage.INSTANCE_ID);
         return backupsStorage;
     }
 

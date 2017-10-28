@@ -1,6 +1,7 @@
 package ru.vyukov.bakapa.admin.service.agents.backups;
 
 import org.bakapa.domain.BackupTargetType;
+import org.bakapa.dto.agent.AgentDTO;
 import org.bakapa.dto.backups.AbstractBackupTargetDTO;
 import org.bakapa.dto.backups.DatabaseBackupTargetDTO;
 import org.bakapa.dto.backups.DirectoryBackupTargetDTO;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class BackupTargetsFactoryImpl implements BackupTargetsFactory {
 
     @Override
-    public AbstractBackupTargetDTO newInstance(BackupTargetType type) {
+    public AbstractBackupTargetDTO newInstance(AgentDTO agent, BackupTargetType type) {
         switch (type) {
             case MYSQL:
                 return DatabaseBackupTargetDTO.localhostMysql();
@@ -19,7 +20,7 @@ public class BackupTargetsFactoryImpl implements BackupTargetsFactory {
             case MONGODB:
                 return DatabaseBackupTargetDTO.localhostMongoDb();
             case FILESYSTEM:
-                return new DirectoryBackupTargetDTO(null, null, "/etc/");
+                return new DirectoryBackupTargetDTO(null, agent, "/etc/");
             default:
                 throw new IllegalStateException(type + " not implemented");
         }

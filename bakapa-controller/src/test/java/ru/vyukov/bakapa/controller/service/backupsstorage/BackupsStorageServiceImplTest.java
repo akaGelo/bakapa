@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import ru.vyukov.bakapa.controller.domain.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 import static org.mockito.Mockito.verify;

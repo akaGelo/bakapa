@@ -1,12 +1,11 @@
-package ru.vyukov.bakapa.controller.controller.priv;
+package ru.vyukov.bakapa.controller.controller.priv.agents;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bakapa.dto.agent.AgentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vyukov.bakapa.controller.domain.Agent;
-import ru.vyukov.bakapa.controller.domain.Agent.Credentials;
-import ru.vyukov.bakapa.controller.domain.View;
+import ru.vyukov.bakapa.controller.controller.priv.SuperPrivateController;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.controller.domain.agent.Agent.Credentials;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;

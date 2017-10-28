@@ -1,5 +1,7 @@
-# bakapa
-backup tools
+# bakapa [![Build Status](https://travis-ci.org/akaGelo/bakapa.svg?branch=master)](https://travis-ci.org/akaGelo/bakapa)
+backup tools for microservices projects 
+
+
 
 state: in active development.
 

@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ru.vyukov.bakapa.controller.domain.DetectionConfig;
+import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,7 +23,7 @@ public class DetectionServiceImplTest {
 
 	@Test
 	public void testInit() throws Exception {
-		when(configsRepository.findOneDetectionConfigBy(DetectionConfig.INSTANCE_ID)).thenReturn(null);
+		when(configsRepository.findOneDetectionConfigById(DetectionConfig.INSTANCE_ID)).thenReturn(null);
 
 		detectionServiceImpl.init();
 

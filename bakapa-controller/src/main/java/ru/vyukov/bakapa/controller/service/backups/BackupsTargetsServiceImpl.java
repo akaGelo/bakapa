@@ -1,30 +1,49 @@
 package ru.vyukov.bakapa.controller.service.backups;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.vyukov.bakapa.controller.domain.AbstractBackupTarget;
-import ru.vyukov.bakapa.controller.domain.Agent;
+import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.controller.repo.BackupsTargetsRepository;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class BackupsTargetsServiceImpl implements BackupsTargetsService {
+
+
+    private BackupsTargetsRepository backupsTargetsRepository;
+
+    @Autowired
+    public BackupsTargetsServiceImpl(BackupsTargetsRepository backupsTargetsRepository) {
+        this.backupsTargetsRepository = backupsTargetsRepository;
+    }
+
     @Override
     public List<AbstractBackupTarget> getBackupsTargets() {
-        return null;
+        return backupsTargetsRepository.findAll();
     }
 
     @Override
     public List<AbstractBackupTarget> getBackupsTargets(Agent agent) {
-        return null;
+        return backupsTargetsRepository.findAllByAgent(agent);
     }
 
     @Override
     public AbstractBackupTarget getBackupTarget(String backupTargetId) throws BackupTargetNotFoundException {
-        return null;
+        AbstractBackupTarget one = backupsTargetsRepository.findOne(backupTargetId);
+        if (null == one) {
+            throw new BackupTargetNotFoundException(backupTargetId);
+        }
+        return one;
     }
 
     @Override
-    public void createBackupTarget(AbstractBackupTarget backupTarget) {
-
+    public AbstractBackupTarget updateBackupTarget(AbstractBackupTarget backupTarget) {
+        log.debug("update backup target " + backupTarget);
+        return backupsTargetsRepository.save(backupTarget);
     }
 }

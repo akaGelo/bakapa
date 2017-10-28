@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class DetectionConfigDTO {
 
-	public static final String PATH_DETECTION_CONFIG = "/contracts.controller.controller.contracts.controller.controller.priv.detection/config/";
+	public static final String PATH_DETECTION_CONFIG = "/contracts.controller.controller.contracts.controller.controller.priv.config/config/";
 
 	@NotNull
 	private Set<Integer> mongoPorts;

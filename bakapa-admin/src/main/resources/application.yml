@@ -1,6 +1,16 @@
 server:
   port: 8081
 
+spring:
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+
+  http:
+    converters:
+      preferred-json-mapper: jackson
+
+
+
 bakapa-controller:
   ribbon:
     listOfServers: localhost:8080

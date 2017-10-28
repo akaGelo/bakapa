@@ -7,7 +7,7 @@ import org.springframework.cloud.contract.spec.Contract
             name("get Config")
             request {
                 method 'GET'
-                url '/private/detection/config'
+                url '/private/config/config'
             }
 
             response {
@@ -28,11 +28,11 @@ import org.springframework.cloud.contract.spec.Contract
             name("set Config")
             request {
                 method 'POST'
-                urlPath('/private/detection/config') {
+                urlPath('/private/config/config') {
                     body([
 
                             "mongoPorts"     : [123],
-                            "mysqlPorts"     : [3306,3305],
+                            "mysqlPorts"     : [3306],
                             "postgresqlPorts": [345]
 
                     ])

@@ -23,6 +23,12 @@ public class AgentsController extends SuperUIController {
     private AgentsApiClient agentsApiClient;
 
 
+    @ModelAttribute("newAgent")
+    NewAgent newAgent() {
+        return new NewAgent();
+    }
+
+
     @GetMapping("/")
     public String agents(Model model) {
         List<AgentDTO> agents = agentsApiClient.getAgents();
@@ -42,10 +48,6 @@ public class AgentsController extends SuperUIController {
         return "redirect:/agents/new/";
     }
 
-    @ModelAttribute("newAgent")
-    NewAgent newAgent() {
-        return new NewAgent();
-    }
 
     static public String redirect() {
         return "redirect:/agents/";

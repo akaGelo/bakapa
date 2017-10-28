@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.vyukov.bakapa.controller.config.MongoDbConfig;
-import ru.vyukov.bakapa.controller.domain.BackupsStorage;
-import ru.vyukov.bakapa.controller.domain.DetectionConfig;
+import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @Import({MongoDbConfig.class, ValidationAutoConfiguration.class})
 @DataMongoTest
+@ActiveProfiles("test")
 public class ConfigsRepositoryTest {
 
 
@@ -39,7 +41,7 @@ public class ConfigsRepositoryTest {
         configsRepository.save(backupsStorage);//test singleton save
         assertEquals(1, configsRepository.count());
 
-        BackupsStorage readedStorage2 = configsRepository.findOneBackupStorageBy(BackupsStorage.INSTANCE_ID);
+        BackupsStorage readedStorage2 = configsRepository.findOneBackupStorageById(BackupsStorage.INSTANCE_ID);
         assertEquals(backupsStorage, readedStorage2);
     }
 
@@ -48,15 +50,16 @@ public class ConfigsRepositoryTest {
     public void testSaveAndReadManyClasses() {
         BackupsStorage backupsStorage = BackupsStorage.defaultConfig();
         BackupsStorage returnedStorage = configsRepository.save(backupsStorage);
-        returnedStorage = configsRepository.findOneBackupStorageBy(BackupsStorage.INSTANCE_ID);
+        returnedStorage = configsRepository.findOneBackupStorageById(BackupsStorage.INSTANCE_ID);
         assertEquals(backupsStorage, returnedStorage);
 
 
         DetectionConfig detectionConfig = DetectionConfig.defaultConfig();
         DetectionConfig returnedDetectionConfig = configsRepository.save(detectionConfig);
 
-        returnedDetectionConfig = configsRepository.findOneDetectionConfigBy(DetectionConfig.INSTANCE_ID);
+        returnedDetectionConfig = configsRepository.findOneDetectionConfigById(DetectionConfig.INSTANCE_ID);
         assertEquals(detectionConfig, returnedDetectionConfig);
+        assertFalse(returnedDetectionConfig.getMongoPorts().isEmpty());
 
         //
         assertEquals(2, configsRepository.count());

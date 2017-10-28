@@ -2,7 +2,7 @@ package ru.vyukov.bakapa.controller.controller.priv;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vyukov.bakapa.controller.domain.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
@@ -10,7 +10,7 @@ import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/targets")
+@RequestMapping("/private/targets")
 public class BackupTargetsPrivateApiController extends SuperPrivateController {
 
 

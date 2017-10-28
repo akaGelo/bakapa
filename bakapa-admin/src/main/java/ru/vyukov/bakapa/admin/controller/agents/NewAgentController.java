@@ -15,6 +15,6 @@ public class NewAgentController extends SuperUIController {
     @GetMapping("/new/")
     public String  newAgent(@ModelAttribute("newAgent")AgentAndCredentialsDTO newAgent){
 
-        return "agents/new-agents";
+        return "agents/new-agent";
     }
 }

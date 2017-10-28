@@ -1,8 +1,6 @@
 package ru.vyukov.bakapa.controller.service.backupsstorage;
 
-import ru.vyukov.bakapa.controller.domain.BackupsStorage;
-
-import java.util.List;
+import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
 
 public interface BackupsStorageService {
 

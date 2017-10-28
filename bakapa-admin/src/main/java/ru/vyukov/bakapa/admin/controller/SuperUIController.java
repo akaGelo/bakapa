@@ -21,8 +21,8 @@ abstract public class SuperUIController {
         add(text, map, SUCCESS_MESSAGE_GLOBAL);
     }
 
-    public void successMessage(String text, RedirectAttributes redirectAttributes) {
-        Map<String, Object> map = redirectAttributes.asMap();
+    public void successMessage(RedirectAttributes redirectAttributes, String text) {
+        Map<String, Object> map = (Map<String, Object>) redirectAttributes.getFlashAttributes();
         add(text, map, SUCCESS_MESSAGE_GLOBAL);
     }
 
@@ -33,27 +33,26 @@ abstract public class SuperUIController {
     }
 
 
-
     public void dangerMessage(Model model, String text) {
         Map<String, Object> map = model.asMap();
         add(text, map, DANGER_MESSAGE_GLOBAL);
     }
 
-    public void dangerMessage(String text, RedirectAttributes redirectAttributes) {
-        Map<String, Object> map = redirectAttributes.asMap();
+    public void dangerMessage(RedirectAttributes redirectAttributes, String text) {
+        Map<String, Object> map = (Map<String, Object>) redirectAttributes.getFlashAttributes();
         add(text, map, DANGER_MESSAGE_GLOBAL);
     }
 
     protected void dangerMessage(Model model, BindingResult bindingResult) {
         List<ObjectError> allErrors = bindingResult.getGlobalErrors();
         allErrors.forEach(objectError -> {
-            dangerMessage(model,objectError.getDefaultMessage());
+            dangerMessage(model, objectError.getDefaultMessage());
         });
 
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         fieldErrors.forEach(fieldError -> {
-            String message =  fieldError.getField() + ": " + fieldError.getDefaultMessage();
-            dangerMessage(model,message);
+            String message = fieldError.getField() + ": " + fieldError.getDefaultMessage();
+            dangerMessage(model, message);
         });
     }
 }

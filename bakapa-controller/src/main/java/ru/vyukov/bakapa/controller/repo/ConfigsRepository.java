@@ -2,9 +2,9 @@ package ru.vyukov.bakapa.controller.repo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.vyukov.bakapa.controller.domain.BackupsStorage;
-import ru.vyukov.bakapa.controller.domain.DetectionConfig;
-import ru.vyukov.bakapa.controller.domain.RuntimeConfig;
+import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
+import ru.vyukov.bakapa.controller.domain.config.RuntimeConfig;
 
 @Repository
 public interface ConfigsRepository extends CrudRepository<RuntimeConfig, String> {
@@ -16,7 +16,7 @@ public interface ConfigsRepository extends CrudRepository<RuntimeConfig, String>
      * @param instanceId
      * @return
      */
-    BackupsStorage findOneBackupStorageBy(String instanceId);
+    BackupsStorage findOneBackupStorageById(String instanceId);
 
     /**
      * DetectionConfig ignored query parser
@@ -24,5 +24,5 @@ public interface ConfigsRepository extends CrudRepository<RuntimeConfig, String>
      * @param instanceId
      * @return
      */
-    DetectionConfig findOneDetectionConfigBy(String instanceId);
+    DetectionConfig findOneDetectionConfigById(String instanceId);
 }

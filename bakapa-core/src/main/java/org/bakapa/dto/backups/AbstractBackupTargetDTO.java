@@ -1,5 +1,6 @@
 package org.bakapa.dto.backups;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.bakapa.domain.BackupTargetType;
 import org.bakapa.dto.agent.AgentDTO;
@@ -12,8 +13,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AbstractBackupTargetDTO {
 
-    @NotEmpty
-    private String abstractBackupTargetId;
+
+    private String backupTargetId;
+
 
     @NonNull
     @NotNull

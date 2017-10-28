@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import ru.vyukov.bakapa.controller.domain.Agent;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
 
 @Repository
 public interface AgentsRepository extends CrudRepository<Agent, String> {

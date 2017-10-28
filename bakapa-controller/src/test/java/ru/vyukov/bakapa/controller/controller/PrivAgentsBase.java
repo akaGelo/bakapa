@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.vyukov.bakapa.controller.BakapaControllerApplication;
 import ru.vyukov.bakapa.controller.config.SecurityConfig;
-import ru.vyukov.bakapa.controller.controller.priv.AgentsPrivateApiController;
-import ru.vyukov.bakapa.controller.domain.Agent;
+import ru.vyukov.bakapa.controller.controller.priv.agents.AgentsPrivateApiController;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 

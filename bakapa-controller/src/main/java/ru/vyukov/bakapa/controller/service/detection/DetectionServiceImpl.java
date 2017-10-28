@@ -5,11 +5,11 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ru.vyukov.bakapa.controller.domain.DetectionConfig;
+import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 /**
- * Manages the contracts.controller.controller.contracts.controller.controller.priv.detection configuration and processes the detected databases
+ * Manages the contracts.controller.controller.contracts.controller.controller.priv.config configuration and processes the detected databases
  *
  * @author gelo
  */
@@ -34,7 +34,7 @@ public class DetectionServiceImpl implements DetectionService {
 
     @Override
     public DetectionConfig getDetectionConfig() {
-        return configsRepository.findOneDetectionConfigBy(DetectionConfig.INSTANCE_ID);
+        return configsRepository.findOneDetectionConfigById(DetectionConfig.INSTANCE_ID);
     }
 
     @Override

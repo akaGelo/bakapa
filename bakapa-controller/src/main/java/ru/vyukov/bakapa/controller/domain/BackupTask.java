@@ -5,6 +5,9 @@ import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
 
 import javax.validation.constraints.NotNull;
 

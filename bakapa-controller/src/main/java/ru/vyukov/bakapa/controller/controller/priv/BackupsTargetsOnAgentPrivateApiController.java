@@ -1,10 +1,13 @@
 package ru.vyukov.bakapa.controller.controller.priv;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.vyukov.bakapa.controller.domain.AbstractBackupTarget;
-import ru.vyukov.bakapa.controller.domain.Agent;
+import ru.vyukov.bakapa.controller.domain.View;
+import ru.vyukov.bakapa.controller.domain.View.Summary;
+import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
@@ -12,6 +15,8 @@ import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/private/agents/{agentId}/targets")
+
 public class BackupsTargetsOnAgentPrivateApiController extends SuperPrivateController {
 
 
@@ -22,25 +27,20 @@ public class BackupsTargetsOnAgentPrivateApiController extends SuperPrivateContr
     private AgentsService agentsService;
 
 
-    @GetMapping("/agents/{agentId}/targets/")
+    @JsonView(Summary.class)
+    @GetMapping("/")
     public List<AbstractBackupTarget> getBackupsTargets(@PathVariable("agentId") String agentId) throws AgentNotFoundException {
         Agent agent = agentsService.getAgent(agentId);
         return backupsTargetsService.getBackupsTargets(agent);
     }
 
 
-    @PostMapping("/agents/{agentId}/targets/")
-    public void createBackupTarget(@PathVariable("agentId") String agentId,
-                                   @RequestBody @Validated AbstractBackupTarget backupTarget) throws AgentNotFoundException {
-        backupsTargetsService.createBackupTarget(backupTarget);
-    }
-
-
-    @GetMapping("/agents/{agentId}/targets/{backupsTargetId}/backups/")
-    public List<AbstractBackupTarget> getBackups(@PathVariable("agentId") String agentId,
-                                                 @PathVariable("backupTargetId") String backupTargetId) throws AgentNotFoundException {
+    @PostMapping("/")
+    public AbstractBackupTarget updateBackupTarget(@PathVariable("agentId") String agentId,
+                                                   @RequestBody AbstractBackupTarget backupTarget) throws AgentNotFoundException {
         Agent agent = agentsService.getAgent(agentId);
-        return backupsTargetsService.getBackupsTargets(agent);
+        backupTarget.setAgent(agent);
+        return backupsTargetsService.updateBackupTarget(backupTarget);
     }
 
 
