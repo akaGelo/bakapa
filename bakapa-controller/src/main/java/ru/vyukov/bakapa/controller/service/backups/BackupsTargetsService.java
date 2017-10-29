@@ -15,6 +15,8 @@ public interface BackupsTargetsService {
 
     List<AbstractBackupTarget> getBackupsTargets(Agent agent);
 
+    int getBackupsTargetsCount(Agent agent);
+
     AbstractBackupTarget getBackupTarget(String backupTargetId) throws BackupTargetNotFoundException;
 
     AbstractBackupTarget updateBackupTarget(AbstractBackupTarget backupTarget);

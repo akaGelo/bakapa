@@ -1,6 +1,7 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
 import org.bakapa.dto.agent.AgentAndCredentialsDTO;
+import org.bakapa.dto.agent.AgentAndInfoDTO;
 import org.bakapa.dto.agent.AgentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +32,8 @@ public class AgentsController extends SuperUIController {
 
     @GetMapping("/")
     public String agents(Model model) {
-        List<AgentDTO> agents = agentsApiClient.getAgents();
-        model.addAttribute("agents", agents);
+        List<AgentAndInfoDTO> agentsAndInfo = agentsApiClient.getAgents();
+        model.addAttribute("agentsAndInfo", agentsAndInfo);
         return "agents/agents";
     }
 

@@ -17,6 +17,7 @@ import ru.vyukov.bakapa.controller.controller.priv.agents.AgentsPrivateApiContro
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
+import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
@@ -31,12 +32,24 @@ public class PrivAgentsBase {
     @MockBean
     private AgentsService agentsService;
 
+    @MockBean
+    private BackupsTargetsService backupsTargetsService;
+
 
     @Autowired
     private MockMvc mockMvc;
 
     @Before
     public void setup() throws AgentNotFoundException {
+        whenAgentService();
+
+
+        when(backupsTargetsService.getBackupsTargetsCount(any(Agent.class))).thenReturn(11);
+
+        RestAssuredMockMvc.mockMvc(mockMvc);
+    }
+
+    private void whenAgentService() throws AgentNotFoundException {
         Answer<Object> answer = invocation -> {
             String agentId = invocation.getArgumentAt(0, String.class);
             return Agent.newAgent(agentId);
@@ -49,8 +62,6 @@ public class PrivAgentsBase {
                 Agent.newAgent("agent1"),
                 Agent.newAgent("agent2")
         ));
-
-        RestAssuredMockMvc.mockMvc(mockMvc);
     }
 
     public void assertThatRejectionReasonIsNull(Object o) {

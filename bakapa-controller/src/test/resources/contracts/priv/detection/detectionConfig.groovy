@@ -31,9 +31,9 @@ import org.springframework.cloud.contract.spec.Contract
                 urlPath('/private/config/config') {
                     body([
 
-                            "mongoPorts"     : [123],
+                            "mongoPorts"     : [27017],
                             "mysqlPorts"     : [3306],
-                            "postgresqlPorts": [345]
+                            "postgresqlPorts": [5432]
 
                     ])
                     headers { // (5)

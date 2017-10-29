@@ -40,7 +40,7 @@ public class BackupsTargetsOnAgentPrivateApiController extends SuperPrivateContr
                                                    @RequestBody AbstractBackupTarget backupTarget) throws AgentNotFoundException {
         Agent agent = agentsService.getAgent(agentId);
         backupTarget.setAgent(agent);
-        return backupsTargetsService.updateBackupTarget(backupTarget);
+         return backupsTargetsService.updateBackupTarget(backupTarget);
     }
 
 

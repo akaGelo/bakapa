@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
  * Agent and credentials
  */
 
+//TODO refactoring to aggregation see AbstractAgentAndInfoDTO
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AgentAndCredentialsDTO extends  AgentDTO{

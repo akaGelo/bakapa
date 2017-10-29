@@ -1,6 +1,7 @@
 package ru.vyukov.bakapa.admin.service.agents;
 
 import org.bakapa.dto.agent.AgentAndCredentialsDTO;
+import org.bakapa.dto.agent.AgentAndInfoDTO;
 import org.bakapa.dto.agent.AgentDTO;
 import org.bakapa.dto.backups.AbstractBackupTargetDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -16,7 +17,7 @@ public interface AgentsApiClient {
 
 
     @GetMapping("/agents/")
-    public List<AgentDTO> getAgents();
+    public List<AgentAndInfoDTO> getAgents();
 
     @GetMapping("/agents/{agentId}/")
     public AgentDTO getAgent(@PathVariable("agentId") String agentId);

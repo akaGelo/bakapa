@@ -33,6 +33,11 @@ public class BackupsTargetsServiceImpl implements BackupsTargetsService {
     }
 
     @Override
+    public int getBackupsTargetsCount(Agent agent) {
+        return 2;
+    }
+
+    @Override
     public AbstractBackupTarget getBackupTarget(String backupTargetId) throws BackupTargetNotFoundException {
         AbstractBackupTarget one = backupsTargetsRepository.findOne(backupTargetId);
         if (null == one) {
