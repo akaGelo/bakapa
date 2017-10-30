@@ -15,7 +15,7 @@ public enum BackupTargetType {
         return !isFilesystem();
     }
 
-    private boolean isFilesystem() {
+    public boolean isFilesystem() {
         return this == FILESYSTEM;
     }
 

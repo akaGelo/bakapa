@@ -113,7 +113,9 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
+                                        <th th:remove="all">Info</th>
                                         <th>Info</th>
+                                        <th>Type</th>
                                         <th>Last size</th>
                                         <th>Last execution</th>
                                         <th>Next execution</th>
@@ -121,11 +123,27 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="backupTarget : ${backupsTargets}">
-                                        <td th:text="${backupTarget}">1</td>
-                                        <td>radio2</td>
-                                        <td>2 day ago (<span class="text-danger">ERROR</span>)</td>
-                                        <td>Oud-Turnhout</td>
+                                    <tr th:each="backupTargetAndInfo : ${backupsTargets}"
+                                        th:with="backupTarget=${backupTargetAndInfo.backupTarget},executionInfo=${backupTargetAndInfo.executionInfo}">
+                                        <!---->
+                                        <td th:if="${backupTarget.filesystem}" >
+                                            <p>Path: <span th:text="${backupTarget.path}">/etc/nging/</span></p>
+
+                                        </td>
+                                        <!---->
+                                        <td th:if="${backupTarget.database}">
+                                            <p>Database: <span>radio</span></p>
+                                            <p>Username: <span>backupuser</span></p>
+                                        </td>
+                                        <!---->
+                                        <td th:text="${backupTarget.targetType}">1</td>
+                                        <td th:text="${executionInfo.lastSizeBytes}">radio2</td>
+                                        <td><span th:text="${executionInfo.lastExecutionTimestamp}">2 day ago</span>
+                                            (<span th:text="${executionInfo.lastStatus}"
+                                                   th:class="${executionInfo.error} ? 'text-danger' :'text-success' "
+                                                   class="text-danger">ERROR</span>)
+                                        </td>
+                                        <td th:text="${executionInfo.nextExecutionTimestamp}">Oud-Turnhout</td>
                                         <td>
                                             <button class="btn btn-sm btn-info btn-icon">
                                                 <i class="fa ti-pencil"></i>

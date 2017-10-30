@@ -1,21 +1,21 @@
 package org.bakapa.dto.backups;
 
-
 import lombok.Data;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 
 @Data
-abstract public class AbstractBackTargetAndInfoDTO<ABT> {
+public class BackupTargetAndInfoDTO {
+
 
     @NotNull
     @NonNull
-    private ABT backupTarget;
+    private AbstractBackupTargetDTO backupTarget;
 
     @NotNull
     @NonNull
-    private BackupTargetExecutionInfo executionInfo;
-
+    private BackupTargetExecutionInfoDTO executionInfo;
 
 }

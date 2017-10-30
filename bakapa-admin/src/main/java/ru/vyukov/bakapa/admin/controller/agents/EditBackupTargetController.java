@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.vyukov.bakapa.admin.controller.SuperUIController;
 import ru.vyukov.bakapa.admin.service.agents.AgentsApiClient;
+import ru.vyukov.bakapa.admin.service.agents.BackupsTargetsApiClient;
 import ru.vyukov.bakapa.admin.service.agents.backups.BackupTargetsFactory;
 
 @Controller
@@ -25,8 +26,12 @@ public class EditBackupTargetController extends SuperUIController {
     @Autowired
     private BackupTargetsFactory backupTargetsFactory;
 
+
     @Autowired
     private AgentsApiClient agentsApiClient;
+
+    @Autowired
+    private BackupsTargetsApiClient backupsTargetsApiClient;
 
 
     @ModelAttribute
@@ -81,7 +86,7 @@ public class EditBackupTargetController extends SuperUIController {
             if (isNewId(backupTargetDTO)) {
                 backupTargetDTO.setBackupTargetId(null);
             }
-            agentsApiClient.updateBackupTarget(agent.getAgentId(), backupTargetDTO);
+            backupsTargetsApiClient.updateBackupTarget(agent.getAgentId(), backupTargetDTO);
             successMessage(redirectAttributes, "Successfully saved for agent " + agent.getAgentId());
             return true;
         }

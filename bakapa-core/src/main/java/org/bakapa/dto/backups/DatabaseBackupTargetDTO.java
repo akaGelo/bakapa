@@ -18,6 +18,7 @@ import static org.bakapa.domain.BackupTargetType.POSTGRESQL;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO {
 
     @NonNull

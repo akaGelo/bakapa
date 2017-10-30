@@ -20,7 +20,7 @@ final String TEST_AGENT_ID = "testAgentIdOne"
 
 [
         Contract.make {
-            name("create FilesystemBackupTarget")
+            name("0 create FilesystemBackupTarget")
             request {
                 method 'POST'
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
@@ -40,14 +40,14 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 status 200
                 body([
                         backupTargetId: anyNonEmptyString(),
-                        targetType: "FILESYSTEM",
-                        path      : "/etc/",
+                        targetType    : "FILESYSTEM",
+                        path          : "/etc/",
                 ])
             }
         },
 
         Contract.make {
-            name("get FilesystemBackupTarget")
+            name("1 get FilesystemBackupTarget")
             request {
                 method 'GET'
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
@@ -63,9 +63,18 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 status 200
                 body([
                         [
-                                backupTargetId: anyNonEmptyString(),
-                                targetType: "FILESYSTEM",
-                                path      : "/etc/",
+                                backupTarget : [
+                                        backupTargetId: anyNonEmptyString(),
+                                        targetType    : "FILESYSTEM",
+                                        path          : "/etc/",
+                                ],
+                                executionInfo: [
+                                        lastSizeBytes         : anyNumber(),
+                                        lastExecutionTimestamp: anyIso8601WithOffset(),
+                                        lastStatus            : anyOf("SUCCESS", "ERROR"),
+                                        nextExecutionTimestamp: anyIso8601WithOffset(),
+
+                                ]
                         ]
                 ])
             }

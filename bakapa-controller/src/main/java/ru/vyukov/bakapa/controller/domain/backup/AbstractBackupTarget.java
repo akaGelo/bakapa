@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 import org.bakapa.domain.BackupTargetType;
+import org.bakapa.dto.backups.DatabaseBackupTargetDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -24,10 +25,13 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Document(collection = "backupTargets")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY, property = "targetType", visible = true,
-        defaultImpl = DatabaseBackupTarget.class)
+        include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "targetType", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = DirectoryBackupTarget.class, name = "FILESYSTEM")
+        @JsonSubTypes.Type(value = DirectoryBackupTarget.class, name = "FILESYSTEM"),
+        //
+        @JsonSubTypes.Type(value = DatabaseBackupTarget.class, name = "MYSQL"),
+        @JsonSubTypes.Type(value = DatabaseBackupTarget.class, name = "MONGODB"),
+        @JsonSubTypes.Type(value = DatabaseBackupTarget.class, name = "POSTGRESQL")
 })
 abstract public class AbstractBackupTarget {
 

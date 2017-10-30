@@ -9,7 +9,9 @@ import ru.vyukov.bakapa.controller.domain.View;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 
-
+/**
+ * @see BackupTargetAndInfo  refactoring
+ */
 public class AgentAndInfo extends AbstractAgentAndInfoDTO<Agent> {
 
     @Builder

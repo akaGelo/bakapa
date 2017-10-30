@@ -4,6 +4,7 @@ import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +25,7 @@ import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 @Import(WebMvcTestConfig.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@FixMethodOrder
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 abstract public class AbstractIntegrationTest {
 
     public static final String TEST_AGENT_ID = "testAgentIdOne";

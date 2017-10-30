@@ -12,28 +12,19 @@ import ru.vyukov.bakapa.admin.controller.backups.BackupsController;
 import java.util.List;
 
 @FeignClient(value = "bakapa-controller")
-@RequestMapping("/private")
+@RequestMapping("/private/agents")
 public interface AgentsApiClient {
 
 
-    @GetMapping("/agents/")
+    @GetMapping("/")
     public List<AgentAndInfoDTO> getAgents();
 
-    @GetMapping("/agents/{agentId}/")
+    @GetMapping("/{agentId}/")
     public AgentDTO getAgent(@PathVariable("agentId") String agentId);
 
 
-    @PostMapping("/agents/")
+    @PostMapping("/")
     public AgentAndCredentialsDTO create(@RequestParam("agentId") String agentId);
 
-
-    //-----------------------------------------------------------------------------------------------------------------
-
-
-    @GetMapping("/agents/{agentId}/targets/")
-    public List<AbstractBackupTargetDTO> getBackupsTargets(@PathVariable("agentId") String agentId);
-
-    @PostMapping("/agents/{agentId}/targets/")
-    public void updateBackupTarget(@PathVariable("agentId") String agentId, @RequestBody @Validated AbstractBackupTargetDTO backupTarget);
 
 }

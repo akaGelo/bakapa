@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class DirectoryBackupTargetDTO extends AbstractBackupTargetDTO {
 
     @NonNull

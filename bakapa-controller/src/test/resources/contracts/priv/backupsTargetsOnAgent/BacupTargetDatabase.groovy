@@ -20,7 +20,7 @@ final String TEST_AGENT_ID = "testAgentIdOne"
 
 [
         Contract.make {
-            name("create DatabaseBackupTarget")
+            name("0 create DatabaseBackupTarget")
             request {
                 method 'POST'
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
@@ -44,18 +44,18 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 status 200
                 body([
                         backupTargetId: anyNonEmptyString(),
-                        targetType   : "MONGODB",
-                        host         : "localhost",
-                        username     : "testDb",
-                        port         : 27017,
-                        password     : "qwerty",
-                        excludeTables: [anyNonBlankString()],
+                        targetType    : "MONGODB",
+                        host          : "localhost",
+                        username      : "testDb",
+                        port          : 27017,
+                        password      : "qwerty",
+                        excludeTables : [anyNonBlankString()],
                 ])
             }
         },
 
         Contract.make {
-            name("get DatabaseBackupTarget")
+            name("1 get DatabaseBackupTarget")
             request {
                 method 'GET'
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
@@ -71,13 +71,22 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 status 200
                 body([
                         [
-                                backupTargetId: anyNonEmptyString(),
-                                targetType   : "MONGODB",
-                                host         : "localhost",
-                                username     : "testDb",
-                                port         : 27017,
-                                password     : "qwerty",
-                                excludeTables: [anyNonBlankString()],
+                                backupTarget : [
+                                        backupTargetId: anyNonEmptyString(),
+                                        targetType    : "MONGODB",
+                                        host          : "localhost",
+                                        username      : "testDb",
+                                        port          : 27017,
+                                        password      : "qwerty",
+                                        excludeTables : [anyNonBlankString()],
+                                ],
+                                executionInfo: [
+                                        lastSizeBytes         : anyNumber(),
+                                        lastExecutionTimestamp: anyIso8601WithOffset(),
+                                        lastStatus            : anyOf("SUCCESS", "ERROR"),
+                                        nextExecutionTimestamp: anyIso8601WithOffset(),
+
+                                ]
                         ]
                 ])
             }
