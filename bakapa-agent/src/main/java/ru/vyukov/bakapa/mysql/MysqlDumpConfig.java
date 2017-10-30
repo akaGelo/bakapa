@@ -1,9 +1,9 @@
 package ru.vyukov.bakapa.mysql;
 
-import java.util.List;
-
 import lombok.Builder;
 import lombok.NonNull;
+
+import java.util.List;
 
 @Builder
 public class MysqlDumpConfig {

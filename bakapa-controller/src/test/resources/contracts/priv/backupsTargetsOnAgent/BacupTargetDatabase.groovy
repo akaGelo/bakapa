@@ -9,12 +9,6 @@ import org.springframework.cloud.contract.spec.Contract
  * 3) get  check
  *
  */
-
-
-import org.springframework.cloud.contract.spec.Contract
-import org.springframework.cloud.contract.spec.internal.ServerDslProperty
-
-
 final String TEST_AGENT_ID = "testAgentIdOne"
 
 

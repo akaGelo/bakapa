@@ -2,18 +2,14 @@ package org.bakapa.dto.backups;
 
 import lombok.*;
 import org.bakapa.domain.BackupTargetType;
-import org.bakapa.dto.agent.AgentDTO;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
 import java.util.Collections;
 import java.util.List;
 
-import static org.bakapa.domain.BackupTargetType.MONGODB;
-import static org.bakapa.domain.BackupTargetType.MYSQL;
-import static org.bakapa.domain.BackupTargetType.POSTGRESQL;
+import static org.bakapa.domain.BackupTargetType.*;
 
 @Getter
 @Setter

@@ -1,11 +1,9 @@
 package org.bakapa.dto.detection;
 
-import java.util.List;
-import java.util.Set;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-
-import lombok.Data;
+import java.util.Set;
 
 /**
  * Port info for find databases

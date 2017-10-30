@@ -2,8 +2,6 @@ package ru.vyukov.bakapa.admin.controller.agents;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import org.apache.commons.lang.BooleanUtils;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.boot.context.embedded.LocalServerPort;
 
 import javax.annotation.PostConstruct;

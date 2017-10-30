@@ -1,9 +1,9 @@
 package ru.vyukov.bakapa.ws;
 
+import lombok.Value;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import lombok.Value;
 
 /**
  * Link to bean reveive method

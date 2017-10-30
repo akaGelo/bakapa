@@ -1,18 +1,12 @@
 package ru.vyukov.bakapa.controller.controller.pub;
 
-import java.security.Principal;
-
-import org.bakapa.dto.RequestCredentialsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandler;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
-
 import ru.vyukov.bakapa.controller.Greeting;
+
+import java.security.Principal;
 
 /**
  * 

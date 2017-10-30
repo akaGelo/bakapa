@@ -1,14 +1,13 @@
 package ru.vyukov.bakapa.controller.controller.pub;
 
-import static org.bakapa.dto.detection.DetectionConfigDTO.PATH_DETECTION_CONFIG;
-
-import java.security.Principal;
-
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.web.bind.annotation.RestController;
-
 import ru.vyukov.bakapa.controller.Greeting;
+
+import java.security.Principal;
+
+import static org.bakapa.dto.detection.DetectionConfigDTO.PATH_DETECTION_CONFIG;
 
 /**
  * 

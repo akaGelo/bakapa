@@ -8,6 +8,7 @@ import ru.vyukov.bakapa.controller.controller.pojo.BackupTargetAndInfo;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.BackupTargetExecutionInfo;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
@@ -16,7 +17,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.vyukov.bakapa.controller.domain.backup.BackupTargetExecutionInfo.executionInfo;
+
 
 @RestController
 @RequestMapping("/private/agents/{agentId}/targets")
@@ -43,7 +44,7 @@ public class BackupsTargetsOnAgentPrivateApiController extends SuperPrivateContr
         return BackupTargetAndInfo.builder()
                 .backupTarget(bt)
                 .executionInfo(
-                        executionInfo()
+                        BackupTargetExecutionInfo.builder()
                                 .lastExecutionTimestamp(Instant.now())
                                 .lastStatus(BackupTargetStatus.ERROR)
                                 .lastSizeBytes(0)

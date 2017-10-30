@@ -1,14 +1,5 @@
 package ru.vyukov.bakapa.controller.controller.pub;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.*;
-
-import java.lang.reflect.Type;
-import java.util.Base64;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -27,8 +18,15 @@ import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
-
 import ru.vyukov.bakapa.controller.Greeting;
+
+import java.lang.reflect.Type;
+import java.util.Base64;
+import java.util.concurrent.CompletableFuture;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @Ignore

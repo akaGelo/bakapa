@@ -2,15 +2,14 @@ package ru.vyukov.bakapa.controller.controller.priv.agents;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bakapa.domain.AgentStatus;
-import org.bakapa.dto.agent.AbstractAgentAndInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vyukov.bakapa.controller.controller.pojo.AgentAndInfo;
 import ru.vyukov.bakapa.controller.controller.priv.SuperPrivateController;
-import ru.vyukov.bakapa.controller.domain.agent.Agent;
-import ru.vyukov.bakapa.controller.domain.agent.Agent.Credentials;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.controller.domain.agent.Agent.Credentials;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
@@ -35,10 +34,10 @@ public class AgentsPrivateApiController extends SuperPrivateController {
 
     @JsonView(Summary.class)
     @GetMapping("/agents/")
-    public List<AbstractAgentAndInfoDTO<Agent>> getAllAgents() {
+    public List<AgentAndInfo> getAllAgents() {
         List<Agent> allAgents = agentsService.getAllAgents();
 
-        List<AbstractAgentAndInfoDTO<Agent>> agentAndInfo = allAgents.stream().map(a -> {
+        List<AgentAndInfo> agentAndInfo = allAgents.stream().map(a -> {
             return AgentAndInfo.builder()
                     .agent(a)
                     .backupsTargetsCount(backupsTargetsService.getBackupsTargetsCount(a))

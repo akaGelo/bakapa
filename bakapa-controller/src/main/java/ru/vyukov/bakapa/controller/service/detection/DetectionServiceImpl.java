@@ -1,12 +1,11 @@
 package ru.vyukov.bakapa.controller.service.detection;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Manages the contracts.controller.controller.contracts.controller.controller.priv.config configuration and processes the detected databases

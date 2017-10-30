@@ -1,7 +1,5 @@
 package ru.vyukov.bakapa.agent.service.identification;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 

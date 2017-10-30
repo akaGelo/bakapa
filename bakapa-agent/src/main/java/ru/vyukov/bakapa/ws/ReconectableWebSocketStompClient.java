@@ -1,9 +1,5 @@
 package ru.vyukov.bakapa.ws;
 
-import java.net.URI;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledFuture;
-
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
@@ -12,6 +8,10 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
+
+import java.net.URI;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * После первого речного коннекта будет проверять наличие подключение и переподключаться 

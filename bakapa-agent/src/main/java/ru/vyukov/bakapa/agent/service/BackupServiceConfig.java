@@ -1,13 +1,12 @@
 package ru.vyukov.bakapa.agent.service;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import lombok.Getter;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Component
 @ConfigurationProperties("backup")

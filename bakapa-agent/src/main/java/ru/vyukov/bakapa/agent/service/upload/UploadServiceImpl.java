@@ -1,36 +1,19 @@
 package ru.vyukov.bakapa.agent.service.upload;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
-
-import javax.annotation.PreDestroy;
-
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import io.minio.MinioClient;
+import io.minio.errors.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-
-import io.minio.MinioClient;
-import io.minio.errors.ErrorResponseException;
-import io.minio.errors.InsufficientDataException;
-import io.minio.errors.InternalException;
-import io.minio.errors.InvalidArgumentException;
-import io.minio.errors.InvalidBucketNameException;
-import io.minio.errors.InvalidEndpointException;
-import io.minio.errors.InvalidPortException;
-import io.minio.errors.NoResponseException;
-import io.minio.errors.RegionConflictException;
-import lombok.extern.slf4j.Slf4j;
+import javax.annotation.PreDestroy;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.*;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service

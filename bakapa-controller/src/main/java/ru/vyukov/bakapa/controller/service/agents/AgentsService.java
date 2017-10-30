@@ -1,11 +1,10 @@
 package ru.vyukov.bakapa.controller.service.agents;
 
-import java.util.List;
-
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
+
+import java.util.List;
 
 public interface AgentsService extends UserDetailsService {
 

@@ -1,7 +1,6 @@
 package ru.vyukov.bakapa.ws;
 
-import javax.validation.constraints.NotNull;
-
+import lombok.Data;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +15,7 @@ import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 
-import lombok.Data;
+import javax.validation.constraints.NotNull;
 
 /**
  * Extends for use

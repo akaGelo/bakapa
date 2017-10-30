@@ -1,7 +1,6 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
 import org.bakapa.dto.agent.AgentDTO;
-import org.bakapa.dto.backups.AbstractBackupTargetDTO;
 import org.bakapa.dto.backups.BackupTargetAndInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

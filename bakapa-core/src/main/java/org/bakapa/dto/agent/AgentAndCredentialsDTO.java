@@ -1,13 +1,10 @@
 package org.bakapa.dto.agent;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.beans.ConstructorProperties;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 /**
  * Agent and credentials

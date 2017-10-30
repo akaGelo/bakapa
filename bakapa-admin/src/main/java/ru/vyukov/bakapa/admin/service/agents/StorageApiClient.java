@@ -1,13 +1,11 @@
 package ru.vyukov.bakapa.admin.service.agents;
 
-import org.bakapa.dto.agent.AgentAndCredentialsDTO;
-import org.bakapa.dto.agent.AgentDTO;
-import org.bakapa.dto.backups.AbstractBackupTargetDTO;
 import org.bakapa.dto.backups.BackupsStorageDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @FeignClient(value = "bakapa-controller")
 @RequestMapping("/private")

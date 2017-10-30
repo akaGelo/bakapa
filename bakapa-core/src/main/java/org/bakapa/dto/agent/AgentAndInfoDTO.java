@@ -1,19 +1,27 @@
 package org.bakapa.dto.agent;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
+import lombok.NonNull;
 import org.bakapa.domain.AgentStatus;
 
+import javax.validation.constraints.NotNull;
 
-public class AgentAndInfoDTO extends AbstractAgentAndInfoDTO<AgentDTO> {
 
-    @Builder
-    @JsonCreator
-    public AgentAndInfoDTO(
-            @JsonProperty("agent") AgentDTO agent,
-            @JsonProperty("backupsTargetsCount") Integer backupsTargetsCount,
-            @JsonProperty("status") AgentStatus status) {
-        super(agent, backupsTargetsCount, status);
-    }
+@Builder
+public class AgentAndInfoDTO {
+
+
+    @NotNull
+    @NonNull
+    private AgentDTO agent;
+
+    @NotNull
+    @NonNull
+    private Integer backupsTargetsCount;
+
+    @NotNull
+    @NonNull
+    private AgentStatus status;
+
+
 }

@@ -1,11 +1,10 @@
 package ru.vyukov.bakapa.agent.service.upload;
 
-import javax.validation.constraints.Min;
-
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import lombok.Data;
+import javax.validation.constraints.Min;
 
 @Data
 @Component

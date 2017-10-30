@@ -1,18 +1,16 @@
 package ru.vyukov.bakapa.controller.domain.config;
 
-import java.beans.ConstructorProperties;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-
-import lombok.*;
-import org.springframework.util.CollectionUtils;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import ru.vyukov.bakapa.controller.domain.View.Full;
+
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @EqualsAndHashCode(of = "id", callSuper = false)

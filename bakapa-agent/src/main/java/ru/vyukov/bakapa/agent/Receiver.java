@@ -1,9 +1,9 @@
 package ru.vyukov.bakapa.agent;
 
-import javax.annotation.PostConstruct;
-
 import ru.vyukov.bakapa.ws.StomReceiver;
 import ru.vyukov.bakapa.ws.Subscribe;
+
+import javax.annotation.PostConstruct;
 
 @StomReceiver
 public class Receiver {

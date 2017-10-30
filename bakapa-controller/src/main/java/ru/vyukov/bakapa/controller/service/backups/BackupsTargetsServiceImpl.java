@@ -1,11 +1,10 @@
 package ru.vyukov.bakapa.controller.service.backups;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.repo.BackupsTargetsRepository;
 
 import java.util.List;

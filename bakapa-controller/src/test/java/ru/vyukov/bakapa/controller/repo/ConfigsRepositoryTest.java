@@ -13,7 +13,8 @@ import ru.vyukov.bakapa.controller.config.MongoDbConfig;
 import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
 import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 
 @RunWith(SpringRunner.class)

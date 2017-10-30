@@ -1,27 +1,17 @@
 package ru.vyukov.bakapa.agent.service.backup;
 
-import static lombok.AccessLevel.PROTECTED;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
-
+import lombok.Setter;
 import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import lombok.AccessLevel;
-import lombok.Setter;
 import ru.vyukov.bakapa.agent.service.upload.UploadService;
 import ru.vyukov.bakapa.agent.service.upload.UploadTask;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.util.concurrent.TimeUnit;
+
+import static lombok.AccessLevel.PROTECTED;
 
 @Service
 public class BackupServiceImpl implements BackupService {
