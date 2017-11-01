@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.admin.controller.agents;
+package ru.vyukov.bakapa.admin.controller;
 
 import com.codeborne.selenide.Condition;
 import org.junit.Test;
@@ -11,10 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = RANDOM_PORT)
-@AutoConfigureStubRunner(ids = {"ru.vyukov:bakapa-controller:+:stubs:8080"}, workOffline = true)
-public class DashboardControllerIntegrationTest extends  SuperUITest {
+public class DashboardControllerIntegrationTest extends SuperUITest {
 
 
 

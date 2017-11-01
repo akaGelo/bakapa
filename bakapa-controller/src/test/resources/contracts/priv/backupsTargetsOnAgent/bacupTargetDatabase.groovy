@@ -1,6 +1,11 @@
 package contracts
 
+import groovy.transform.Field
 import org.springframework.cloud.contract.spec.Contract
+
+
+@Field static def TEST_AGENT_ID = "testAgentId-1"
+@Field static def TEST_AGENT_ID_2 = "testAgentId-2"
 
 /**
  * Scene
@@ -9,8 +14,6 @@ import org.springframework.cloud.contract.spec.Contract
  * 3) get  check
  *
  */
-final String TEST_AGENT_ID = "testAgentIdOne"
-
 
 [
         Contract.make {
@@ -20,11 +23,12 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
 
                     body([
-                            targetType   : "MONGODB",
+                            targetType   : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
                             host         : "localhost",
-                            username     : "testDb",
-                            port         : 27017,
-                            password     : "qwerty",
+                            username     : anyNonBlankString(),
+                            database     : anyNonBlankString(),
+                            port         : $(consumer(matching(regex("[0-9]+"))), producer(123)),
+                            password     : anyNonBlankString(),
                             excludeTables: [anyNonBlankString()],
                     ])
                 }
@@ -38,13 +42,17 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 status 200
                 body([
                         backupTargetId: anyNonEmptyString(),
-                        targetType    : "MONGODB",
-                        host          : "localhost",
-                        username      : "testDb",
-                        port          : 27017,
-                        password      : "qwerty",
-                        excludeTables : [anyNonBlankString()],
+                        targetType    : fromRequest().body('$.targetType'),
+                        host          : fromRequest().body('$.host'),
+                        database      : fromRequest().body('$.database'),
+                        username      : fromRequest().body('$.username'),
+                        port          : fromRequest().body('$.port'),
+                        password      : fromRequest().body('$.password'),
+                        excludeTables : [fromRequest().body('$.excludeTables[0]')],
                 ])
+                headers {
+                    contentType("application/json")
+                }
             }
         },
 
@@ -55,10 +63,6 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
 
                 }
-
-                headers {
-                    contentType(applicationJson())
-                }
             }
 
             response {
@@ -67,11 +71,12 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                         [
                                 backupTarget : [
                                         backupTargetId: anyNonEmptyString(),
-                                        targetType    : "MONGODB",
-                                        host          : "localhost",
-                                        username      : "testDb",
-                                        port          : 27017,
-                                        password      : "qwerty",
+                                        targetType    : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                                        host          : anyNonEmptyString(),
+                                        username      : anyNonBlankString(),
+                                        database      : anyNonBlankString(),
+                                        port          : anyNumber(),
+                                        password      : anyNonBlankString(),
                                         excludeTables : [anyNonBlankString()],
                                 ],
                                 executionInfo: [
@@ -83,6 +88,10 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                                 ]
                         ]
                 ])
+                headers {
+                    contentType("application/json")
+                }
+
             }
         }
 

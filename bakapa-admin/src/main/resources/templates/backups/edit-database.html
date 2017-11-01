@@ -124,7 +124,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Type</label>
                                                 <select th:field="*{targetType}" type="text"
@@ -139,8 +139,17 @@
 
                                     </div>
 
+
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Database</label>
+                                                <input th:field="*{database}" type="text"
+                                                       class="form-control border-input"
+                                                       placeholder="bakapa"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Username</label>
                                                 <input th:field="*{username}" type="text"
@@ -148,7 +157,7 @@
                                                        placeholder="bakapa"/>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Password</label>
                                                 <input th:field="*{password}" type="password"

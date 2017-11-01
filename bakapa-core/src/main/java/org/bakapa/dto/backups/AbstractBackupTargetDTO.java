@@ -35,13 +35,13 @@ abstract public class AbstractBackupTargetDTO {
 
 
     @JsonIgnore
-    public boolean isDatabase() {
+    public boolean isDatabaseType() {
         return targetType.isDatabase();
     }
 
 
     @JsonIgnore
-    public boolean isFilesystem() {
+    public boolean isFilesystemType() {
         return targetType.isFilesystem();
     }
 

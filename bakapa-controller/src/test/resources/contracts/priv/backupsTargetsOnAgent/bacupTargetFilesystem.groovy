@@ -1,6 +1,11 @@
 package contracts
 
+import groovy.transform.Field
 import org.springframework.cloud.contract.spec.Contract
+
+
+@Field static def TEST_AGENT_ID = "testAgentId-1"
+@Field static def TEST_AGENT_ID_2 = "testAgentId-2"
 
 /**
  * Scene
@@ -9,8 +14,6 @@ import org.springframework.cloud.contract.spec.Contract
  * 3) get  check
  *
  */
-final String TEST_AGENT_ID = "testAgentIdOne"
-
 
 [
         Contract.make {
@@ -21,7 +24,7 @@ final String TEST_AGENT_ID = "testAgentIdOne"
 
                     body([
                             targetType: "FILESYSTEM",
-                            path      : "/etc/",
+                            path      : $(consumer(anyNonEmptyString()), producer("/etc/")),
                     ])
                 }
 
@@ -35,7 +38,8 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 body([
                         backupTargetId: anyNonEmptyString(),
                         targetType    : "FILESYSTEM",
-                        path          : "/etc/",
+                        path          : $(consumer(fromRequest().body('$.path')), producer("/etc/"))
+
                 ])
             }
         },
@@ -46,10 +50,6 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                 method 'GET'
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
 
-                }
-
-                headers {
-                    contentType(applicationJson())
                 }
             }
 
@@ -71,6 +71,9 @@ final String TEST_AGENT_ID = "testAgentIdOne"
                                 ]
                         ]
                 ])
+                headers {
+                    contentType("application/json")
+                }
             }
         }
 

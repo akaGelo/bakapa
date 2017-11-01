@@ -1,5 +1,6 @@
 package org.bakapa.dto.backups;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 import org.bakapa.domain.BackupTargetType;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,6 +26,11 @@ public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO {
     @NonNull
     @NotNull
     @NotEmpty
+    private String database;
+
+    @NonNull
+    @NotNull
+    @NotEmpty
     private String username;
 
     @NonNull
@@ -44,9 +50,10 @@ public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO {
 
 
     @Builder
-    public DatabaseBackupTargetDTO(String backupTargetId, BackupTargetType targetType, String host, String username, Integer port, String password, @Singular List<String> excludeTables) {
+    public DatabaseBackupTargetDTO(String backupTargetId, String database, BackupTargetType targetType, String host, String username, Integer port, String password, @Singular List<String> excludeTables) {
         super(backupTargetId, targetType);
         this.host = host;
+        this.database = database;
         this.username = username;
         this.port = port;
         this.password = password;
@@ -54,19 +61,19 @@ public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO {
     }
 
 
-    private DatabaseBackupTargetDTO(String backupTargetId, BackupTargetType targetType, String host, String username, Integer port, String password) {
-        this(backupTargetId, targetType, host, username, port, password, Collections.emptyList());
+    private DatabaseBackupTargetDTO(BackupTargetType targetType, String username, Integer port) {
+        this(null, "example-name", targetType, "localhost", username, port, "qwerty", Collections.emptyList());
     }
 
     public static DatabaseBackupTargetDTO localhostPostgresql() {
-        return new DatabaseBackupTargetDTO(null, POSTGRESQL, "localhost", "bakapa", 5432, "qwerty");
+        return new DatabaseBackupTargetDTO(POSTGRESQL, "bakapa", 5432);
     }
 
     public static DatabaseBackupTargetDTO localhostMysql() {
-        return new DatabaseBackupTargetDTO(null, MYSQL, "localhost", "bakapa", 3600, "qwerty");
+        return new DatabaseBackupTargetDTO(MYSQL, "bakapa", 3600);
     }
 
     public static DatabaseBackupTargetDTO localhostMongoDb() {
-        return new DatabaseBackupTargetDTO(null, MONGODB, "localhost", "bakapa", 27018, "qwerty");
+        return new DatabaseBackupTargetDTO(MONGODB, "bakapa", 27018);
     }
 }

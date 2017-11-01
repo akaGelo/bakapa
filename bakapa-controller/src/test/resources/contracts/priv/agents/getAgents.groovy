@@ -1,5 +1,11 @@
 package contracts
 
+import groovy.transform.Field
+
+
+@Field static def TEST_AGENT_ID = "testAgentId-1"
+@Field static def TEST_AGENT_ID_2 = "testAgentId-2"
+
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
@@ -12,7 +18,7 @@ org.springframework.cloud.contract.spec.Contract.make {
         body([
                 [
                         agent              : [
-                                agentId   : $(consumer("agent1"), producer(regex("agent.+"))),
+                                agentId   : $(consumer(TEST_AGENT_ID), producer(regex("testAgentId.+"))),
                                 note      : $(consumer(anyNonBlankString()), producer(null)),
                                 createDate: anyIso8601WithOffset(),
                         ],
@@ -22,7 +28,7 @@ org.springframework.cloud.contract.spec.Contract.make {
                 ],
                 [
                         agent              : [
-                                agentId   : $(consumer("agent2"), producer(regex("agent.+"))),
+                                agentId   : $(consumer(TEST_AGENT_ID_2), producer(regex("testAgentId.+"))),
                                 note      : $(consumer(anyNonBlankString()), producer(null)),
                                 createDate: anyIso8601WithOffset(),
                         ],

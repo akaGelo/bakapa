@@ -42,7 +42,7 @@ public class AgentsController extends SuperUIController {
     @PostMapping("/")
     public String createAgent(@Validated NewAgent newAgent, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            dangerMessage(model, bindingResult.getAllErrors().get(0).getDefaultMessage());
+            dangerMessage(model,bindingResult);
             return "agents/agents";
         }
         //redirect

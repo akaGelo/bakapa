@@ -1,6 +1,7 @@
 package ru.vyukov.bakapa.controller.controller;
 
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+import groovy.transform.Field;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
@@ -28,7 +29,8 @@ import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 abstract public class AbstractIntegrationTest {
 
-    public static final String TEST_AGENT_ID = "testAgentIdOne";
+    public static final String TEST_AGENT_ID = "testAgentId-1";
+
 
     @Autowired
     private AgentsRepository agentsRepository;

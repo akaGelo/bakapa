@@ -69,7 +69,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar bar1"></span> <span
                             class="icon-bar bar2"></span> <span class="icon-bar bar3"></span>
                     </button>
-                    <span layout:fragment="navbar-breadcrumbs" class="navbar-brand"> Backup targets on <i
+                    <span layout:fragment="navbar-breadcrumbs" class="navbar-brand"> Backups targets on <i
                             th:text="${agent.agentId}">agent1</i> </span>
                 </div>
                 <div class="collapse navbar-collapse">
@@ -126,12 +126,12 @@
                                     <tr th:each="backupTargetAndInfo : ${backupsTargets}"
                                         th:with="backupTarget=${backupTargetAndInfo.backupTarget},executionInfo=${backupTargetAndInfo.executionInfo}">
                                         <!---->
-                                        <td th:if="${backupTarget.filesystem}" >
+                                        <td th:if="${backupTarget.filesystemType}" >
                                             <p>Path: <span th:text="${backupTarget.path}">/etc/nging/</span></p>
 
                                         </td>
                                         <!---->
-                                        <td th:if="${backupTarget.database}">
+                                        <td th:if="${backupTarget.databaseType}">
                                             <p>Database: <span>radio</span></p>
                                             <p>Username: <span>backupuser</span></p>
                                         </td>

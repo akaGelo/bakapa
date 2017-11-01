@@ -32,7 +32,7 @@ public class BackupTargetsOnAgentController extends SuperUIController {
 
 
     @GetMapping("/targets")
-    public String agents(@ModelAttribute("agent") AgentDTO agent, Model model) {
+    public String targets(@ModelAttribute("agent") AgentDTO agent, Model model) {
         List<BackupTargetAndInfoDTO> backupsTargets = backupsTargetsApiClient.getBackupsTargets(agent.getAgentId());
 
         model.addAttribute("backupsTargets", backupsTargets);

@@ -123,10 +123,10 @@
                                     <tr th:each="ani : ${agentsAndInfo}" th:with="agent=${ani.agent}">
                                         <td th:text="${agent.agentId}">Radio2</td>
                                         <td><span th:text="${ani.status}"
-                                                  th:class="${'OFFLINE'==ani.status} ? 'text-danger' : 'text-success'"
+                                                  th:class="${'OFFLINE'==''+ani.status} ? 'text-danger' : 'text-success'"
                                                   class="text-danger">ERROR</span></td>
                                         <td th:text="${agent.note}">Problems note or other note</td>
-                                        <td><a th:href="@{/agents/{agentId}/targets/(agentId=${agent.agentId})}" th:text="${ani.backupsTargetsCount}">10</a>
+                                        <td><a th:href="@{/agents/{agentId}/targets/(agentId=${agent.agentId})}" th:text="${ani.backupsTargetsCount}" class="targets-count">10</a>
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-info btn-icon">
@@ -134,7 +134,7 @@
                                             </a>
 
                                             <div class="dropdown pull-right">
-                                                <button class=" btn btn-sm btn-success btn-icon btn btn-primary dropdown-toggle"
+                                                <button class=" btn btn-sm btn-success btn-icon btn btn-primary dropdown-toggle new-backup-btn"
                                                         type="button" data-toggle="dropdown">New backup
                                                     <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
@@ -165,7 +165,7 @@
                             <div class="content">
 
                                 <div>
-                                    <form th:action="@{/agents/}" th:object="${newAgent}" class="" method="post">
+                                    <form id="newAgent" th:action="@{/agents/}" th:object="${newAgent}" class="" method="post">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">

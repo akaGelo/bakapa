@@ -1,45 +1,43 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
-import org.bakapa.dto.agent.AgentAndCredentialsDTO;
+import com.codeborne.selenide.Condition;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import ru.vyukov.bakapa.admin.service.agents.AgentsApiClient;
+import ru.vyukov.bakapa.admin.controller.pages.AgentsPage;
+import ru.vyukov.bakapa.admin.controller.pages.MainLayout;
+import ru.vyukov.bakapa.admin.controller.SuperUITest;
+import ru.vyukov.bakapa.admin.controller.pages.NewAgentPage;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static com.codeborne.selenide.Condition.not;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.open;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(controllers = AgentsController.class)
-public class AgentsControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private AgentsApiClient agentsApiClient;
+public class AgentsControllerTest extends SuperUITest {
 
 
     @Test
-    public void createAgent() throws Exception {
-        final String agentId = "agentId";
-        when(agentsApiClient.create(any(String.class))).thenReturn(AgentAndCredentialsDTO.demo("test"));
-
-        mockMvc.perform((post("/agents/")).param(agentId,""))
-                .andExpect(view().name("agents/agents"));
-
-
-        mockMvc.perform((post("/agents/")).param(agentId,"notEmpty"))
-                .andExpect(status().is3xxRedirection());
-
-        verify(agentsApiClient,only()).create(any(String.class));
+    public void agents() throws Exception {
+        AgentsPage agentsPage = open("/agents/", AgentsPage.class);
+        agentsPage.titleShouldHave("Agents");
     }
+
+    @Test
+    public void createAgent() throws Exception {
+        AgentsPage agentsPage = open("/agents/", AgentsPage.class);
+        NewAgentPage newAgentPage = agentsPage.createNewAgent("superAgent");
+
+        newAgentPage.agentId().shouldBe(text("superAgent"));
+        newAgentPage.agentPassword().shouldBe(not(Condition.empty));
+    }
+
+
+    @Test
+    public void createAgentInvalidId() throws Exception {
+        AgentsPage agentsPage = open("/agents/", AgentsPage.class);
+        agentsPage.newAgentForm().submit();
+        agentsPage.dangerAlertShouldHave("agentId");
+    }
+
 
 }

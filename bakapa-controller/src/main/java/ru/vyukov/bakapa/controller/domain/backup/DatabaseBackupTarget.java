@@ -28,6 +28,12 @@ public class DatabaseBackupTarget extends AbstractBackupTarget {
     @NotNull
     @NotEmpty
     @JsonView(Summary.class)
+    private String database;
+
+    @NonNull
+    @NotNull
+    @NotEmpty
+    @JsonView(Summary.class)
     private String username;
 
     @NonNull

@@ -1,18 +1,19 @@
-package contracts
+package contracts.priv.agents;
+
+import groovy.transform.Field
+
+
+@Field static def TEST_AGENT_ID = "testAgentId-1"
+@Field static def TEST_AGENT_ID_2 = "testAgentId-2"
 
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'POST'
         urlPath('/private/agents/') {
             queryParameters {
-                parameter 'agentId': equalTo("testAgentId")
+                parameter 'agentId': anyNonEmptyString()
             }
         }
-
-        headers {
-            contentType(applicationFormUrlencoded())
-        }
-
     }
 
     response {

@@ -59,12 +59,9 @@ public class PrivAgentsBase {
         when(agentsService.getAgent(any(String.class))).then(answer);
 
         when(agentsService.getAllAgents()).thenReturn(asList(
-                Agent.newAgent("agent1"),
-                Agent.newAgent("agent2")
+                Agent.newAgent("testAgentId-1"),
+                Agent.newAgent("testAgentId-2")
         ));
     }
 
-    public void assertThatRejectionReasonIsNull(Object o) {
-        System.err.println("\n\n\n" + o + "\n\n\n");
-    }
 }
