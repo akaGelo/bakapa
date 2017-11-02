@@ -2,7 +2,7 @@ package ru.vyukov.bakapa.controller.repo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
 import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 import ru.vyukov.bakapa.controller.domain.config.RuntimeConfig;
 
@@ -16,7 +16,7 @@ public interface ConfigsRepository extends CrudRepository<RuntimeConfig, String>
      * @param instanceId
      * @return
      */
-    BackupsStorage findOneBackupStorageById(String instanceId);
+    StorageConfig findOneBackupStorageById(String instanceId);
 
     /**
      * DetectionConfig ignored query parser

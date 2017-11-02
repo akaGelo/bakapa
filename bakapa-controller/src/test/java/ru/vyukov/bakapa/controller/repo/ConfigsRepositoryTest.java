@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.vyukov.bakapa.controller.config.MongoDbConfig;
-import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
 import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 
 import static org.junit.Assert.assertEquals;
@@ -34,25 +34,25 @@ public class ConfigsRepositoryTest {
 
     @Test
     public void testSaveAndRead() {
-        BackupsStorage backupsStorage = BackupsStorage.defaultConfig();
-        BackupsStorage returnedStorage = configsRepository.save(backupsStorage);
-        assertEquals(backupsStorage, returnedStorage);
+        StorageConfig storageConfig = StorageConfig.defaultConfig();
+        StorageConfig returnedStorage = configsRepository.save(storageConfig);
+        assertEquals(storageConfig, returnedStorage);
 
 
-        configsRepository.save(backupsStorage);//test singleton save
+        configsRepository.save(storageConfig);//test singleton save
         assertEquals(1, configsRepository.count());
 
-        BackupsStorage readedStorage2 = configsRepository.findOneBackupStorageById(BackupsStorage.INSTANCE_ID);
-        assertEquals(backupsStorage, readedStorage2);
+        StorageConfig readedStorage2 = configsRepository.findOneBackupStorageById(StorageConfig.INSTANCE_ID);
+        assertEquals(storageConfig, readedStorage2);
     }
 
 
     @Test
     public void testSaveAndReadManyClasses() {
-        BackupsStorage backupsStorage = BackupsStorage.defaultConfig();
-        BackupsStorage returnedStorage = configsRepository.save(backupsStorage);
-        returnedStorage = configsRepository.findOneBackupStorageById(BackupsStorage.INSTANCE_ID);
-        assertEquals(backupsStorage, returnedStorage);
+        StorageConfig storageConfig = StorageConfig.defaultConfig();
+        StorageConfig returnedStorage = configsRepository.save(storageConfig);
+        returnedStorage = configsRepository.findOneBackupStorageById(StorageConfig.INSTANCE_ID);
+        assertEquals(storageConfig, returnedStorage);
 
 
         DetectionConfig detectionConfig = DetectionConfig.defaultConfig();

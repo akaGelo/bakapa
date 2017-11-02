@@ -2,7 +2,7 @@ package ru.vyukov.bakapa.controller.service.backupsstorage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
 import ru.vyukov.bakapa.controller.repo.ConfigsRepository;
 
 import javax.annotation.PostConstruct;
@@ -20,21 +20,21 @@ public class BackupsStorageServiceImpl implements BackupsStorageService {
     @PostConstruct
     synchronized public void init() {
         if (null == getStorage()) {
-            BackupsStorage backupsStorage = BackupsStorage.defaultConfig();
-            configsRepository.save(backupsStorage);
+            StorageConfig storageConfig = StorageConfig.defaultConfig();
+            configsRepository.save(storageConfig);
         }
     }
 
     @Override
-    public BackupsStorage getStorage() {
-        BackupsStorage backupsStorage = configsRepository.findOneBackupStorageById(BackupsStorage.INSTANCE_ID);
-        return backupsStorage;
+    public StorageConfig getStorage() {
+        StorageConfig storageConfig = configsRepository.findOneBackupStorageById(StorageConfig.INSTANCE_ID);
+        return storageConfig;
     }
 
 
     @Override
-    public void update(BackupsStorage backupsStorage) {
-        configsRepository.save(backupsStorage);
+    public void update(StorageConfig storageConfig) {
+        configsRepository.save(storageConfig);
     }
 
 }

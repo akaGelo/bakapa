@@ -1,28 +1,29 @@
-package ru.vyukov.bakapa.controller.controller.priv;
+package ru.vyukov.bakapa.controller.controller.priv.config;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.vyukov.bakapa.controller.controller.priv.SuperPrivateController;
 import ru.vyukov.bakapa.controller.domain.View.Full;
-import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
 import ru.vyukov.bakapa.controller.service.backupsstorage.BackupsStorageService;
 
 @RestController
-@RequestMapping("/private")
-public class StoragePrivateApiController extends  SuperPrivateController {
+@RequestMapping("/private/config/storage")
+public class StorageConfigPrivateApiController extends SuperPrivateController {
 
     @Autowired
     private BackupsStorageService backupsStorageService;
 
     @JsonView(Full.class)
-    @GetMapping("/storage/")
-    public BackupsStorage getStorageConfig() {
+    @GetMapping("/")
+    public StorageConfig getStorageConfig() {
         return backupsStorageService.getStorage();
     }
 
-    @PostMapping("/storage/")
-    public void saveStorageConfig(@Validated @RequestBody BackupsStorage storage) {
+    @PostMapping("/")
+    public void saveStorageConfig(@Validated @RequestBody StorageConfig storage) {
         backupsStorageService.update(storage);
     }
 }

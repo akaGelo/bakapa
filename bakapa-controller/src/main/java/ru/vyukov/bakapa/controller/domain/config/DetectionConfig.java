@@ -3,6 +3,7 @@ package ru.vyukov.bakapa.controller.domain.config;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import cz.jirutka.validator.collection.constraints.EachMin;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,14 +22,17 @@ public class DetectionConfig extends RuntimeConfig {
 
 
     @NotNull
+    @EachMin(1)
     @JsonView(Full.class)
     private Set<Integer> mongoPorts;
 
     @NotNull
+    @EachMin(1)
     @JsonView(Full.class)
     private Set<Integer> mysqlPorts;
 
     @NotNull
+    @EachMin(1)
     @JsonView(Full.class)
     private Set<Integer> postgresqlPorts;
 

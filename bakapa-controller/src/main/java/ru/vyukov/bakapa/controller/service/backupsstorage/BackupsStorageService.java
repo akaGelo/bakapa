@@ -1,11 +1,11 @@
 package ru.vyukov.bakapa.controller.service.backupsstorage;
 
-import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
 
 public interface BackupsStorageService {
 
 
-    BackupsStorage getStorage();
+    StorageConfig getStorage();
 
-    void update(BackupsStorage backupsStorage);
+    void update(StorageConfig storageConfig);
 }

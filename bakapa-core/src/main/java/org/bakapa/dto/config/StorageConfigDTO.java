@@ -1,9 +1,10 @@
-package org.bakapa.dto.backups;
+package org.bakapa.dto.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,10 +14,11 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BackupsStorageDTO {
+public class StorageConfigDTO {
 
     @NotNull
     @NotEmpty
+    @URL
     private String endpoint;
 
     @NotNull

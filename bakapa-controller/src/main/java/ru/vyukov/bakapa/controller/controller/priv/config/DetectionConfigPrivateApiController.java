@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.controller.priv.detection;
+package ru.vyukov.bakapa.controller.controller.priv.config;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +9,21 @@ import ru.vyukov.bakapa.controller.domain.config.DetectionConfig;
 import ru.vyukov.bakapa.controller.service.detection.DetectionService;
 
 @RestController
-@RequestMapping("/private/config/config")
-public class DetectionPrivateApiController extends SuperPrivateController {
+@RequestMapping("/private/config/detection")
+public class DetectionConfigPrivateApiController extends SuperPrivateController {
 
     @Autowired
     private DetectionService detectionService;
 
 
-    @GetMapping
+    @GetMapping("/")
     @JsonView(Full.class)
     public DetectionConfig getDetectionConfig() {
         DetectionConfig detectionConfig = detectionService.getDetectionConfig();
         return detectionConfig;
     }
 
-    @PostMapping
+    @PostMapping("/")
     public void updateDetectionConfig(@RequestBody DetectionConfig detectionConfig) {
         detectionService.updateDetectionConfig(detectionConfig);
     }

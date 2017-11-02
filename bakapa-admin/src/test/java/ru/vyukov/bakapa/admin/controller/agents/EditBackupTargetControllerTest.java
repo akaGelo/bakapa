@@ -9,7 +9,6 @@ import sun.management.resources.agent;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static ru.vyukov.bakapa.admin.controller.pages.MainLayout.successAlertShouldHave;
 
 public class EditBackupTargetControllerTest extends SuperUITest{
 
@@ -22,7 +21,7 @@ public class EditBackupTargetControllerTest extends SuperUITest{
         editPage.password().sendKeys("keys");
         editPage.excludedTables().setValue("table1,table1").submit();
 
-        successAlertShouldHave("Successfully saved");
+        editPage.successAlertShouldHave("Successfully saved");
     }
 
     @Test
@@ -34,7 +33,7 @@ public class EditBackupTargetControllerTest extends SuperUITest{
 
         editPage.saveButton().click();
 
-        successAlertShouldHave("Successfully saved");
+        editPage.successAlertShouldHave("Successfully saved");
     }
 
 

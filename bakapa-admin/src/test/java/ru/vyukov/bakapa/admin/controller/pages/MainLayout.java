@@ -11,15 +11,15 @@ public class MainLayout {
         $(".navbar-brand").shouldHave(text(text));
     }
 
-    public static void dangerAlertsHhouldHave(String fieldNameOrTextFragment, int count) {
+    public void dangerAlertsHhouldHave(String fieldNameOrTextFragment, int count) {
         $$(".alert-danger").filter(text(fieldNameOrTextFragment)).shouldHaveSize(count);
     }
 
-    public static void dangerAlertShouldHave(String fieldNameOrTextFragment) {
+    public void dangerAlertShouldHave(String fieldNameOrTextFragment) {
         dangerAlertsHhouldHave(fieldNameOrTextFragment, 1);
     }
 
-    public static void successAlertShouldHave(String subText) {
+    public void successAlertShouldHave(String subText) {
         $$(".alert-success").filter(text(subText)).shouldHaveSize(1);
     }
 

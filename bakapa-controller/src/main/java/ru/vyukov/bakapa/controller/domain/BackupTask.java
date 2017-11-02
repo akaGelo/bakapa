@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
-import ru.vyukov.bakapa.controller.domain.config.BackupsStorage;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
 
 import javax.validation.constraints.NotNull;
 
@@ -41,6 +41,6 @@ public class BackupTask {
     @NotNull
     @NonNull
     @DBRef
-    private BackupsStorage backupsStorage;
+    private StorageConfig storageConfig;
 
 }
