@@ -17,7 +17,7 @@ import ru.vyukov.bakapa.controller.controller.priv.agents.AgentsPrivateApiContro
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
-import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
+import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;

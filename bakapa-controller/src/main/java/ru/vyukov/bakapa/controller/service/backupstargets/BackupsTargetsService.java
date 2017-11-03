@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.service.backups;
+package ru.vyukov.bakapa.controller.service.backupstargets;
 
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;

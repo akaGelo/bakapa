@@ -14,4 +14,6 @@ roadmap:
 
 * email notifications
 
+* new backup target buttons on targets list page (/agents/1234/targets/)
+
 * backup files encryption

@@ -12,7 +12,7 @@ import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.agent.Agent.Credentials;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
-import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
+import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
 
 import java.util.List;
 import java.util.stream.Collectors;

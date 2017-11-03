@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.service.backups;
+package ru.vyukov.bakapa.controller.service.backupstargets;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

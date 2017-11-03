@@ -12,8 +12,8 @@ import ru.vyukov.bakapa.controller.domain.backup.database.DatabaseBackupTarget;
 import ru.vyukov.bakapa.controller.domain.backup.FilesystemBackupTarget;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
-import ru.vyukov.bakapa.controller.service.backups.BackupTargetNotFoundException;
-import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
+import ru.vyukov.bakapa.controller.service.backupstargets.BackupTargetNotFoundException;
+import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
 
 import java.util.Arrays;
 import java.util.List;
