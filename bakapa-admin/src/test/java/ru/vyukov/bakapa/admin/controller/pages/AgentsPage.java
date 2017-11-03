@@ -22,10 +22,10 @@ public class AgentsPage extends MainLayout {
 
 
 
-    public DatabaseEditBackupTargetPage firstAgentDropDownItemClick(String name) {
+    public <T> T firstAgentDropDownItemClick(String name,Class<T> page) {
         $(".new-backup-btn").click();
         $(".new-backup-btn").parent().findAll("a").filter(text(name)).first().click();
-        return page(DatabaseEditBackupTargetPage.class);
+        return page(page);
 
 
     }

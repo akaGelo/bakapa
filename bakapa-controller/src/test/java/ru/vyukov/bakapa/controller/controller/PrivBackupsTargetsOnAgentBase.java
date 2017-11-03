@@ -1,7 +1,9 @@
 package ru.vyukov.bakapa.controller.controller;
 
 
-public class PrivBackupsTargetsOnAgentBase extends  AbstractIntegrationTest{
+import ru.vyukov.bakapa.controller.controller.superbase.AbstractIntegrationTest;
+
+public class PrivBackupsTargetsOnAgentBase extends AbstractIntegrationTest {
 
 
 

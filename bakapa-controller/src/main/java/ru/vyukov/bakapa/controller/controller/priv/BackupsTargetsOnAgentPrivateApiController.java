@@ -11,12 +11,12 @@ import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.domain.backup.BackupTargetExecutionInfo;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
+import ru.vyukov.bakapa.controller.service.backups.BackupTargetNotFoundException;
 import ru.vyukov.bakapa.controller.service.backups.BackupsTargetsService;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 
 @RestController
@@ -31,13 +31,24 @@ public class BackupsTargetsOnAgentPrivateApiController extends SuperPrivateContr
     @Autowired
     private AgentsService agentsService;
 
+    @ModelAttribute("agent")
+    private Agent getAgent(@PathVariable("agentId") String agentId) throws AgentNotFoundException {
+        return agentsService.getAgent(agentId);
+    }
+
 
     @JsonView(Summary.class)
     @GetMapping("/")
-    public List<BackupTargetAndInfo> getBackupsTargets(@PathVariable("agentId") String agentId) throws AgentNotFoundException {
-        Agent agent = agentsService.getAgent(agentId);
+    public List<BackupTargetAndInfo> getBackupsTargets(@ModelAttribute("agent") Agent agent) {
         List<AbstractBackupTarget> backupsTargets = backupsTargetsService.getBackupsTargets(agent);
         return backupsTargets.stream().map(bt -> getBackupTargetAndInfo(bt)).collect(Collectors.toList());
+    }
+
+
+    @JsonView(Summary.class)
+    @GetMapping("/{backupTargetId}/")
+    public AbstractBackupTarget getBackupTarget(@ModelAttribute("agent") Agent agent, @PathVariable("backupTargetId") String backupTargetId) throws BackupTargetNotFoundException {
+        return backupsTargetsService.getBackupTarget(agent, backupTargetId);
     }
 
     private BackupTargetAndInfo getBackupTargetAndInfo(AbstractBackupTarget bt) {
@@ -56,10 +67,9 @@ public class BackupsTargetsOnAgentPrivateApiController extends SuperPrivateContr
 
 
     @PostMapping("/")
-    public AbstractBackupTarget updateBackupTarget(@PathVariable("agentId") String agentId,
+    public AbstractBackupTarget updateBackupTarget(@ModelAttribute("agent") Agent agent,
                                                    @RequestBody AbstractBackupTarget backupTarget) throws AgentNotFoundException {
-        Agent agent = agentsService.getAgent(agentId);
-        backupTarget.setAgent(agent);
+        backupTarget = backupTarget.agent(agent);
         return backupsTargetsService.updateBackupTarget(backupTarget);
     }
 

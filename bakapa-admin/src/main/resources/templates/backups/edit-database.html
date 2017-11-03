@@ -112,14 +112,14 @@
                                             <div class="form-group">
                                                 <label>Host</label>
                                                 <input type="text" class="form-control border-input"
-                                                       th:field="*{host}"
+                                                       th:field="*{location.host}"
                                                        placeholder="localhost"/>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Port</label>
-                                                <input th:field="*{port}" type="text" class="form-control border-input"
+                                                <input th:field="*{location.port}" type="text" class="form-control border-input"
                                                        placeholder="5432"/>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Database</label>
-                                                <input th:field="*{database}" type="text"
+                                                <input th:field="*{location.database}" type="text"
                                                        class="form-control border-input"
                                                        placeholder="bakapa"/>
                                             </div>
@@ -152,7 +152,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input th:field="*{username}" type="text"
+                                                <input th:field="*{userCredentials.username}" type="text"
                                                        class="form-control border-input"
                                                        placeholder="bakapa"/>
                                             </div>
@@ -160,7 +160,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input th:field="*{password}" type="password"
+                                                <input th:field="*{userCredentials.password}" type="password"
                                                        class="form-control border-input"
                                                        placeholder="qwerty"/>
                                             </div>
@@ -171,7 +171,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Exclude tables</label>
-                                                <textarea th:field="*{excludeTables}" rows="2"
+                                                <textarea th:field="*{options.excludeTables}" rows="2"
                                                           class="form-control border-input"
                                                           placeholder="table1,table2,table3"></textarea>
                                             </div>

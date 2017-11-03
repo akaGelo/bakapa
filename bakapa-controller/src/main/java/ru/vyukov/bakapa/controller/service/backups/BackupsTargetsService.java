@@ -20,4 +20,7 @@ public interface BackupsTargetsService {
     AbstractBackupTarget getBackupTarget(String backupTargetId) throws BackupTargetNotFoundException;
 
     AbstractBackupTarget updateBackupTarget(AbstractBackupTarget backupTarget);
+
+    AbstractBackupTarget getBackupTarget(Agent agent, String backupTargetId) throws BackupTargetNotFoundException;
+
 }

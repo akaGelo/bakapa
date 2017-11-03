@@ -1,7 +1,6 @@
-package ru.vyukov.bakapa.controller.controller;
+package ru.vyukov.bakapa.controller.controller.superbase;
 
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
-import groovy.transform.Field;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
@@ -27,9 +26,7 @@ import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-abstract public class AbstractIntegrationTest {
-
-    public static final String TEST_AGENT_ID = "testAgentId-1";
+abstract public class AbstractIntegrationTest extends SuperControllerTest {
 
 
     @Autowired

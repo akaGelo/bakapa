@@ -1,17 +1,17 @@
 package org.bakapa.dto.backups;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.*;
 import org.bakapa.domain.BackupTargetType;
 import org.bakapa.dto.agent.AgentDTO;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
+import java.beans.ConstructorProperties;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@ToString
-public class DirectoryBackupTargetDTO extends AbstractBackupTargetDTO {
+public class FilesystemBackupTargetDTO extends AbstractBackupTargetDTO {
 
     @NonNull
     @NotNull
@@ -20,7 +20,9 @@ public class DirectoryBackupTargetDTO extends AbstractBackupTargetDTO {
 
 
     @Builder
-    public DirectoryBackupTargetDTO(String backupTargetId, AgentDTO agent, String path) {
+    @JsonCreator
+    @ConstructorProperties({"backupTargetId", "agent", "path"})
+    public FilesystemBackupTargetDTO(String backupTargetId, AgentDTO agent, String path) {
         super(backupTargetId, BackupTargetType.FILESYSTEM);
         this.path = path;
     }

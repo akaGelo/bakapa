@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.controller.domain.backup.database.DatabaseBackupTarget;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,15 +19,13 @@ import javax.validation.constraints.NotNull;
 /**
  * Abstract backup target
  */
-@NoArgsConstructor
 @Getter
-@Setter
 @AllArgsConstructor
 @Document(collection = "backupTargets")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "targetType", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = DirectoryBackupTarget.class, name = "FILESYSTEM"),
+        @JsonSubTypes.Type(value = FilesystemBackupTarget.class, name = "FILESYSTEM"),
         //
         @JsonSubTypes.Type(value = DatabaseBackupTarget.class, name = "MYSQL"),
         @JsonSubTypes.Type(value = DatabaseBackupTarget.class, name = "MONGODB"),
@@ -36,18 +35,24 @@ abstract public class AbstractBackupTarget {
 
     @Id
     @JsonView(Summary.class)
-    private String backupTargetId;
+    protected String backupTargetId;
 
     @NotNull
-    @NonNull
     @Indexed
     @DBRef
-    private Agent agent;
+    protected Agent agent;
 
     @NonNull
     @NotNull
-    @Getter
     @JsonView(Summary.class)
-    private BackupTargetType targetType;
+    protected BackupTargetType targetType;
 
+
+    /**
+     * set agent
+     *
+     * @param agent
+     * @return new object
+     */
+    public abstract AbstractBackupTarget agent(Agent agent);
 }

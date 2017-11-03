@@ -6,11 +6,11 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class DatabaseEditBackupTargetPage extends MainLayout {
     public SelenideElement password() {
-        return $("#password");
+        return $("#userCredentials\\.password");
     }
 
     public SelenideElement excludedTables() {
-        return $("#excludeTables");
+        return $("#options\\.excludeTables");
     }
 
     public SelenideElement saveButton() {

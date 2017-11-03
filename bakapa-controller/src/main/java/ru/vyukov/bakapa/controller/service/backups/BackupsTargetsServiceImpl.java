@@ -45,6 +45,16 @@ public class BackupsTargetsServiceImpl implements BackupsTargetsService {
         return one;
     }
 
+
+    @Override
+    public AbstractBackupTarget getBackupTarget(Agent agent, String backupTargetId) throws BackupTargetNotFoundException {
+        AbstractBackupTarget backupTarget = getBackupTarget(backupTargetId);
+        if (backupTarget.getAgent().equals(agent)){
+            return backupTarget;
+        }
+        throw new BackupTargetNotFoundException(agent,backupTargetId);
+    }
+
     @Override
     public AbstractBackupTarget updateBackupTarget(AbstractBackupTarget backupTarget) {
         log.debug("update backup target " + backupTarget);

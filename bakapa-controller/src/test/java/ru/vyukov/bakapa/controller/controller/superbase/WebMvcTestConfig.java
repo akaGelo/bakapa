@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.controller;
+package ru.vyukov.bakapa.controller.controller.superbase;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

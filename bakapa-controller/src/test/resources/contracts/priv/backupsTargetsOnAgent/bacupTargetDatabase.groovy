@@ -23,13 +23,19 @@ import org.springframework.cloud.contract.spec.Contract
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
 
                     body([
-                            targetType   : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
-                            host         : "localhost",
-                            username     : anyNonBlankString(),
-                            database     : anyNonBlankString(),
-                            port         : $(consumer(matching(regex("[0-9]+"))), producer(123)),
-                            password     : anyNonBlankString(),
-                            excludeTables: [anyNonBlankString()],
+                            targetType     : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                            location       : [
+                                    host    : "localhost",
+                                    port    : $(consumer(matching(regex("[0-9]+"))), producer(123)),
+                                    database: anyNonBlankString(),
+                            ],
+                            userCredentials: [
+                                    username: anyNonBlankString(),
+                                    password: anyNonBlankString(),
+                            ],
+                            options        : [
+                                    excludeTables: [anyNonBlankString()],
+                            ],
                     ])
                 }
 
@@ -41,14 +47,20 @@ import org.springframework.cloud.contract.spec.Contract
             response {
                 status 200
                 body([
-                        backupTargetId: anyNonEmptyString(),
-                        targetType    : fromRequest().body('$.targetType'),
-                        host          : fromRequest().body('$.host'),
-                        database      : fromRequest().body('$.database'),
-                        username      : fromRequest().body('$.username'),
-                        port          : fromRequest().body('$.port'),
-                        password      : fromRequest().body('$.password'),
-                        excludeTables : [fromRequest().body('$.excludeTables[0]')],
+                        backupTargetId : anyNonEmptyString(),
+                        targetType     : fromRequest().body('$.targetType'),
+                        location       : [
+                                host    : fromRequest().body('$.location.host'),
+                                port    : fromRequest().body('$.location.port'),
+                                database: fromRequest().body('$.location.database'),
+                        ],
+                        userCredentials: [
+                                username: fromRequest().body('$.userCredentials.username'),
+                                password: fromRequest().body('$.userCredentials.password'),
+                        ],
+                        options        : [
+                                excludeTables: [fromRequest().body('$.options.excludeTables[0]')],
+                        ]
                 ])
                 headers {
                     contentType("application/json")
@@ -58,6 +70,7 @@ import org.springframework.cloud.contract.spec.Contract
 
         Contract.make {
             name("1 get DatabaseBackupTarget")
+
             request {
                 method 'GET'
                 urlPath("/private/agents/${TEST_AGENT_ID}/targets/") {
@@ -70,14 +83,20 @@ import org.springframework.cloud.contract.spec.Contract
                 body([
                         [
                                 backupTarget : [
-                                        backupTargetId: anyNonEmptyString(),
-                                        targetType    : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
-                                        host          : anyNonEmptyString(),
-                                        username      : anyNonBlankString(),
-                                        database      : anyNonBlankString(),
-                                        port          : anyNumber(),
-                                        password      : anyNonBlankString(),
-                                        excludeTables : [anyNonBlankString()],
+                                        backupTargetId : anyNonEmptyString(),
+                                        targetType     : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                                        location       : [
+                                                host    : anyNonEmptyString(),
+                                                database: anyNonBlankString(),
+                                                port    : anyNumber(),
+                                        ],
+                                        userCredentials: [
+                                                username: anyNonBlankString(),
+                                                password: anyNonBlankString(),
+                                        ],
+                                        options        : [
+                                                excludeTables: [anyNonBlankString()],
+                                        ]
                                 ],
                                 executionInfo: [
                                         lastSizeBytes         : anyNumber(),

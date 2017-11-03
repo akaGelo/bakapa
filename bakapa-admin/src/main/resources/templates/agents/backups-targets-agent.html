@@ -26,10 +26,6 @@
 <div class="wrapper">
     <div class="sidebar" data-background-color="white" data-active-color="danger">
 
-        <!--
-    Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
-    Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
--->
 
         <div class="sidebar-wrapper">
             <div class="logo">
@@ -145,12 +141,9 @@
                                         </td>
                                         <td th:text="${executionInfo.nextExecutionTimestamp}">Oud-Turnhout</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info btn-icon">
+                                            <a th:href="@{/agents/{agentId}/targets/{targetId}/edit/(agentId=${agent.agentId},targetId=${backupTarget.backupTargetId})}" class="btn btn-sm btn-info btn-icon">
                                                 <i class="fa ti-pencil"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-success btn-icon">
-                                                <i class="fa ti-align-center"></i>
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>

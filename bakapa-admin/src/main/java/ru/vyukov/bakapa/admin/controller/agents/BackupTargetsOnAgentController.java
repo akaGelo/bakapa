@@ -41,4 +41,7 @@ public class BackupTargetsOnAgentController extends SuperUIController {
     }
 
 
+    public static String redirectTargets() {
+        return "redirect:/agents/{agentId}/targets/";
+    }
 }

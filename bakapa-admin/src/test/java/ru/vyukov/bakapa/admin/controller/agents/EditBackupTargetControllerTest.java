@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.vyukov.bakapa.admin.controller.SuperUITest;
 import ru.vyukov.bakapa.admin.controller.pages.AgentsPage;
 import ru.vyukov.bakapa.admin.controller.pages.DatabaseEditBackupTargetPage;
+import ru.vyukov.bakapa.admin.controller.pages.FilesystemEditBackupTargetPage;
 import sun.management.resources.agent;
 
 import static com.codeborne.selenide.Condition.text;
@@ -16,7 +17,7 @@ public class EditBackupTargetControllerTest extends SuperUITest{
     @Test
     public void editDatabase() throws Exception {
         AgentsPage agentsPage = open("/agents/", AgentsPage.class);
-        DatabaseEditBackupTargetPage editPage = agentsPage.firstAgentDropDownItemClick("Database");
+        DatabaseEditBackupTargetPage editPage = agentsPage.firstAgentDropDownItemClick("Database",DatabaseEditBackupTargetPage.class);
 
         editPage.password().sendKeys("keys");
         editPage.excludedTables().setValue("table1,table1").submit();
@@ -27,9 +28,9 @@ public class EditBackupTargetControllerTest extends SuperUITest{
     @Test
     public void editFilesystem() throws Exception {
         AgentsPage agentsPage = open("/agents/", AgentsPage.class);
-        DatabaseEditBackupTargetPage editPage = agentsPage.firstAgentDropDownItemClick("Filesystem");
+        FilesystemEditBackupTargetPage editPage = agentsPage.firstAgentDropDownItemClick("Filesystem",FilesystemEditBackupTargetPage.class);
 
-        $("#path").setValue("/etc/test/");
+        editPage.path().setValue("/etc/test/");
 
         editPage.saveButton().click();
 

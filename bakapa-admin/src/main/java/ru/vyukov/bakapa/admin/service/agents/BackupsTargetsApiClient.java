@@ -17,6 +17,8 @@ public interface BackupsTargetsApiClient {
     public List<BackupTargetAndInfoDTO> getBackupsTargets(@PathVariable("agentId") String agentId);
 
     @PostMapping("/")
-    public void updateBackupTarget(@PathVariable("agentId") String agentId, @RequestBody @Validated AbstractBackupTargetDTO backupTarget);
+    public void updateBackupTarget(@PathVariable("agentId") String agentId, @RequestBody  AbstractBackupTargetDTO backupTarget);
 
+    @GetMapping("/{backupTargetId}/")
+    AbstractBackupTargetDTO getBackupTarget(@PathVariable("agentId") String agentId, @PathVariable("backupTargetId")  String backupTargetId);
 }

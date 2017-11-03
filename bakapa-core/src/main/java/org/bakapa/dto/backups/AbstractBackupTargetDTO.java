@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.bakapa.domain.BackupTargetType;
+import org.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
 
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "targetType", visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = DirectoryBackupTargetDTO.class, name = "FILESYSTEM"),
+        @JsonSubTypes.Type(value = FilesystemBackupTargetDTO.class, name = "FILESYSTEM"),
         //
         @JsonSubTypes.Type(value = DatabaseBackupTargetDTO.class, name = "MYSQL"),
         @JsonSubTypes.Type(value = DatabaseBackupTargetDTO.class, name = "MONGODB"),
@@ -26,12 +27,12 @@ import javax.validation.constraints.NotNull;
 abstract public class AbstractBackupTargetDTO {
 
 
-    private String backupTargetId;
+    protected String backupTargetId;
 
 
     @NonNull
     @NotNull
-    private BackupTargetType targetType;
+    protected BackupTargetType targetType;
 
 
     @JsonIgnore
