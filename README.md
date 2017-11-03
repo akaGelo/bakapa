@@ -13,3 +13,5 @@ roadmap:
 * postgres
 
 * email notifications
+
+* backup files encryption
