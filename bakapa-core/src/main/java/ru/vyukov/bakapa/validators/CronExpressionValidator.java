@@ -19,6 +19,9 @@ public class CronExpressionValidator implements ConstraintValidator<CronExpressi
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (null == value) {
+            return false;
+        }
         Matcher matcher = PATTERN.matcher(value);
         return matcher.matches();
     }

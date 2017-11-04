@@ -2,6 +2,8 @@ package contracts
 
 import groovy.transform.Field
 import org.springframework.cloud.contract.spec.Contract
+import ru.vyukov.contract.RequestPatterns
+import ru.vyukov.contract.ResponsePatterns
 
 
 @Field static def TEST_AGENT_ID = "testAgentId-1"
@@ -28,6 +30,7 @@ import org.springframework.cloud.contract.spec.Contract
                                 backupTarget : [
                                         backupTargetId : $(consumer(TEST_BACKUP_TARGET_ID), producer(anyNonEmptyString())),
                                         targetType     : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                                        trigger        : $(ResponsePatterns.anyCronExpression()),
                                         location       : [
                                                 host    : anyNonEmptyString(),
                                                 database: anyNonBlankString(),
@@ -75,6 +78,7 @@ import org.springframework.cloud.contract.spec.Contract
 
                         backupTargetId : $(consumer(TEST_BACKUP_TARGET_ID), producer(anyNonEmptyString())),
                         targetType     : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                        trigger        : $(ResponsePatterns.anyCronExpression()),
                         location       : [
                                 host    : anyNonEmptyString(),
                                 database: anyNonBlankString(),

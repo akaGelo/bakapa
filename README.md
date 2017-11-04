@@ -6,6 +6,8 @@ backup tools for microservices projects
 state: in active development.
 
 roadmap:
+test on edit existed targets
+
 * https://github.com/aatarasoff/spring-thrift-starter 
 * web ui
 * mysql

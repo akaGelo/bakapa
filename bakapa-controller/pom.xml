@@ -59,11 +59,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>ru.vyukov</groupId>
-            <artifactId>bakapa-test-common</artifactId>
-            <scope>test</scope>
-        </dependency>
 
 
         <dependency>
@@ -100,8 +95,8 @@
                 <dependencies>
                     <dependency>
                         <groupId>ru.vyukov</groupId>
-                        <artifactId>bakapa-test-common</artifactId>
-                        <version>${bakapa-test-common.version}</version>
+                        <artifactId>spring-cloud-contract-expattern</artifactId>
+                        <version>${spring-cloud-contract-expattern.version}</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
