@@ -1,8 +1,8 @@
 package ru.vyukov.bakapa.admin.service.agents.backups;
 
-import org.bakapa.domain.BackupTargetType;
-import org.bakapa.dto.agent.AgentDTO;
-import org.bakapa.dto.backups.AbstractBackupTargetDTO;
+import ru.vyukov.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.dto.agent.AgentDTO;
+import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
 
 
 public interface BackupTargetsFactory {

@@ -1,9 +1,8 @@
 package ru.vyukov.bakapa.admin.service.agents;
 
-import org.bakapa.dto.backups.AbstractBackupTargetDTO;
-import org.bakapa.dto.backups.BackupTargetAndInfoDTO;
+import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.BackupTargetAndInfoDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

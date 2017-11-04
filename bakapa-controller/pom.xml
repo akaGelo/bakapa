@@ -60,6 +60,13 @@
 
 
         <dependency>
+            <groupId>ru.vyukov</groupId>
+            <artifactId>bakapa-test-common</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-contract-wiremock</artifactId>
             <scope>test</scope>
@@ -89,6 +96,29 @@
                 <configuration>
                     <packageWithBaseClasses>ru.vyukov.bakapa.controller.controller</packageWithBaseClasses>
                 </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>ru.vyukov</groupId>
+                        <artifactId>bakapa-test-common</artifactId>
+                        <version>${bakapa-test-common.version}</version>
+                        <scope>compile</scope>
+                    </dependency>
+                </dependencies>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
 

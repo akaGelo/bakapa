@@ -1,6 +1,6 @@
 package ru.vyukov.bakapa.admin.controller.pages;
 
-import org.bakapa.dto.config.StorageConfigDTO;
+import ru.vyukov.bakapa.dto.config.StorageConfigDTO;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;

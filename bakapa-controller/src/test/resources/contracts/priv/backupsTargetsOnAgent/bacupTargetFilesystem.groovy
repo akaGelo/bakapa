@@ -2,6 +2,10 @@ package contracts
 
 import groovy.transform.Field
 import org.springframework.cloud.contract.spec.Contract
+import ru.vyukov.bakapa.contract.ConsumerUtils
+import ru.vyukov.bakapa.contract.ProducerUtils
+
+import static ru.vyukov.bakapa.contract.ConsumerUtils.everyDayCron
 
 
 @Field static def TEST_AGENT_ID = "testAgentId-1"
@@ -24,6 +28,7 @@ import org.springframework.cloud.contract.spec.Contract
 
                     body([
                             targetType: "FILESYSTEM",
+                            trigger   : everyDayCron(),
                             path      : $(consumer(anyNonEmptyString()), producer("/etc/")),
                     ])
                 }
@@ -38,6 +43,7 @@ import org.springframework.cloud.contract.spec.Contract
                 body([
                         backupTargetId: anyNonEmptyString(),
                         targetType    : "FILESYSTEM",
+                        trigger       : everyDayCron(),
                         path          : $(consumer(fromRequest().body('$.path')), producer("/etc/"))
 
                 ])
@@ -60,6 +66,7 @@ import org.springframework.cloud.contract.spec.Contract
                                 backupTarget : [
                                         backupTargetId: anyNonEmptyString(),
                                         targetType    : "FILESYSTEM",
+                                        trigger   : everyDayCron(),
                                         path          : "/etc/",
                                 ],
                                 executionInfo: [

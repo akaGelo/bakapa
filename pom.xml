@@ -19,6 +19,7 @@
         <spring-cloud-contract.version>1.1.4.RELEASE</spring-cloud-contract.version>
 
         <lombok.version>1.16.18</lombok.version>
+        <bakapa-test-common.version>0.2-SNAPSHOT</bakapa-test-common.version>
     </properties>
 
     <dependencies>
@@ -58,10 +59,17 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
     <modules>
+        <module>bakapa-test-common</module>
         <module>bakapa-core</module>
         <module>bakapa-agent</module>
         <module>bakapa-controller</module>
@@ -71,6 +79,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ru.vyukov</groupId>
+                <artifactId>bakapa-test-common</artifactId>
+                <version>${bakapa-test-common.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>ru.vyukov</groupId>
                 <artifactId>bakapa-core</artifactId>

@@ -1,7 +1,7 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
-import org.bakapa.dto.agent.AgentAndCredentialsDTO;
-import org.bakapa.dto.agent.AgentAndInfoDTO;
+import ru.vyukov.bakapa.dto.agent.AgentAndCredentialsDTO;
+import ru.vyukov.bakapa.dto.agent.AgentAndInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

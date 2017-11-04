@@ -1,7 +1,7 @@
 package ru.vyukov.bakapa.controller.controller.priv;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bakapa.domain.BackupTargetStatus;
+import ru.vyukov.bakapa.domain.BackupTargetStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vyukov.bakapa.controller.controller.pojo.BackupTargetAndInfo;

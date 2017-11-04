@@ -1,7 +1,7 @@
 package ru.vyukov.bakapa.controller.controller.priv.agents;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bakapa.domain.AgentStatus;
+import ru.vyukov.bakapa.domain.AgentStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vyukov.bakapa.controller.controller.pojo.AgentAndInfo;

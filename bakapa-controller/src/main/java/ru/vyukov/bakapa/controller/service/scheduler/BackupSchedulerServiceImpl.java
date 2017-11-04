@@ -38,10 +38,10 @@ public class BackupSchedulerServiceImpl implements BackupSchedulerService {
 
     @PostConstruct
     public void init() { //
-        taskScheduler.invokeAndWait(() -> {
-    //обновляй
-
-        });
+//        taskScheduler.invokeAndWait(() -> {
+//    //обновляй
+//
+//        });
 
     }
 }

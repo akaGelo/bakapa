@@ -1,10 +1,10 @@
 package ru.vyukov.bakapa.admin.service.agents.backups;
 
-import org.bakapa.domain.BackupTargetType;
-import org.bakapa.dto.agent.AgentDTO;
-import org.bakapa.dto.backups.AbstractBackupTargetDTO;
-import org.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
-import org.bakapa.dto.backups.FilesystemBackupTargetDTO;
+import ru.vyukov.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.dto.agent.AgentDTO;
+import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.FilesystemBackupTargetDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,7 +20,7 @@ public class BackupTargetsFactoryImpl implements BackupTargetsFactory {
             case MONGODB:
                 return DatabaseBackupTargetDTO.localhostMongoDb();
             case FILESYSTEM:
-                return new FilesystemBackupTargetDTO(null, agent, "/etc/");
+                return FilesystemBackupTargetDTO.defaultExample();
             default:
                 throw new IllegalStateException(type + " not implemented");
         }

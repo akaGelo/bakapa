@@ -7,4 +7,9 @@ public class PrivBackupsTargetsOnAgentBase extends AbstractIntegrationTest {
 
 
 
+    public boolean isCronExpression(Object o){
+        return  true;
+    }
+
+
 }

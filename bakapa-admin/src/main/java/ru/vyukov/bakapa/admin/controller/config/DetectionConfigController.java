@@ -1,7 +1,7 @@
 package ru.vyukov.bakapa.admin.controller.config;
 
 
-import org.bakapa.dto.config.DetectionConfigDTO;
+import ru.vyukov.bakapa.dto.config.DetectionConfigDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

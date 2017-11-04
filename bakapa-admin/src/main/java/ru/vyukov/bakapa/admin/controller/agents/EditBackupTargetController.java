@@ -1,10 +1,10 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
-import org.bakapa.domain.BackupTargetType;
-import org.bakapa.dto.agent.AgentDTO;
-import org.bakapa.dto.backups.AbstractBackupTargetDTO;
-import org.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
-import org.bakapa.dto.backups.FilesystemBackupTargetDTO;
+import ru.vyukov.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.dto.agent.AgentDTO;
+import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.FilesystemBackupTargetDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

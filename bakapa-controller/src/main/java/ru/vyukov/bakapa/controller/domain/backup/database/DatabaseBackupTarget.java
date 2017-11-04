@@ -4,7 +4,7 @@ package ru.vyukov.bakapa.controller.domain.backup.database;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
-import org.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.domain.BackupTargetType;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
@@ -13,7 +13,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.beans.ConstructorProperties;
 
-import static org.bakapa.domain.BackupTargetType.POSTGRESQL;
+import static ru.vyukov.bakapa.domain.BackupTargetType.POSTGRESQL;
+import static ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO.EVERY_DAY_CRON_TRIGGER;
 import static ru.vyukov.bakapa.controller.domain.backup.database.DatabaseLocation.databaseLocation;
 import static ru.vyukov.bakapa.controller.domain.backup.database.DatabaseUserCredentials.userCredentials;
 import static ru.vyukov.bakapa.controller.domain.backup.database.DatabaseBackupOptions.backupOptions;
@@ -44,9 +45,9 @@ public class DatabaseBackupTarget extends AbstractBackupTarget {
 
     @Builder(toBuilder = true)
     @JsonCreator
-    @ConstructorProperties({"backupTargetId", "agent", "targetType", "location", "userCredentials", "options"})
-    public DatabaseBackupTarget(String backupTargetId, Agent agent, BackupTargetType targetType, DatabaseLocation location, DatabaseUserCredentials userCredentials, DatabaseBackupOptions options) {
-        super(backupTargetId, agent, targetType);
+    @ConstructorProperties({"backupTargetId", "agent", "targetType", "trigger", "location", "userCredentials", "options"})
+    public DatabaseBackupTarget(String backupTargetId, Agent agent, BackupTargetType targetType, String trigger, DatabaseLocation location, DatabaseUserCredentials userCredentials, DatabaseBackupOptions options) {
+        super(backupTargetId, agent, targetType, trigger);
         this.location = location;
         this.userCredentials = userCredentials;
         this.options = options;
@@ -56,6 +57,7 @@ public class DatabaseBackupTarget extends AbstractBackupTarget {
         return builder()
                 .backupTargetId("databaseBackupTarget-" + i)
                 .agent(agent)
+                .trigger(EVERY_DAY_CRON_TRIGGER)
                 .targetType(POSTGRESQL)
                 .location(databaseLocation()
                         .database("demodb")

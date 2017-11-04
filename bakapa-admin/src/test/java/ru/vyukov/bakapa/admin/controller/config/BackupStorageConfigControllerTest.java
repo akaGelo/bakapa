@@ -1,14 +1,11 @@
 package ru.vyukov.bakapa.admin.controller.config;
 
-import org.bakapa.dto.config.StorageConfigDTO;
+import ru.vyukov.bakapa.dto.config.StorageConfigDTO;
 import org.junit.Test;
 import ru.vyukov.bakapa.admin.controller.SuperUITest;
-import ru.vyukov.bakapa.admin.controller.pages.AgentsPage;
-import ru.vyukov.bakapa.admin.controller.pages.MainLayout;
 import ru.vyukov.bakapa.admin.controller.pages.StorageConfigPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.*;
 
 public class BackupStorageConfigControllerTest extends SuperUITest {
     @Test

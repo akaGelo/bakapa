@@ -1,12 +1,11 @@
 package ru.vyukov.bakapa.admin.controller.config;
 
-import org.bakapa.dto.config.DetectionConfigDTO;
+import ru.vyukov.bakapa.dto.config.DetectionConfigDTO;
 import org.junit.Test;
 import ru.vyukov.bakapa.admin.controller.SuperUITest;
 import ru.vyukov.bakapa.admin.controller.pages.DetectionConfigPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.*;
 
 public class DetectionConfigControllerTest extends SuperUITest {
     @Test

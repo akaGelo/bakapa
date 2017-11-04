@@ -1,8 +1,8 @@
 package ru.vyukov.bakapa.admin.service.agents;
 
-import org.bakapa.dto.agent.AgentAndCredentialsDTO;
-import org.bakapa.dto.agent.AgentAndInfoDTO;
-import org.bakapa.dto.agent.AgentDTO;
+import ru.vyukov.bakapa.dto.agent.AgentAndCredentialsDTO;
+import ru.vyukov.bakapa.dto.agent.AgentAndInfoDTO;
+import ru.vyukov.bakapa.dto.agent.AgentDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

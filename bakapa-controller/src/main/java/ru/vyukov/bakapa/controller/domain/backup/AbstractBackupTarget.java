@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
-import org.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.validators.CronExpression;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -46,6 +47,13 @@ abstract public class AbstractBackupTarget {
     @NotNull
     @JsonView(Summary.class)
     protected BackupTargetType targetType;
+
+
+    @NonNull
+    @NotNull
+    @JsonView(Summary.class)
+    @CronExpression
+    protected String trigger;
 
 
     /**

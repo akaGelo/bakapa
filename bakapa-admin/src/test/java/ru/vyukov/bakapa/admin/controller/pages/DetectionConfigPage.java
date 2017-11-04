@@ -1,7 +1,6 @@
 package ru.vyukov.bakapa.admin.controller.pages;
 
-import org.apache.commons.lang.math.RandomUtils;
-import org.bakapa.dto.config.DetectionConfigDTO;
+import ru.vyukov.bakapa.dto.config.DetectionConfigDTO;
 
 import java.util.List;
 import java.util.Set;

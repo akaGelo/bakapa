@@ -13,4 +13,9 @@ public class BackupTaskExecutorImpl extends ThreadPoolTaskScheduler implements B
         setRemoveOnCancelPolicy(true);
         setDaemon(true);
     }
+
+    @Override
+    public void invokeAndWait(Runnable synchronousTask) {
+        throw new IllegalStateException("not implemented");
+    }
 }

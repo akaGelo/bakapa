@@ -1,7 +1,7 @@
 package ru.vyukov.bakapa.admin.service.agents;
 
-import org.bakapa.dto.config.DetectionConfigDTO;
-import org.bakapa.dto.config.StorageConfigDTO;
+import ru.vyukov.bakapa.dto.config.DetectionConfigDTO;
+import ru.vyukov.bakapa.dto.config.StorageConfigDTO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

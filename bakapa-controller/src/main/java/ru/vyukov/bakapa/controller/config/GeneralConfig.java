@@ -4,14 +4,11 @@ import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import static java.util.Arrays.asList;
 
 @Configuration
 public class GeneralConfig {
-
 
     @Bean
     HttpMessageConverters httpMessageConverters(MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {

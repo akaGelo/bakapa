@@ -3,19 +3,20 @@ package ru.vyukov.bakapa.controller.domain.backup;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
-import org.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.domain.BackupTargetType;
 import org.hibernate.validator.constraints.NotEmpty;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
+import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
 
 import javax.validation.constraints.NotNull;
 import java.beans.ConstructorProperties;
 
-import static org.bakapa.domain.BackupTargetType.FILESYSTEM;
+import static ru.vyukov.bakapa.domain.BackupTargetType.FILESYSTEM;
+import static ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO.EVERY_DAY_CRON_TRIGGER;
 
 /**
  * Target directory
@@ -32,9 +33,9 @@ public class FilesystemBackupTarget extends AbstractBackupTarget {
 
     @JsonCreator
     @Builder(toBuilder = true)
-    @ConstructorProperties({"backupTargetId", "agent", "targetType", "path"})
-    public FilesystemBackupTarget(String backupTargetId, Agent agent, BackupTargetType targetType, String path) {
-        super(backupTargetId, agent, targetType);
+    @ConstructorProperties({"backupTargetId", "agent", "targetType", "trigger", "path"})
+    public FilesystemBackupTarget(String backupTargetId, Agent agent, BackupTargetType targetType, String trigger, String path) {
+        super(backupTargetId, agent, targetType, trigger);
         this.path = path;
     }
 
@@ -44,6 +45,7 @@ public class FilesystemBackupTarget extends AbstractBackupTarget {
                 .backupTargetId("FilesystemBackupTarget-" + i)
                 .agent(agent)
                 .targetType(FILESYSTEM)
+                .trigger(EVERY_DAY_CRON_TRIGGER)
 
                 .path("/etc/")
                 .build();

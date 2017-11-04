@@ -3,6 +3,8 @@ package contracts
 import groovy.transform.Field
 import org.springframework.cloud.contract.spec.Contract
 
+import static ru.vyukov.bakapa.contract.ConsumerUtils.everyDayCron
+
 
 @Field static def TEST_AGENT_ID = "testAgentId-1"
 @Field static def TEST_AGENT_ID_2 = "testAgentId-2"
@@ -24,6 +26,7 @@ import org.springframework.cloud.contract.spec.Contract
 
                     body([
                             targetType     : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                            trigger   : everyDayCron(),
                             location       : [
                                     host    : "localhost",
                                     port    : $(consumer(matching(regex("[0-9]+"))), producer(123)),
@@ -49,6 +52,7 @@ import org.springframework.cloud.contract.spec.Contract
                 body([
                         backupTargetId : anyNonEmptyString(),
                         targetType     : fromRequest().body('$.targetType'),
+                        trigger        : fromRequest().body('$.trigger'),
                         location       : [
                                 host    : fromRequest().body('$.location.host'),
                                 port    : fromRequest().body('$.location.port'),
@@ -85,6 +89,7 @@ import org.springframework.cloud.contract.spec.Contract
                                 backupTarget : [
                                         backupTargetId : anyNonEmptyString(),
                                         targetType     : anyOf("MONGODB", "MYSQL", "POSTGRESQL"),
+                                        trigger   : everyDayCron(),
                                         location       : [
                                                 host    : anyNonEmptyString(),
                                                 database: anyNonBlankString(),

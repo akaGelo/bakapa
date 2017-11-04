@@ -1,6 +1,6 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
-import org.bakapa.dto.agent.AgentAndCredentialsDTO;
+import ru.vyukov.bakapa.dto.agent.AgentAndCredentialsDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

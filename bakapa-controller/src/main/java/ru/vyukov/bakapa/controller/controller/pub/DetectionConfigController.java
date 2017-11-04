@@ -7,7 +7,7 @@ import ru.vyukov.bakapa.controller.Greeting;
 
 import java.security.Principal;
 
-import static org.bakapa.dto.config.DetectionConfigDTO.PATH_DETECTION_CONFIG;
+import static ru.vyukov.bakapa.dto.config.DetectionConfigDTO.PATH_DETECTION_CONFIG;
 
 /**
  * 
