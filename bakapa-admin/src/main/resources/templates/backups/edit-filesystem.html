@@ -105,7 +105,8 @@
                     <div class="col-lg-6 col-md-7">
                         <div class="card">
                             <div class="content">
-                                <form th:action="@{./filesystem}" method="post" th:object="${backupTarget}">
+                                <form th:action="@{./filesystem}" method="post" th:object="${backupTarget}"
+                                      autocomplete="off">
                                     <input type="hidden" th:field="*{targetType}"/>
                                     <div class="row">
                                         <div class="col-md-8">
@@ -117,11 +118,39 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div th:fragment="trigger-form-group" class="form-group">
                                                 <label>Trigger</label>
-                                                <input th:field="*{trigger}" type="text"
+                                                <input th:field="*{trigger}" type="text" id="trigger"
                                                        class="form-control border-input"
-                                                       placeholder="/etc/nginx/"/>
+                                                       placeholder="/etc/nginx/" onchange="validate(this.value)"
+                                                       autocomplete="off"/>
+                                                <p id="trigger-validate">
+                                                </p>
+                                                <script>
+                                                    function validate(input) {
+                                                        var offsetHours = new Date().getTimezoneOffset() / 60;
+                                                        $.getJSON("cron/validation", {
+                                                            expression: input,
+                                                            timeZoneOffset: offsetHours
+                                                        }, function (result) {
+                                                            if (result.wrong) {
+                                                                $('#trigger-validate').attr("class", "text-danger");
+                                                                $('#trigger-validate').text("Wrong expression");
+                                                            } else {
+                                                                $('#trigger-validate').attr("class", "text-success");
+                                                                var html = '<span>Next execution: ' + result.nextExecution + '</span>';
+                                                                $('#trigger-validate').html(html);
+                                                            }
+                                                        });
+                                                    }
+
+                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                        validate($("#trigger").val());
+                                                        setInterval(function () {
+                                                            validate($("#trigger").val())
+                                                        }, 3000);
+                                                    });
+                                                </script>
                                             </div>
                                         </div>
                                     </div>

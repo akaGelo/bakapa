@@ -1,5 +1,7 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
+import org.springframework.scheduling.support.CronSequenceGenerator;
+import ru.vyukov.bakapa.admin.controller.agents.pojo.CronExpressionValidateResult;
 import ru.vyukov.bakapa.domain.BackupTargetType;
 import ru.vyukov.bakapa.dto.agent.AgentDTO;
 import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
@@ -16,7 +18,11 @@ import ru.vyukov.bakapa.admin.controller.SuperUIController;
 import ru.vyukov.bakapa.admin.service.agents.AgentsApiClient;
 import ru.vyukov.bakapa.admin.service.agents.BackupsTargetsApiClient;
 import ru.vyukov.bakapa.admin.service.agents.backups.BackupTargetsFactory;
+import ru.vyukov.bakapa.validators.CronExpression;
 
+import java.time.ZoneOffset;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.function.Supplier;
 
 @Controller
@@ -132,5 +138,19 @@ public class EditBackupTargetController extends SuperUIController {
         return NEW_ID.equals(backupTargetId);
     }
 
+
+    @ResponseBody
+    @GetMapping("/edit/cron/validation")
+    public CronExpressionValidateResult validate(@RequestParam String expression, @RequestParam int timeZoneOffset) {
+        try {
+            ZoneOffset zoneOffset = ZoneOffset.ofHours(timeZoneOffset);
+            TimeZone timeZone = TimeZone.getTimeZone(zoneOffset.getId());
+            CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator(expression);
+            Date nextDate = cronSequenceGenerator.next(new Date());
+            return CronExpressionValidateResult.validExpression(expression, nextDate);
+        } catch (Exception e) {
+            return CronExpressionValidateResult.wrongExpression(expression);
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.vyukov.bakapa.admin.controller.SuperUITest;
 import ru.vyukov.bakapa.admin.controller.pages.AgentsPage;
 import ru.vyukov.bakapa.admin.controller.pages.DatabaseEditBackupTargetPage;
+import ru.vyukov.bakapa.admin.controller.pages.EditTargetPage;
 import ru.vyukov.bakapa.admin.controller.pages.FilesystemEditBackupTargetPage;
 import sun.management.resources.agent;
 
@@ -19,10 +20,22 @@ public class EditBackupTargetControllerTest extends SuperUITest {
         AgentsPage agentsPage = open("/agents/", AgentsPage.class);
         DatabaseEditBackupTargetPage editPage = agentsPage.firstAgentDropDownItemClick("Database", DatabaseEditBackupTargetPage.class);
 
-        editPage.password().sendKeys("keys");
+
+        testTriggerPreview(editPage);
+
+        editPage.password("keys");
         editPage.excludedTables().setValue("table1,table1").submit();
 
+
         editPage.successAlertShouldHave("Successfully saved");
+    }
+
+    private void testTriggerPreview(EditTargetPage editPage) {
+        editPage.setCronExpression("0 0 0 * *");
+        editPage.cronExpressionValidateResult().shouldBe(text("Wrong expression"));
+
+        editPage.setCronExpression("0 0 0 * * *");
+        editPage.cronExpressionValidateResult().shouldHave(text("Next execution"));
     }
 
     @Test
@@ -31,6 +44,8 @@ public class EditBackupTargetControllerTest extends SuperUITest {
         FilesystemEditBackupTargetPage editPage = agentsPage.firstAgentDropDownItemClick("Filesystem", FilesystemEditBackupTargetPage.class);
 
         editPage.path().setValue("/etc/test/");
+
+        testTriggerPreview(editPage);
 
         editPage.saveButton().click();
 

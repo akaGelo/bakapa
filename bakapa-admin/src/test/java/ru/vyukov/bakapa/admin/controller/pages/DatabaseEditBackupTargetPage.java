@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class DatabaseEditBackupTargetPage extends MainLayout {
+public class DatabaseEditBackupTargetPage extends EditTargetPage {
     public SelenideElement password() {
         return $("#userCredentials\\.password");
     }
@@ -15,5 +15,10 @@ public class DatabaseEditBackupTargetPage extends MainLayout {
 
     public SelenideElement saveButton() {
         return $("#saveButton");
+    }
+
+
+    public void password(String value) {
+        password().setValue(value);
     }
 }

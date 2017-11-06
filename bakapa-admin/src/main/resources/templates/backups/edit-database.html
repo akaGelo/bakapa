@@ -181,11 +181,10 @@
 
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div th:replace="backups/edit-filesystem :: trigger-form-group"
+                                                 class="form-group">
                                                 <label>Trigger</label>
-                                                <input th:field="*{trigger}" type="text"
-                                                       class="form-control border-input"
-                                                       placeholder="/etc/nginx/"/>
+                                                <p>replace</p>
                                             </div>
                                         </div>
                                     </div>
