@@ -1,17 +1,17 @@
 package ru.vyukov.bakapa.admin.service.agents.backups;
 
+import org.springframework.stereotype.Component;
 import ru.vyukov.bakapa.domain.BackupTargetType;
 import ru.vyukov.bakapa.dto.agent.AgentDTO;
-import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
-import ru.vyukov.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
-import ru.vyukov.bakapa.dto.backups.FilesystemBackupTargetDTO;
-import org.springframework.stereotype.Component;
+import ru.vyukov.bakapa.dto.backups.target.SummaryBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.FilesystemBackupTargetDTO;
 
 @Component
 public class BackupTargetsFactoryImpl implements BackupTargetsFactory {
 
     @Override
-    public AbstractBackupTargetDTO newInstance(AgentDTO agent, BackupTargetType type) {
+    public SummaryBackupTargetDTO newInstance(AgentDTO agent, BackupTargetType type) {
         switch (type) {
             case MYSQL:
                 return DatabaseBackupTargetDTO.localhostMysql();

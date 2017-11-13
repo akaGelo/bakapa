@@ -83,3 +83,18 @@
 	color: red;
 	font-size: 1em;
 }
+
+.pagination li a{
+	border-radius: 26px;
+
+}
+
+.pagination li:first-child a{
+	border-top-left-radius: 26px;
+	border-bottom-left-radius: 26px;
+}
+.pagination li:last-child a{
+	border-top-right-radius: 26px;
+	border-bottom-right-radius: 26px;
+}
+

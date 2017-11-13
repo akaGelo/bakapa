@@ -2,9 +2,11 @@ package ru.vyukov.bakapa.controller.service.backupstargets;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
-import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.repo.BackupsTargetsRepository;
 
 import java.util.List;
@@ -23,7 +25,13 @@ public class BackupsTargetsServiceImpl implements BackupsTargetsService {
 
     @Override
     public List<AbstractBackupTarget> getBackupsTargets() {
-        return backupsTargetsRepository.findAll();
+        return backupsTargetsRepository.findAllByOrderByBackupTargetIdAsc();
+    }
+
+
+    @Override
+    public Page<AbstractBackupTarget> getBackupsTargets(Pageable pageable) {
+        return backupsTargetsRepository.findAllByOrderByBackupTargetIdAsc(pageable);
     }
 
     @Override
@@ -49,10 +57,10 @@ public class BackupsTargetsServiceImpl implements BackupsTargetsService {
     @Override
     public AbstractBackupTarget getBackupTarget(Agent agent, String backupTargetId) throws BackupTargetNotFoundException {
         AbstractBackupTarget backupTarget = getBackupTarget(backupTargetId);
-        if (backupTarget.getAgent().equals(agent)){
+        if (backupTarget.getAgent().equals(agent)) {
             return backupTarget;
         }
-        throw new BackupTargetNotFoundException(agent,backupTargetId);
+        throw new BackupTargetNotFoundException(agent, backupTargetId);
     }
 
     @Override

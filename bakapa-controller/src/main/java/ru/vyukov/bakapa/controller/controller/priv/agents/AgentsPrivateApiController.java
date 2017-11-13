@@ -9,7 +9,7 @@ import ru.vyukov.bakapa.controller.controller.priv.SuperPrivateController;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
-import ru.vyukov.bakapa.controller.domain.agent.Agent.Credentials;
+import ru.vyukov.bakapa.controller.domain.View.Credentials;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;

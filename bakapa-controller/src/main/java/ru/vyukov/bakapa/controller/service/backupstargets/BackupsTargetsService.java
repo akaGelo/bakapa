@@ -1,7 +1,9 @@
 package ru.vyukov.bakapa.controller.service.backupstargets;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
-import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ public interface BackupsTargetsService {
      * @return
      */
     List<AbstractBackupTarget> getBackupsTargets();
+
+    Page<AbstractBackupTarget> getBackupsTargets(Pageable pageable);
 
     List<AbstractBackupTarget> getBackupsTargets(Agent agent);
 

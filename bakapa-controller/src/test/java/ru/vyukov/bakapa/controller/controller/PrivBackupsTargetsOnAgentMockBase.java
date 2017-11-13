@@ -7,13 +7,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.vyukov.bakapa.controller.controller.priv.BackupsTargetsOnAgentPrivateApiController;
 import ru.vyukov.bakapa.controller.controller.superbase.AbstractMockMcvControllerTest;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
-import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
-import ru.vyukov.bakapa.controller.domain.backup.database.DatabaseBackupTarget;
-import ru.vyukov.bakapa.controller.domain.backup.FilesystemBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.target.database.DatabaseBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.target.FilesystemBackupTarget;
 import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
 import ru.vyukov.bakapa.controller.service.agents.AgentsService;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupTargetNotFoundException;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
+import ru.vyukov.bakapa.controller.service.scheduler.BackupSchedulerService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,11 +24,14 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = BackupsTargetsOnAgentPrivateApiController.class)
-public class PrivBackupsTargetsOnAgentMockBase extends AbstractMockMcvControllerTest {
+abstract public class PrivBackupsTargetsOnAgentMockBase extends AbstractMockMcvControllerTest {
 
 
     @MockBean
     private BackupsTargetsService backupsTargetsService;
+
+    @MockBean
+    private BackupSchedulerService backupSchedulerService;
 
     @MockBean
     private AgentsService agentsService;
@@ -39,7 +43,6 @@ public class PrivBackupsTargetsOnAgentMockBase extends AbstractMockMcvController
         when(backupsTargetsService.getBackupsTargets(any(Agent.class))).thenAnswer((inv) -> testBackupTargets(inv));
         when(backupsTargetsService.getBackupTarget(any(Agent.class), anyString())).thenAnswer((inv) -> testBackupTarget(inv));
     }
-
 
 
     private AbstractBackupTarget testBackupTarget(InvocationOnMock inv) {

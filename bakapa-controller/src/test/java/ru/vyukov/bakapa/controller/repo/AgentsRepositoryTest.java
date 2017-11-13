@@ -15,11 +15,8 @@ import ru.vyukov.bakapa.controller.domain.agent.Agent;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@Import({MongoDbConfig.class, ValidationAutoConfiguration.class})
-@DataMongoTest
-@ActiveProfiles("test")
-public class AgentsRepositoryTest {
+
+public class AgentsRepositoryTest extends SuperRepoTest {
 
     @Autowired
     private AgentsRepository agentsRepository;
@@ -48,5 +45,9 @@ public class AgentsRepositoryTest {
 
     static public Agent saveAgent(AgentsRepository agentsRepository, Agent agent) {
         return agentsRepository.save(agent);
+    }
+
+    public static Agent demo(AgentsRepository agentsRepository) {
+        return agentsRepository.save(Agent.demo("testAgent"));
     }
 }

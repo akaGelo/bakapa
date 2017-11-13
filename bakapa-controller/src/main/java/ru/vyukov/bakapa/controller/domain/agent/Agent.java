@@ -10,6 +10,8 @@ import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.vyukov.bakapa.controller.domain.View;
+import ru.vyukov.bakapa.controller.domain.View.Credentials;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 
@@ -35,14 +37,6 @@ public class Agent implements UserDetails, CredentialsContainer {
             .singletonList(new SimpleGrantedAuthority("ROLE_AGENT"));
 
 
-    /**
-     * View for new Agent
-     */
-    public interface Credentials extends Full {  };
-
-
-
-
     @Id
     @NotNull
     @NotEmpty
@@ -64,7 +58,7 @@ public class Agent implements UserDetails, CredentialsContainer {
     public static Agent newAgent(String agentId) {
         Objects.requireNonNull(agentId);
         String password = UUID.randomUUID().toString();
-        Agent agent = new Agent(agentId,password, now(),null);
+        Agent agent = new Agent(agentId, password, now(), null);
         return agent;
     }
 
@@ -113,11 +107,12 @@ public class Agent implements UserDetails, CredentialsContainer {
 
     /**
      * For tests
+     *
      * @param agentId
      * @return
      */
     public static Agent demo(String agentId) {
 
-        return new Agent(agentId, agentId, now(),"for tests");
+        return new Agent(agentId, agentId, now(), "for tests");
     }
 }

@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(controllers = AgentsPrivateApiController.class)
 @Import(SecurityConfig.class)
 @ContextConfiguration(classes = BakapaControllerApplication.class)
-public class PrivAgentsBase {
+abstract public class PrivAgentsBase {
 
     @MockBean
     private AgentsService agentsService;

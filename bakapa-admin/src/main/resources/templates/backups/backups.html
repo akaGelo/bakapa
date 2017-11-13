@@ -1,21 +1,22 @@
-
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.thymeleaf.org"  layout:decorator="main-layout">
+      xmlns:layout="http://www.thymeleaf.org" layout:decorator="main-layout">
 <head>
     <title>Backups</title>
 
 
     <meta th:remove="all" charset="utf-8"/>
     <meta th:remove="all" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta th:remove="all" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta th:remove="all" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+          name='viewport'/>
     <meta th:remove="all" name="viewport" content="width=device-width"/>
     <link th:remove="all" href="../../static/assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link th:remove="all" href="../../static/assets/css/animate.min.css" rel="stylesheet"/>
     <link th:remove="all" href="../../static/assets/css/paper-dashboard.css"
           rel="stylesheet"/>
     <link th:remove="all" href="../../static/assets/css/demo.css" rel="stylesheet"/>
-    <link th:remove="all" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"/>
+    <link th:remove="all" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+          rel="stylesheet"/>
     <link th:remove="all" href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'/>
     <link th:remove="all" href="../../static/assets/css/themify-icons.css" rel="stylesheet"/>
 
@@ -68,7 +69,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar bar1"></span> <span
                             class="icon-bar bar2"></span> <span class="icon-bar bar3"></span>
                     </button>
-                    <span layout:fragment="navbar-breadcrumbs" class="navbar-brand" > Agents </span>
+                    <span layout:fragment="navbar-breadcrumbs" class="navbar-brand"> Agents </span>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -100,39 +101,42 @@
 
         <div layout:fragment="content" class="content">
             <div class="container-fluid">
-
-
-                <br/><br/>
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header">
-                                <h4 class="title">Backups</h4>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Last size</th>
-                                        <th>Agent</th>
-                                        <th>Next execution</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Radio2</td>
-                                        <td><span class="text-danger">ERROR</span></td>
-                                        <td>Next action</td>
-                                        <td>Agent</td>
-                                        <td>Oud-Turnhout</td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div class="content">
+                                <form th:href="@{.}" th:object="${filter}" method="get">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Filter agents</label>
+                                                <select class="form-control border-input" name="agent"
+                                                        onchange="this.form.submit()">
+                                                    <option value="">All</option>
+                                                    <option th:each="agent : ${agents}" th:field="*{agent}"
+                                                            th:value="${agent.agentId}"
+                                                            th:text="${agent.agentId}">All
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Filter backup target</label>
+                                                <select th:disabled="!${targets}" name="target"
+                                                        class="form-control border-input" onchange="this.form.submit()">
+                                                    <option>All</option>
+                                                    <option
+                                                            th:each="target : ${targets}" th:field="*{target}"
+                                                            th:value="${target.backupTargetId}"
+                                                            th:text="${target.nameReadable}">Test
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
 
                             </div>
                         </div>
@@ -140,6 +144,74 @@
                 </div>
 
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Backups (<span th:if="!${backups.isEmpty()}"> total <span th:text="${backups.totalElements}">30</span></span>)</h4>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <div th:if="${backups.isEmpty()}" class="col-sm-12 col-md-offset-5">
+                                    <h3 class="text-danger">No backups found</h3>
+                                    <div>there will be a picture</div>
+                                    <br/>
+                                </div>
+                                <table th:if="!${backups.isEmpty()}" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Size</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="backup : ${backups}" th:with="backupTarget=${backup.backupTarget}">
+                                        <td>
+                                            <span th:text="${backup.nameReadable}">/etc/nging/</span>
+                                        </td>
+
+                                        <td th:switch="''+${backup.state}">
+                                            <span th:case="'INPROGRESS'" class="text-info">
+                                                <span th:text="${backup.state}">INPROGRESS</span>
+                                                (<span th:text="${backup.durationReadable}">10M</span>)
+                                            </span>
+                                            <span th:case="'SUCCESS'" class="text-success" th:text="${backup.state}">SUCCESS</span>
+                                            <span th:case="'ERROR'" class="text-danger"
+                                                  th:text="${backup.state}">ERROR</span>
+
+                                        </td>
+                                        <td th:text="${backup.sizeReadable}">Oud-Turnhout</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <div th:if="!${backups.isEmpty()}" class="col-sm-12 col-md-offset-4">
+                                    <ul class="pagination">
+
+
+                                        <li th:if="${!backups.hasPrevious()}"><a class="btn disabled ">Previous</a></li>
+
+                                        <li
+                                                th:if="${backups.hasPrevious()}"
+                                                th:with="prevPage=${backups.previousPageable()}">
+                                            <a th:href="@{.(page=${prevPage.pageNumber})}" href="#">Previous</a></li>
+                                        <li><a th:href="@{.(page=${backups.number})}" th:text="${backups.number}"
+                                               href="#">2</a>
+                                        </li>
+                                        <li th:if="${backups.hasNext()}" th:with="nextPage=${backups.nextPageable()}"><a
+                                                th:href="@{.(page=${nextPage.pageNumber})}" href="#">Next</a></li>
+
+                                        <li th:if="${!backups.hasNext()}"><a class="btn disabled ">Next</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

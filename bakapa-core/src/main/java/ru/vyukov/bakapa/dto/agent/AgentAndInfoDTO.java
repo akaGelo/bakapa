@@ -1,5 +1,6 @@
 package ru.vyukov.bakapa.dto.agent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -25,5 +26,8 @@ public class AgentAndInfoDTO {
     @NonNull
     private AgentStatus status;
 
-
+    @JsonIgnore
+    public String getAgentId() {
+        return agent.getAgentId();
+    }
 }

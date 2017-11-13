@@ -20,3 +20,6 @@ spring:
   data:
     mongodb:
       database: bakapa-controller-test
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG

@@ -1,13 +1,7 @@
 package ru.vyukov.bakapa.admin.controller.agents;
 
-import org.springframework.scheduling.support.CronSequenceGenerator;
-import ru.vyukov.bakapa.admin.controller.agents.pojo.CronExpressionValidateResult;
-import ru.vyukov.bakapa.domain.BackupTargetType;
-import ru.vyukov.bakapa.dto.agent.AgentDTO;
-import ru.vyukov.bakapa.dto.backups.AbstractBackupTargetDTO;
-import ru.vyukov.bakapa.dto.backups.database.DatabaseBackupTargetDTO;
-import ru.vyukov.bakapa.dto.backups.FilesystemBackupTargetDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,10 +9,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.vyukov.bakapa.admin.controller.SuperUIController;
+import ru.vyukov.bakapa.admin.controller.agents.pojo.CronExpressionValidateResult;
 import ru.vyukov.bakapa.admin.service.agents.AgentsApiClient;
 import ru.vyukov.bakapa.admin.service.agents.BackupsTargetsApiClient;
 import ru.vyukov.bakapa.admin.service.agents.backups.BackupTargetsFactory;
-import ru.vyukov.bakapa.validators.CronExpression;
+import ru.vyukov.bakapa.domain.BackupTargetType;
+import ru.vyukov.bakapa.dto.agent.AgentDTO;
+import ru.vyukov.bakapa.dto.backups.target.SummaryBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.FilesystemBackupTargetDTO;
 
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -49,14 +48,14 @@ public class EditBackupTargetController extends SuperUIController {
         model.addAttribute("agent", agentsApiClient.getAgent(agentId));
 
         if (!isNewId(backupTargetId)) {
-            AbstractBackupTargetDTO backupTarget = backupsTargetsApiClient.getBackupTarget(agentId, backupTargetId);
+            SummaryBackupTargetDTO backupTarget = backupsTargetsApiClient.getBackupTarget(agentId, backupTargetId);
             model.addAttribute("backupTarget", backupTarget);
         }
     }
 
 
     @GetMapping("/edit/")
-    public String edit(Model model, @ModelAttribute("agent") AgentDTO agent, @ModelAttribute("backupTarget") AbstractBackupTargetDTO abstractBackupTarget) {
+    public String edit(Model model, @ModelAttribute("agent") AgentDTO agent, @ModelAttribute("backupTarget") SummaryBackupTargetDTO abstractBackupTarget) {
         BackupTargetType targetType = abstractBackupTarget.getTargetType();
         String redirectUrl = "redirect:/agents/{agentId}/targets/{backupTargetId}/edit/";
         switch (targetType) {
@@ -85,7 +84,7 @@ public class EditBackupTargetController extends SuperUIController {
         return "backups/edit-filesystem";
     }
 
-    private void addIfAbsent(Model model, Supplier<AbstractBackupTargetDTO> supplier) {
+    private void addIfAbsent(Model model, Supplier<SummaryBackupTargetDTO> supplier) {
         if (!model.containsAttribute("backupTarget")) {
             model.addAttribute("backupTarget", supplier.get());
         }
@@ -116,7 +115,7 @@ public class EditBackupTargetController extends SuperUIController {
     }
 
 
-    private boolean createOrUpdate(@ModelAttribute("agent") AgentDTO agent, AbstractBackupTargetDTO backupTargetDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    private boolean createOrUpdate(@ModelAttribute("agent") AgentDTO agent, SummaryBackupTargetDTO backupTargetDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             dangerMessage(model, bindingResult);
             return false;
@@ -130,7 +129,7 @@ public class EditBackupTargetController extends SuperUIController {
         }
     }
 
-    private boolean isNewId(AbstractBackupTargetDTO abstractBackupTargetDTO) {
+    private boolean isNewId(SummaryBackupTargetDTO abstractBackupTargetDTO) {
         return isNewId(abstractBackupTargetDTO.getBackupTargetId());
     }
 

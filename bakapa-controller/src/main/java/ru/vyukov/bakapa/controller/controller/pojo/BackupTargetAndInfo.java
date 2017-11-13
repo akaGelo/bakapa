@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Builder;
 import lombok.NonNull;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
-import ru.vyukov.bakapa.controller.domain.backup.AbstractBackupTarget;
-import ru.vyukov.bakapa.controller.domain.backup.BackupTargetExecutionInfo;
+import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
+import ru.vyukov.bakapa.controller.domain.backup.target.BackupTargetExecutionInfo;
 
 import javax.validation.constraints.NotNull;
 

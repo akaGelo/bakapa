@@ -17,11 +17,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 
-@RunWith(SpringRunner.class)
-@Import({MongoDbConfig.class, ValidationAutoConfiguration.class})
-@DataMongoTest
-@ActiveProfiles("test")
-public class ConfigsRepositoryTest {
+
+public class ConfigsRepositoryTest extends  SuperRepoTest{
 
 
     @Autowired
