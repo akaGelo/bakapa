@@ -14,11 +14,11 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 public class DashboardControllerIntegrationTest extends SuperUITest {
 
 
-
     @Test
     public void agents() throws Exception {
         open("/");
-        $(".navbar-brand").shouldHave(Condition.text("Agents"));
+        $(".navbar-brand").shouldHave(Condition.text("Dashboard"));
+        //TODO test content
     }
 
 

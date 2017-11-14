@@ -88,7 +88,7 @@ public class BackupSchedulerServiceImplTest {
 
     private Answer<Page<AbstractBackupTarget>> demoTargets(int total) {
         return (inv) -> {
-            Pageable pageable = inv.getArgumentAt(0, Pageable.class);
+            Pageable pageable = inv.getArgument(0);
             int size = pageable.getPageSize();
             int start = pageable.getPageNumber() * size;
             Page<AbstractBackupTarget> page = new PageImpl<AbstractBackupTarget>(demoTargets(start, size), pageable, total);
@@ -98,7 +98,7 @@ public class BackupSchedulerServiceImplTest {
 
     private Answer<Page<AbstractBackupTarget>> demoWrongTargets(int total) {
         return (inv) -> {
-            Pageable pageable = inv.getArgumentAt(0, Pageable.class);
+            Pageable pageable = inv.getArgument(0);
             //for duplicate exception test
             Page<AbstractBackupTarget> page = new PageImpl<AbstractBackupTarget>(demoTargets(0, 10), pageable, total);
             return page;

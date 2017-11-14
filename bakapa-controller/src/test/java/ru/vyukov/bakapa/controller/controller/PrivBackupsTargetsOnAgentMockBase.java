@@ -46,17 +46,17 @@ abstract public class PrivBackupsTargetsOnAgentMockBase extends AbstractMockMcvC
 
 
     private AbstractBackupTarget testBackupTarget(InvocationOnMock inv) {
-        Agent agent = inv.getArgumentAt(0, Agent.class);
+        Agent agent = inv.getArgument(0);
         return DatabaseBackupTarget.demo(agent, 1);
     }
 
     private Agent testAgent(InvocationOnMock invocationOnMock) {
-        String agentId = invocationOnMock.getArgumentAt(0, String.class);
+        String agentId = invocationOnMock.getArgument(0);
         return Agent.demo(agentId);
     }
 
     private List<AbstractBackupTarget> testBackupTargets(InvocationOnMock inv) {
-        Agent agent = inv.getArgumentAt(0, Agent.class);
+        Agent agent = inv.getArgument(0);
         List<AbstractBackupTarget> targets = Arrays.asList(
                 DatabaseBackupTarget.demo(agent, 1),
                 DatabaseBackupTarget.demo(agent, 2),

@@ -8,6 +8,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.web.config.SpringDataWebConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,7 +21,7 @@ import ru.vyukov.bakapa.controller.service.agents.AgentNotFoundException;
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = BakapaControllerApplication.class)
-@Import(WebMvcTestConfig.class)
+@Import({WebMvcTestConfig.class, SpringDataWebConfiguration.class})
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

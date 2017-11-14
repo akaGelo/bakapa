@@ -14,7 +14,7 @@ public class BackupServiceConfigTest {
 	private BackupServiceConfig backupServiceConfig;
 
 	@Test
-	public void testGetBackupPartionSize() throws Exception {
+	public void testGetBackupPartitionSize() throws Exception {
 		backupServiceConfig.setBackupPartionSize("2MB");
 		assertEquals(2 * 1024 * 1024, backupServiceConfig.getBackupPartionSizeInBytes());
 
@@ -24,7 +24,7 @@ public class BackupServiceConfigTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetBackupPartionSizeIllegalFormat() throws Exception {
+	public void testGetBackupPartitionSizeIllegalFormat() throws Exception {
 		backupServiceConfig.setBackupPartionSize("GB");
 	}
 

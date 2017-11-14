@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import ru.vyukov.bakapa.domain.BackupState;
 import ru.vyukov.bakapa.dto.backups.target.FullBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.FilesystemBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.FullFilesystemBackupTargetDTO;
 
 import javax.validation.constraints.NotNull;
 import java.text.DecimalFormat;
@@ -71,8 +74,27 @@ public class BackupDTO {
 
     @JsonIgnore
     public String getNameReadable() {
-        return backupTarget.getAgent().getAgentId() + "->" + backupTarget.getNameReadable();
+        String shortId = StringUtils.substring(backupId, -6);
+        String shortTargetName = StringUtils.abbreviate(backupTarget.getNameReadable(), 15);
+        return backupTarget.getAgent().getAgentId() + "->" + shortTargetName + "->" + shortId;
 
+    }
+
+    @JsonIgnore
+    public String getFullNameReadable() {
+        return backupTarget.getAgent().getAgentId() + "->" + backupTarget.getNameReadable() + "->" + backupId;
+
+    }
+
+
+
+    public static BackupDTO demo(int id) {
+        BackupDTO backupDTO = new BackupDTO();
+        backupDTO.setBackupId("backupId-" + id);
+        backupDTO.setBackupTarget(FullFilesystemBackupTargetDTO.defaultExample());
+        backupDTO.setStartTimestamp(Instant.now());
+        backupDTO.setState(INPROGRESS);
+        return backupDTO;
     }
 
 

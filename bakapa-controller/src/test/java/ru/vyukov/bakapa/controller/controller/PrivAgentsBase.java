@@ -51,7 +51,7 @@ abstract public class PrivAgentsBase {
 
     private void whenAgentService() throws AgentNotFoundException {
         Answer<Object> answer = invocation -> {
-            String agentId = invocation.getArgumentAt(0, String.class);
+            String agentId = invocation.getArgument(0);
             return Agent.newAgent(agentId);
         };
         when(agentsService.newAgent(any(String.class))).then(answer);

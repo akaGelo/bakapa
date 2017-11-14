@@ -50,7 +50,7 @@ public class BackupsServiceImplTest {
 
     @Test
     public void createNewBackup() throws Exception {
-        when(backupRepository.save(any(Backup.class))).then(inv -> inv.getArgumentAt(0, Backup.class));
+        when(backupRepository.save(any(Backup.class))).then(inv -> inv.getArgument(0));
         underTest.createNewBackup(backTarget);
 
         verify(backupRepository).findOneByBackupTargetOrderByStartTimestampAsc(backTarget);
@@ -66,9 +66,9 @@ public class BackupsServiceImplTest {
 
         when(backup.isNotFinished()).thenReturn(true);
         when(backupRepository.findOneByBackupTargetOrderByStartTimestampAsc(backTarget)).thenReturn(backup);
-        when(backupRepository.save(any(Backup.class))).then(inv -> inv.getArgumentAt(0, Backup.class));
+        when(backupRepository.save(any(Backup.class))).then(inv -> inv.getArgument(0));
 
-        when(backupsLogsService.save(any(BackupLogItem.class))).then(inv -> inv.getArgumentAt(0, BackupLogItem.class));
+        when(backupsLogsService.save(any(BackupLogItem.class))).then(inv -> inv.getArgument(0));
 
         try {
             underTest.createNewBackup(backTarget);
@@ -99,7 +99,7 @@ public class BackupsServiceImplTest {
 
         Page<Backup> returnedBackupsPage = underTest.getBackups(agent, pageable);
 
-        assertEquals(backupsPage,returnedBackupsPage);
+        assertEquals(backupsPage, returnedBackupsPage);
     }
 
     private Page<Backup> asPage(Backup backup) {

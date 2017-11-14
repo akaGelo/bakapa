@@ -37,7 +37,7 @@ public class AgentsServiceImplTest {
 	@Test
 	public void testNewAgent() throws Exception {
 		when(agentsRepository.findOne("testAgent")).thenReturn(null);
-		when(agentsRepository.save(any(Agent.class))).then(i -> i.getArgumentAt(0, Agent.class));
+		when(agentsRepository.save(any(Agent.class))).then(i -> i.getArgument(0));
 
 		Agent newAgent = agentsServiceImpl.newAgent("testAgent");
 

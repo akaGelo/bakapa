@@ -18,16 +18,23 @@ public class Page<T> extends PageImpl<T> {
             @JsonProperty("size") Integer size,
             @JsonProperty("content") List<T> content) {
         super(content, newPageable(number, size), totalElements);
-
     }
+
 
     private static Pageable newPageable(Integer number, Integer size) {
         return new PageRequest(number, size);
     }
 
 
-    public boolean isEmpty(){
-        return getContent().isEmpty();
+    public boolean isEmpty() {
+        List<T> content = getContent();
+        return null == content || content.isEmpty();
     }
+
+
+    public long getLastPage() {
+        return getTotalElements() / getSize();
+    }
+
 
 }

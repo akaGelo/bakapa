@@ -19,10 +19,11 @@ import ru.vyukov.bakapa.controller.service.backups.BackupsService;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupTargetNotFoundException;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
 
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @RestController
-@RequestMapping("private/backups")
+@RequestMapping("/private/backups")
 public class BackupsPrivateApiController extends SuperPrivateController {
 
 
@@ -38,7 +39,7 @@ public class BackupsPrivateApiController extends SuperPrivateController {
 
     @GetMapping("/")
     @JsonView(Full.class)
-    public Page<Backup> getBackups(@SortDefault(value = "startDate", direction = DESC) Pageable pageable,
+    public Page<Backup> getBackups(@SortDefault(value = "startTimestamp", direction = DESC) Pageable pageable,
                                    @RequestParam(value = "agent", required = false) String agentId,
                                    @RequestParam(value = "backupTarget", required = false) String targetId) throws AgentNotFoundException, BackupTargetNotFoundException {
 

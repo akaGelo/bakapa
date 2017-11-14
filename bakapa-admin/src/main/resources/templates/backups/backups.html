@@ -69,7 +69,7 @@
                         <span class="sr-only">Toggle navigation</span> <span class="icon-bar bar1"></span> <span
                             class="icon-bar bar2"></span> <span class="icon-bar bar3"></span>
                     </button>
-                    <span layout:fragment="navbar-breadcrumbs" class="navbar-brand"> Agents </span>
+                    <span layout:fragment="navbar-breadcrumbs" class="navbar-brand"> Backups </span>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -148,19 +148,23 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Backups (<span th:if="!${backups.isEmpty()}"> total <span th:text="${backups.totalElements}">30</span></span>)</h4>
+                                <h4 class="title">Backups (<span th:if="!${backups.isEmpty()}"> total <span
+                                        th:text="${backups.totalElements}">30</span></span>)</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <div th:if="${backups.isEmpty()}" class="col-sm-12 col-md-offset-5">
+                                <div th:if="${backups.isEmpty()}" id="no-backups-message"
+                                     class="col-sm-12 col-md-offset-5">
                                     <h3 class="text-danger">No backups found</h3>
                                     <div>there will be a picture</div>
                                     <br/>
                                 </div>
-                                <table th:if="!${backups.isEmpty()}" class="table table-striped">
+                                <table th:fragment="backups-table" id="backups-table" th:if="!${backups.isEmpty()}"
+                                       class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Status</th>
+                                        <th>Started at</th>
                                         <th>Size</th>
                                         <th></th>
                                     </tr>
@@ -168,10 +172,11 @@
                                     <tbody>
                                     <tr th:each="backup : ${backups}" th:with="backupTarget=${backup.backupTarget}">
                                         <td>
-                                            <span th:text="${backup.nameReadable}">/etc/nging/</span>
+                                            <a th:href="@{/backups/{backupId}/(backupId=${backup.backupId})}"
+                                               th:title="${backup.fullNameReadable}" th:text="${backup.nameReadable}">/etc/nging/</a>
                                         </td>
 
-                                        <td th:switch="''+${backup.state}">
+                                        <td th:switch="''+${backup.state}" class="backupState">
                                             <span th:case="'INPROGRESS'" class="text-info">
                                                 <span th:text="${backup.state}">INPROGRESS</span>
                                                 (<span th:text="${backup.durationReadable}">10M</span>)
@@ -179,7 +184,10 @@
                                             <span th:case="'SUCCESS'" class="text-success" th:text="${backup.state}">SUCCESS</span>
                                             <span th:case="'ERROR'" class="text-danger"
                                                   th:text="${backup.state}">ERROR</span>
-
+                                        </td>
+                                        <!--https://github.com/thymeleaf/thymeleaf-extras-java8time/issues/17-->
+                                        <td th:text="${#instant.formatInstant(backup.startTimestamp ,'yyyy-MM-dd hh:mm')}">
+                                            2018-01-02 10:00:01
                                         </td>
                                         <td th:text="${backup.sizeReadable}">Oud-Turnhout</td>
                                         <td></td>
@@ -191,20 +199,32 @@
                                 <div th:if="!${backups.isEmpty()}" class="col-sm-12 col-md-offset-4">
                                     <ul class="pagination">
 
+                                        <li><a th:if="${backups.hasPrevious()}" th:href="@{.(page=0)}"
+                                               class="btn">0</a></li>
 
-                                        <li th:if="${!backups.hasPrevious()}"><a class="btn disabled ">Previous</a></li>
+                                        <li th:if="${!backups.hasPrevious()}"><a id="pagination-previous"
+                                                                                 class="btn disabled ">Previous</a></li>
 
-                                        <li
-                                                th:if="${backups.hasPrevious()}"
-                                                th:with="prevPage=${backups.previousPageable()}">
-                                            <a th:href="@{.(page=${prevPage.pageNumber})}" href="#">Previous</a></li>
-                                        <li><a th:href="@{.(page=${backups.number})}" th:text="${backups.number}"
+                                        <li th:if="${backups.hasPrevious()}"
+                                            th:with="prevPage=${backups.previousPageable()}">
+                                            <a id="pagination-previous" th:href="@{.(page=${prevPage.pageNumber})}"
+                                               href="#">Previous</a></li>
+
+                                        <li><a>...</a></li>
+                                        <li><a id="pagination-current-page" th:href="@{.(page=${backups.number})}" th:text="${backups.number}"
                                                href="#">2</a>
                                         </li>
+                                        <li><a>...</a></li>
                                         <li th:if="${backups.hasNext()}" th:with="nextPage=${backups.nextPageable()}"><a
+                                                id="pagination-next"
                                                 th:href="@{.(page=${nextPage.pageNumber})}" href="#">Next</a></li>
 
-                                        <li th:if="${!backups.hasNext()}"><a class="btn disabled ">Next</a></li>
+                                        <li th:if="${!backups.hasNext()}"><a id="pagination-next" class="btn disabled ">Next</a>
+                                        </li>
+                                        <li><a th:if="${backups.hasNext()}" th:href="@{.(page=${backups.lastPage})}"
+                                               th:text="${backups.lastPage}"
+                                               class="btn">10</a></li>
+
                                     </ul>
                                 </div>
                                 <div class="clearfix"></div>

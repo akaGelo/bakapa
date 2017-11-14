@@ -17,4 +17,8 @@ public class Filter {
     public boolean agentFilter() {
         return null != agent;
     }
+
+    public static Filter empty() {
+        return new Filter();
+    }
 }

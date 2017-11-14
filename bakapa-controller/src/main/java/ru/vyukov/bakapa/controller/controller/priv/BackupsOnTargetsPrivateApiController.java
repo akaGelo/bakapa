@@ -41,7 +41,7 @@ public class BackupsOnTargetsPrivateApiController extends SuperPrivateController
 
     @GetMapping("/backups/")
     public Page<Backup> getBackups(@ModelAttribute AbstractBackupTarget backupTarget,
-                                   @SortDefault(value = "startDate", direction = DESC) Pageable pageable) {
+                                   @SortDefault(value = "startTimestamp", direction = DESC) Pageable pageable) {
 
         return backupsService.getBackups(backupTarget,pageable);
     }

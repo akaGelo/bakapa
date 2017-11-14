@@ -19,7 +19,9 @@
         <spring-cloud-contract.version>1.1.4.RELEASE</spring-cloud-contract.version>
 
         <lombok.version>1.16.18</lombok.version>
-        <spring-cloud-contract-expattern.version>0.2</spring-cloud-contract-expattern.version>
+        <spring-cloud-contract-expattern.version>0.3-SNAPSHOT</spring-cloud-contract-expattern.version>
+
+        <mockito.version>2.12.0</mockito.version>
     </properties>
 
     <dependencies>
@@ -71,6 +73,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
+            <version>${mockito.version}</version>
         </dependency>
     </dependencies>
 
@@ -80,6 +83,7 @@
         <module>bakapa-agent</module>
         <module>bakapa-controller</module>
         <module>bakapa-admin</module>
+        <module>docs</module>
     </modules>
 
 
@@ -113,4 +117,19 @@
 
         </dependencies>
     </dependencyManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.agilejava.docbkx</groupId>
+                    <artifactId>docbkx-maven-plugin</artifactId>
+                    <version>2.0.15</version>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
 </project>
