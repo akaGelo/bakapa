@@ -3,10 +3,12 @@ package ru.vyukov.bakapa.agent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import static org.apache.commons.lang3.SystemUtils.IS_OS_LINUX;
 import static org.apache.commons.lang3.SystemUtils.OS_ARCH;
 
+@EnableScheduling
 @Slf4j
 @SpringBootApplication
 public class BakapaAgentApplication {

@@ -10,9 +10,10 @@ import org.springframework.stereotype.Controller;
 @Slf4j
 public class GreetingController {
     @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public Greeting greeting(HelloMessage message) throws Exception {
-        log.info("Received hello: {}", message.getName());
-        return new Greeting("Hello, " + message.getName() + "!");
+//    @SendTo("/topic/greetings")
+    public void greeting(String message) throws Exception {
+        log.info("Received hello: {}", message);
+//        return new Greeting("Hello, " + message.getName() + "!");
+
     }
 }

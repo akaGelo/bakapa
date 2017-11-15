@@ -4,7 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-public class StomSubsribeAnnotationBeanPostProcessorTest {
+public class StompSubscribeAnnotationBeanPostProcessorTest {
 
 	@Test
 	public void testPostProcessBeforeInitialization() throws Exception {

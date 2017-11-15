@@ -9,24 +9,21 @@ import ru.vyukov.bakapa.controller.Greeting;
 import java.security.Principal;
 
 /**
- * 
  * @author gelo
- *
  */
 @RestController
 public class HealthController {
 
-	@Autowired
-	private SimpMessageSendingOperations messageSendingOperations;
+    @Autowired
+    private SimpMessageSendingOperations messageSendingOperations;
 
-	@MessageMapping("/health")
-	// @SendTo("/topic/greetings")
-	public void getCredentials(Principal principal, Greeting greeting) {
-		System.err.println(greeting);
-		// return new Greeting("test");
-		messageSendingOperations.convertAndSendToUser(principal.getName(), "/topic/greetings", new Greeting("test"));
-		// messageSendingOperations.convertAndSend("/user/test/topic/greetings", new
-		// Greeting("test"));
-	}
+    @MessageMapping("/health")
+    public void getCredentials(Principal principal, String  payload) {
+        System.err.println(payload);
+        // return new Greeting("test");
+//		messageSendingOperations.convertAndSendToUser(principal.getName(), "/topic/greetings", new Greeting("test"));
+        // messageSendingOperations.convertAndSend("/user/test/topic/greetings", new
+        // Greeting("test"));
+    }
 
 }

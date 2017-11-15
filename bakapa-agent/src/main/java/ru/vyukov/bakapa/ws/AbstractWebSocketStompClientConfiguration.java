@@ -1,67 +1,73 @@
 package ru.vyukov.bakapa.ws;
 
-import lombok.Data;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.converter.MessageConverter;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
-import org.springframework.stereotype.Component;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.messaging.WebSocketStompClient;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * Extends for use
- * @author gelo
  *
+ * @author gelo
  */
-public abstract class AbstractWebSocketStompClientConfiguration {
+@Configuration
+public class AbstractWebSocketStompClientConfiguration {
 
-	@Data
-	@ConfigurationProperties("admin.ws")
-	@Component
-	public static class WebSocketStompClientProperties {
-		@NotNull
-		private String url;
 
-	}
+    @Bean
+    @ConfigurationProperties("controller")
+    public WebSocketStompClientProperties wsConfig() {
+        return new WebSocketStompClientProperties();
+    }
 
-	@Bean
-	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-	StomSubsribeAnnotationBeanPostProcessor stomSubsribeAnnotationBeanPostProcessor() {
-		return new StomSubsribeAnnotationBeanPostProcessor();
-	}
+    @Bean
+    SimpMessagingTemplate simpMessagingTemplate() {
+        SimpMessagingTemplate simpMessagingTemplate = new SimpMessagingTemplate(stompMessageChannel());
+        simpMessagingTemplate.setMessageConverter(messageConverter());
+        return simpMessagingTemplate;
+    }
 
-	@Bean
-	WebSocketStompClient webSocketClient(WebSocketStompClientProperties clientProperties) {
-		WebSocketClient webSocketClient = new StandardWebSocketClient();
-		WebSocketStompClient stompClient = new ReconectableWebSocketStompClient(webSocketClient, taskScheduler(),
-				5_000);
-		stompClient.setMessageConverter(messageConverter());
-		stompClient.connect(clientProperties.getUrl(), sessionHandler());
-		return stompClient;
-	}
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    StompSubscribeAnnotationBeanPostProcessor stompSubsribeAnnotationBeanPostProcessor() {
+        return new StompSubscribeAnnotationBeanPostProcessor();
+    }
 
-	@Bean
-	StompSessionHandler sessionHandler() {
-		StompSessionHandler sessionHandler = new SubscribeMethodsInvokerSessionHandler();
-		return sessionHandler;
-	}
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    StompMessageChannel stompMessageChannel() {
+        WebSocketClient webSocketClient = new StandardWebSocketClient();
 
-	@Bean
-	TaskScheduler taskScheduler() {
-		return new ConcurrentTaskScheduler();
-	}
+        ConnectConfig config = new ConnectConfig(wsConfig(), sessionHandler());
+        StompMessageChannel stompMessageChannel = new StompMessageChannel(webSocketClient, taskScheduler(), messageConverter(), config);
 
-	@Bean
-	MessageConverter messageConverter() {
-		return new MappingJackson2MessageConverter();
-	}
+        return stompMessageChannel;
+    }
+
+    @Bean
+    StompSessionHandler sessionHandler() {
+        StompSessionHandler sessionHandler = new SubscribeMethodsInvokerSessionHandler();
+        return sessionHandler;
+    }
+
+    @Bean
+    TaskScheduler taskScheduler() {
+        return new ConcurrentTaskScheduler();
+    }
+
+    @Bean
+    MessageConverter messageConverter() {
+        MappingJackson2MessageConverter mappingJackson2MessageConverter = new MappingJackson2MessageConverter();
+        return mappingJackson2MessageConverter;
+    }
+
+
 }
