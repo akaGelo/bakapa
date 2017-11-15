@@ -71,7 +71,11 @@ abstract public class AbstractBackupTarget {
     public abstract AbstractBackupTarget agent(Agent agent);
 
     public static AbstractBackupTarget demo(Agent agent) {
-        return FilesystemBackupTarget.demo(agent, 1);
+        return demo(agent,1);
+    }
+
+    public static AbstractBackupTarget demo(Agent agent,int id) {
+        return FilesystemBackupTarget.demo(agent, id);
     }
 
     public static AbstractBackupTarget demo() {

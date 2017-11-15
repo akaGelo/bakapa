@@ -35,6 +35,8 @@ abstract public class AbstractIntegrationTest extends SuperControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    protected Agent agent;
+
 
     @Before
     public void setupMockMvc() throws AgentNotFoundException {
@@ -44,9 +46,9 @@ abstract public class AbstractIntegrationTest extends SuperControllerTest {
 
     @Before
     public void setupTestAgent() {
-        Agent agent = agentsRepository.findOne(TEST_AGENT_ID);
+        agent = agentsRepository.findOne(TEST_AGENT_ID);
         if (null == agent) {
-            agentsRepository.save(Agent.demo(TEST_AGENT_ID));
+            agent = agentsRepository.save(Agent.demo(TEST_AGENT_ID));
         }
     }
 }

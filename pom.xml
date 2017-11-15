@@ -24,6 +24,35 @@
         <mockito.version>2.12.0</mockito.version>
     </properties>
 
+
+    <repositories>
+        <repository>
+            <id>sonatype-sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+
+    </pluginRepositories>
+
+
     <dependencies>
 
         <dependency>
@@ -59,7 +88,6 @@
         <dependency>
             <groupId>ru.vyukov</groupId>
             <artifactId>spring-cloud-contract-expattern</artifactId>
-            <version>${spring-cloud-contract-expattern.version}</version>
             <scope>test</scope>
         </dependency>
 
