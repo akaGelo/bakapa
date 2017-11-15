@@ -34,6 +34,7 @@ public class EditBackupTargetControllerTest extends SuperUITest {
         editPage.setCronExpression("0 0 0 * *");
         editPage.cronExpressionValidateResult().shouldBe(text("Wrong expression"));
 
+
         editPage.setCronExpression("0 0 0 * * *");
         editPage.cronExpressionValidateResult().shouldHave(text("Next execution"));
     }

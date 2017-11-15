@@ -8,9 +8,8 @@ import static com.codeborne.selenide.Selenide.$;
 abstract public class EditTargetPage extends MainLayout {
 
     public void setCronExpression(String value) {
-        cronExpression().setValue(value);
-        cronExpression().sendKeys(Keys.SPACE);
-        cronExpression().sendKeys(Keys.BACK_SPACE);
+        cronExpression().clear();
+        cronExpression().sendKeys(value);
     }
 
     public SelenideElement cronExpression() {

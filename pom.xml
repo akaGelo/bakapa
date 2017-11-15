@@ -19,7 +19,7 @@
         <spring-cloud-contract.version>1.1.4.RELEASE</spring-cloud-contract.version>
 
         <lombok.version>1.16.18</lombok.version>
-        <spring-cloud-contract-expattern.version>0.3-SNAPSHOT</spring-cloud-contract-expattern.version>
+        <spring-cloud-contract-expattern.version>0.3.1-SNAPSHOT</spring-cloud-contract-expattern.version>
 
         <mockito.version>2.12.0</mockito.version>
     </properties>
@@ -47,6 +47,7 @@
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
             </snapshots>
         </pluginRepository>
 

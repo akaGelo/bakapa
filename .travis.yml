@@ -33,5 +33,5 @@ cache:
   directories:
   - "$HOME/.m2"
 script:
- - mvn install -Dremote="https://${SAUCE_USERNAME}:${SAUCE_ACCESS_KEY}@ondemand.saucelabs.com:443/wd/hub"   -Dcapabilities.browser=firefox  -Dcapabilities.resolution=1366x768 -Dcapabilities.tunnel-identifier=$TRAVIS_JOB_NUMBER
+ - mvn install -Dselenide.timeout=10000 -Dremote="https://${SAUCE_USERNAME}:${SAUCE_ACCESS_KEY}@ondemand.saucelabs.com:443/wd/hub"   -Dcapabilities.browser=firefox  -Dcapabilities.resolution=1366x768 -Dcapabilities.tunnel-identifier=$TRAVIS_JOB_NUMBER
 
