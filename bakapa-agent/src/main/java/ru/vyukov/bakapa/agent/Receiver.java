@@ -1,21 +1,21 @@
 package ru.vyukov.bakapa.agent;
 
-import ru.vyukov.bakapa.ws.StomReceiver;
-import ru.vyukov.bakapa.ws.Subscribe;
+import org.springframework.stereotype.Component;
+import ru.vyukov.stomp.Subscribe;
 
 import javax.annotation.PostConstruct;
 
-@StomReceiver
+@Component
 public class Receiver {
 
-	@PostConstruct
-	public void init() {
-		System.err.println("");
-	}
+    @PostConstruct
+    public void init() {
+        System.err.println("");
+    }
 
-	@Subscribe("/topic/greetings")
-	public void receive(Greeting payload) {
-		System.err.println(payload);
-	}
-	
+    @Subscribe("/topic/greetings")
+    public void receive(Greeting payload) {
+        System.err.println(payload);
+    }
+
 }
