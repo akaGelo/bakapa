@@ -23,7 +23,11 @@ org.springframework.cloud.contract.spec.Contract.make {
                                 createDate: anyIso8601WithOffset(),
                         ],
                         backupsTargetsCount: anyNumber(),
-                        status             : anyOf("OFFLINE", "ONLINE")
+                        status             : anyOf("OFFLINE", "ONLINE"),
+                        health             : [
+                                sla               : anyNumber(),
+                                freeDiskSpaceBytes: anyNumber(),
+                        ]
 
                 ],
                 [
@@ -33,7 +37,11 @@ org.springframework.cloud.contract.spec.Contract.make {
                                 createDate: anyIso8601WithOffset(),
                         ],
                         backupsTargetsCount: anyNumber(),
-                        status             : anyOf("OFFLINE", "ONLINE")
+                        status             : anyOf("OFFLINE", "ONLINE"),
+                        health             : [
+                                sla               : anyNumber(),
+                                freeDiskSpaceBytes: anyNumber(),
+                        ]
                 ]
 
         ])

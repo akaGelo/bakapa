@@ -1,10 +1,10 @@
 package ru.vyukov.bakapa.controller.controller.priv.agents;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import ru.vyukov.bakapa.domain.AgentStatus;
+import ru.vyukov.bakapa.controller.service.agents.ActiveAgentsRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vyukov.bakapa.controller.controller.pojo.AgentAndInfo;
+import ru.vyukov.bakapa.controller.domain.agent.AgentAndInfo;
 import ru.vyukov.bakapa.controller.controller.priv.SuperPrivateController;
 import ru.vyukov.bakapa.controller.domain.View.Full;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
@@ -23,11 +23,14 @@ public class AgentsPrivateApiController extends SuperPrivateController {
 
     private AgentsService agentsService;
 
+    private ActiveAgentsRegistry activeAgentsRegistry;
+
     private BackupsTargetsService backupsTargetsService;
 
     @Autowired
-    public AgentsPrivateApiController(AgentsService agentsService, BackupsTargetsService backupsTargetsService) {
+    public AgentsPrivateApiController(AgentsService agentsService, ActiveAgentsRegistry activeAgentsRegistry, BackupsTargetsService backupsTargetsService) {
         this.agentsService = agentsService;
+        this.activeAgentsRegistry = activeAgentsRegistry;
         this.backupsTargetsService = backupsTargetsService;
     }
 
@@ -37,14 +40,13 @@ public class AgentsPrivateApiController extends SuperPrivateController {
     public List<AgentAndInfo> getAllAgents() {
         List<Agent> allAgents = agentsService.getAllAgents();
 
-        List<AgentAndInfo> agentAndInfo = allAgents.stream().map(a -> {
-            return AgentAndInfo.builder()
-                    .agent(a)
-                    .backupsTargetsCount(backupsTargetsService.getBackupsTargetsCount(a))
-                    .status(AgentStatus.ONLINE)
-                    .build();
-        }).collect(Collectors.toList());
-        return agentAndInfo;
+        return allAgents.stream().map(AgentAndInfo::builder)
+
+                .peek(activeAgentsRegistry::setInfo)
+                .peek(backupsTargetsService::setInfo)
+
+                .map(AgentAndInfo.AgentAndInfoBuilder::build)
+                .collect(Collectors.toList());
     }
 
 

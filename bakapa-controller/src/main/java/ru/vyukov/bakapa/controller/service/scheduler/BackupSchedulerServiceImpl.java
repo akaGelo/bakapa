@@ -5,13 +5,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.Backup;
+import ru.vyukov.bakapa.controller.domain.backup.BackupTask;
 import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
-import ru.vyukov.bakapa.controller.service.agents.AgentsService;
+import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
+import ru.vyukov.bakapa.controller.service.agents.ActiveAgentsRegistry;
 import ru.vyukov.bakapa.controller.service.backups.BackupsService;
 import ru.vyukov.bakapa.controller.service.backups.CreateBackupException;
+import ru.vyukov.bakapa.controller.service.backupsstorage.BackupsStorageService;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
 import ru.vyukov.bakapa.controller.service.scheduler.executor.BackupTaskExecutor;
+import ru.vyukov.bakapa.dto.BackupTaskDTO;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
@@ -27,19 +32,19 @@ public class BackupSchedulerServiceImpl implements BackupSchedulerService {
 
     private final BackupsTargetsService targetsService;
     private final BackupsService backupsService;
-    private final AgentsService agentsService;
+    private final BackupsStorageService backupsStorageService;
+    private final ActiveAgentsRegistry agentsRegistry;
 
-    /**
-     * All modifying operations must be performed through the executor. This will avoid errors in the future, leading all modifications to one thread.
-     */
+
     private BackupTaskExecutor taskScheduler;
 
     private Map<AbstractBackupTarget, ScheduledFuture<?>> tasks = new ConcurrentHashMap<>();
 
-    public BackupSchedulerServiceImpl(BackupsTargetsService backupsTargetsService, BackupsService backupsService, AgentsService agentsService, BackupTaskExecutor taskScheduler) {
+    public BackupSchedulerServiceImpl(BackupsTargetsService backupsTargetsService, BackupsService backupsService, BackupsStorageService backupsStorageService, ActiveAgentsRegistry agentsRegistry, BackupTaskExecutor taskScheduler) {
         this.targetsService = backupsTargetsService;
         this.backupsService = backupsService;
-        this.agentsService = agentsService;
+        this.backupsStorageService = backupsStorageService;
+        this.agentsRegistry = agentsRegistry;
         this.taskScheduler = taskScheduler;
     }
 
@@ -86,9 +91,15 @@ public class BackupSchedulerServiceImpl implements BackupSchedulerService {
             Backup backup = null;
             try {
                 backup = backupsService.createNewBackup(backupTarget);
-                
                 // no error backups
-                agentsService.startBackup(backup);
+                Agent agent = backupTarget.getAgent();
+                StorageConfig storage = backupsStorageService.getStorage();
+                BackupTask backupTask = new BackupTask(backup.getBackupId(), backup.getBackupTarget(), storage);
+                if (!agentsRegistry.startBackup(backupTask, agent)) {
+                    //TODO add log of agent offline
+                    //TODO set error result
+                    //backupsService.
+                }
             } catch (CreateBackupException e) {
                 log.warn("start backup problem", e);
             }

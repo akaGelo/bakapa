@@ -1,0 +1,29 @@
+server:
+  port: -1
+spring:
+  jmx:
+    enabled: false
+
+
+stomp:
+  client:
+    url: ws://127.0.0.1:8080/public/websocket
+    basic-auth:
+      username: agent1
+      password: cc711bd6-7373-4f89-ba5b-3f4cfd694d36
+
+backup:
+  backup-partition-size: 1GB
+
+
+
+
+---
+spring:
+  profiles: test
+
+scheduling:
+  enabled: false
+stomp:
+  client:
+    enabled: false

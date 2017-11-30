@@ -3,6 +3,7 @@ package ru.vyukov.bakapa.controller.domain.agent;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,6 +22,7 @@ import java.util.*;
 
 import static java.time.Instant.now;
 
+
 /**
  * Backup agents
  *
@@ -29,6 +31,7 @@ import static java.time.Instant.now;
 @Data
 @AllArgsConstructor
 @Document(collection = "agents")
+@EqualsAndHashCode(of = "agentId")
 public class Agent implements UserDetails, CredentialsContainer {
 
     private static final long serialVersionUID = -5472269654731046147L;

@@ -11,7 +11,6 @@ import static org.apache.commons.lang3.SystemUtils.OS_ARCH;
 
 @Slf4j
 @EnableStompClient
-@EnableScheduling
 @SpringBootApplication
 public class BakapaAgentApplication {
 

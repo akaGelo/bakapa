@@ -4,33 +4,34 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+import ru.vyukov.bakapa.agent.service.backup.BackupServiceConfig;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BackupServiceConfigTest {
 
-	@InjectMocks
-	private BackupServiceConfig backupServiceConfig;
+    @InjectMocks
+    private BackupServiceConfig backupServiceConfig;
 
-	@Test
-	public void testGetBackupPartitionSize() throws Exception {
-		backupServiceConfig.setBackupPartionSize("2MB");
-		assertEquals(2 * 1024 * 1024, backupServiceConfig.getBackupPartionSizeInBytes());
+    @Test
+    public void testGetBackupPartitionSize() throws Exception {
+        backupServiceConfig.setBackupPartitionSize("2MB");
+        assertEquals(2 * 1024 * 1024, backupServiceConfig.getBackupPartitionSizeInBytes());
 
-		//
-		backupServiceConfig.setBackupPartionSize("2GB");
-		assertEquals(2L * 1024 * 1024 * 1024, backupServiceConfig.getBackupPartionSizeInBytes());
-	}
+        //
+        backupServiceConfig.setBackupPartitionSize("2GB");
+        assertEquals(2L * 1024 * 1024 * 1024, backupServiceConfig.getBackupPartitionSizeInBytes());
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetBackupPartitionSizeIllegalFormat() throws Exception {
-		backupServiceConfig.setBackupPartionSize("GB");
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetBackupPartitionSizeIllegalFormat() throws Exception {
+        backupServiceConfig.setBackupPartitionSize("GB");
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetBackupPartionSizeIllegalFormat1() throws Exception {
-		backupServiceConfig.setBackupPartionSize("12.2GB");
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetBackupPartitionSizeIllegalFormat1() throws Exception {
+        backupServiceConfig.setBackupPartitionSize("12.2GB");
+    }
 
 }

@@ -18,7 +18,7 @@ import ru.vyukov.bakapa.dto.backups.target.impl.FilesystemBackupTargetDTO;
         @JsonSubTypes.Type(value = DatabaseBackupTargetDTO.class, name = "MONGODB"),
         @JsonSubTypes.Type(value = DatabaseBackupTargetDTO.class, name = "POSTGRESQL")
 })
-public interface SummaryBackupTargetDTO extends  BackupTarget{
+public interface SummaryBackupTargetDTO extends BackupTarget {
 
 
 }

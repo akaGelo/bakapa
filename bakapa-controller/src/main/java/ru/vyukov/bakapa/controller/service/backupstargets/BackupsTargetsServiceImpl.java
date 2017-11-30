@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.vyukov.bakapa.controller.domain.agent.AgentAndInfo;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.repo.BackupsTargetsRepository;
@@ -28,7 +29,6 @@ public class BackupsTargetsServiceImpl implements BackupsTargetsService {
         return backupsTargetsRepository.findAllByOrderByBackupTargetIdAsc();
     }
 
-
     @Override
     public Page<AbstractBackupTarget> getBackupsTargets(Pageable pageable) {
         return backupsTargetsRepository.findAllByOrderByBackupTargetIdAsc(pageable);
@@ -39,9 +39,12 @@ public class BackupsTargetsServiceImpl implements BackupsTargetsService {
         return backupsTargetsRepository.findAllByAgent(agent);
     }
 
+
     @Override
-    public int getBackupsTargetsCount(Agent agent) {
-        return 2;
+    public void setInfo(AgentAndInfo.AgentAndInfoBuilder agentAndInfoBuilder) {
+        Agent agent = agentAndInfoBuilder.getAgent();
+        int count = backupsTargetsRepository.countByAgent(agent);
+        agentAndInfoBuilder.backupsTargetsCount(count);
     }
 
     @Override

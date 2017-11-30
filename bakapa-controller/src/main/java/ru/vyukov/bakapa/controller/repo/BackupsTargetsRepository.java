@@ -23,4 +23,6 @@ public interface BackupsTargetsRepository extends CrudRepository<AbstractBackupT
      * @return
      */
     List<AbstractBackupTarget> findAllByOrderByBackupTargetIdAsc();
+
+    int countByAgent(Agent agent);
 }

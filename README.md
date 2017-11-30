@@ -13,6 +13,7 @@ test on edit existed targets
 * mysql
 * mongo
 * postgres
+* http api for backup start (for ansible)
 
 * email notifications
 

@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.controller.controller.pojo;
+package ru.vyukov.bakapa.controller.domain.backup.target;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Builder;

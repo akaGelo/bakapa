@@ -82,6 +82,20 @@ public class BackupsTargetsRepositoryTest extends SuperRepoTest {
         assertEquals(1, size);
     }
 
+
+    @Test
+    public void countByAgent() throws Exception {
+        Agent agentOne = saveAgent(agentsRepository, newAgent("one"));
+        Agent agentTwo = saveAgent(agentsRepository, newAgent("two"));
+        FilesystemBackupTarget bt = FilesystemBackupTarget.demo(agentOne, 2);
+        backupsTargetsRepository.save(bt);
+
+
+        assertEquals(1,backupsTargetsRepository.countByAgent(agentOne));
+        assertEquals(0,backupsTargetsRepository.countByAgent(agentTwo));
+    }
+
+
     public static AbstractBackupTarget demoBackupTarget(BackupsTargetsRepository backupsTargetsRepository, AgentsRepository agentsRepository) {
         Agent agent = AgentsRepositoryTest.demo(agentsRepository);
         return backupsTargetsRepository.save(AbstractBackupTarget.demo(agent));

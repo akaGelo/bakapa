@@ -5,7 +5,7 @@ import ru.vyukov.bakapa.controller.service.scheduler.BackupSchedulerService;
 import ru.vyukov.bakapa.domain.BackupTargetStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vyukov.bakapa.controller.controller.pojo.BackupTargetAndInfo;
+import ru.vyukov.bakapa.controller.domain.backup.target.BackupTargetAndInfo;
 import ru.vyukov.bakapa.controller.domain.View.Summary;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
