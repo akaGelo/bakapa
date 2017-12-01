@@ -1,24 +1,25 @@
 package ru.vyukov.bakapa.fs;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.utils.Sets;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.nio.file.Files.walk;
 import static java.nio.file.Files.walkFileTree;
+import static java.util.Collections.unmodifiableSet;
+import static org.apache.commons.compress.utils.Sets.newHashSet;
 
 /**
+ * Dump directory of single file  to Tar
  * FOLLOW_LINKS
  *
  * @author Oleg Vyukov
@@ -26,13 +27,16 @@ import static java.nio.file.Files.walkFileTree;
 @Slf4j
 public class DirectoryTarDump {
 
-    private final Set<FileVisitOption> fileVisitOptions = Sets.newHashSet(FileVisitOption.FOLLOW_LINKS);
-
+    private final Set<FileVisitOption> fileVisitOptions = unmodifiableSet(newHashSet(FileVisitOption.FOLLOW_LINKS));
 
     private final Path target;
 
     private Thread thread;
 
+
+    public DirectoryTarDump(File target) {
+        this(target.toPath());
+    }
 
     public DirectoryTarDump(Path target) {
         this.target = target;
@@ -52,7 +56,7 @@ public class DirectoryTarDump {
     private Void dump(PipedOutputStream out) throws IOException {
 
         try (TarArchiveOutputStream outputStream = new TarArchiveOutputStream(out)) {
-            walkAllFilesInFolder(outputStream);
+            walkAllFilesInFolderOrSingFile(outputStream);
         }
 
         return null;
@@ -86,8 +90,9 @@ public class DirectoryTarDump {
      * @param outputStream
      * @throws IOException
      */
-    private void walkAllFilesInFolder(TarArchiveOutputStream outputStream) throws IOException {
-        walkFileTree(target, fileVisitOptions, MAX_VALUE, new SimpleFileVisitor<Path>() {
+    private void walkAllFilesInFolderOrSingFile(TarArchiveOutputStream outputStream) throws IOException {
+
+        SimpleFileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                 try {
@@ -100,20 +105,23 @@ public class DirectoryTarDump {
                 }
                 return FileVisitResult.CONTINUE;
             }
-        });
+        };
+
+        if (Files.isDirectory(target)) {
+            walkFileTree(target, fileVisitOptions, MAX_VALUE, visitor);
+        } else {
+            visitor.visitFile(target, null);
+        }
     }
 
 
-    private void runOnNewThread(Callable<Void> callable, Runnable onError) {
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    callable.call();
-                } catch (Exception e) {
-                    log.error("Backup error", e);
-                    onError.run();
-                }
+    private void runOnNewThread(Callable<Void> dump, Runnable onError) {
+        thread = new Thread(() -> {
+            try {
+                dump.call();
+            } catch (Exception e) {
+                log.error("Backup error", e);
+                onError.run();
             }
         }, "Dump " + target);
         thread.start();

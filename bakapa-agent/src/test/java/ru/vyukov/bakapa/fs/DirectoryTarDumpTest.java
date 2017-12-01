@@ -49,23 +49,28 @@ public class DirectoryTarDumpTest {
 
     @Test
     public void dump() throws Exception {
-        DirectoryTarDump directoryTarDump = new DirectoryTarDump(source.getRoot().toPath());
+        DirectoryTarDump directoryTarDump = new DirectoryTarDump(source.getRoot());
         InputStream dump = directoryTarDump.dump();
 
-        File outFile = File.createTempFile("dump", ".tar");
-        try (FileOutputStream output = new FileOutputStream(outFile)) {
-            IOUtils.copy(dump, output);
-        }
-        assertTrue(outFile.length() > 0);
+        readArchiveStream(dump);
 
-
-        File targetDir = extract(outFile);
-
-        File extractedFile1 = new File(verify.getRoot() + file1.getAbsolutePath());
-        File extractedFile2 = new File(verify.getRoot() + file2.getAbsolutePath());
+        File extractedFile1 = new File(verify.getRoot(), file1.getAbsolutePath());
+        File extractedFile2 = new File(verify.getRoot(), file2.getAbsolutePath());
 
         assertEqualsBody(file1, extractedFile1);
         assertEqualsBody(file2, extractedFile2);
+    }
+
+
+    @Test
+    public void singleFileDump() throws Exception {
+        DirectoryTarDump directoryTarDump = new DirectoryTarDump(file1);
+        InputStream dump = directoryTarDump.dump();
+
+        readArchiveStream(dump);
+
+        File extractedFile1 = new File(verify.getRoot(), file1.getAbsolutePath());
+        assertEqualsBody(file1, extractedFile1);
     }
 
 
@@ -80,6 +85,16 @@ public class DirectoryTarDumpTest {
         Archiver archiver = ArchiverFactory.createArchiver(outFile);
         archiver.extract(outFile, verify.getRoot());
         return verify.getRoot();
+    }
+
+    private void readArchiveStream(InputStream dump) throws IOException {
+        File outFile = File.createTempFile("dump", ".tar");
+        try (FileOutputStream output = new FileOutputStream(outFile)) {
+            IOUtils.copy(dump, output);
+        }
+        assertTrue(outFile.length() > 0);
+
+        File targetDir = extract(outFile);
     }
 
 
