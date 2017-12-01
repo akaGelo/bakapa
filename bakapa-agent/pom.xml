@@ -20,8 +20,22 @@
         <dependency>
             <groupId>ru.vyukov</groupId>
             <artifactId>stomp-client-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.15</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -58,6 +72,15 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>org.rauschig</groupId>
+            <artifactId>jarchivelib</artifactId>
+            <version>0.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
 
     </dependencies>
 
