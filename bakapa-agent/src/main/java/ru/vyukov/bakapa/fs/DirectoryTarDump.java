@@ -3,17 +3,14 @@ package ru.vyukov.bakapa.fs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
-import org.apache.commons.compress.utils.Sets;
 
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
 import static java.lang.Integer.MAX_VALUE;
-import static java.nio.file.Files.walk;
 import static java.nio.file.Files.walkFileTree;
 import static java.util.Collections.unmodifiableSet;
 import static org.apache.commons.compress.utils.Sets.newHashSet;
