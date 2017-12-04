@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,7 @@ import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDT
  * @author Oleg Vyukov
  */
 @Slf4j
+@Ignore
 @RunWith(Parameterized.class)
 public class MysqlDumpTest {
 
