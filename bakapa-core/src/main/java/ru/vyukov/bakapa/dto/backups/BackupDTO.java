@@ -64,7 +64,7 @@ public class BackupDTO {
 
     @JsonIgnore
     String getDurationReadable(Clock clock) {
-        Duration duration = Duration.between(startTimestamp, now(clock));
+        Duration duration = Duration.between(startTimestamp, now(clock)).abs();
         if (duration.toDays() >= 1) {
             return "1 day+";
         }

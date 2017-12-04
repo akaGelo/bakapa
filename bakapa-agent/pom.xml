@@ -18,6 +18,12 @@
 
 
         <dependency>
+            <groupId>ru.vyukov.bakapa</groupId>
+            <artifactId>bakapa-native-mysql</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>ru.vyukov</groupId>
             <artifactId>stomp-client-spring-boot-starter</artifactId>
             <version>0.1</version>
