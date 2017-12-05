@@ -1,21 +1,16 @@
-package ru.vyukov.bakapa.fs;
+package ru.vyukov.bakapa.dump.fs;
 
-import com.jakewharton.byteunits.BinaryByteUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.rauschig.jarchivelib.Archiver;
-import org.rauschig.jarchivelib.ArchiverFactory;
+import ru.vyukov.bakapa.dump.DumpResult;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -61,8 +56,8 @@ public class DirectoryTarDumpSpeedTest {
         Instant start = now();
 
         DirectoryTarDump directoryTarDump = new DirectoryTarDump(file.toPath());
-        InputStream dump = directoryTarDump.dump();
-        IOUtils.copy(dump, new NullOutputStream());
+        DumpResult dump = directoryTarDump.dump();
+        IOUtils.copy(dump.getInputStream(), new NullOutputStream());
 
 
         Duration duration = Duration.between(start, now());

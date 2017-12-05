@@ -1,8 +1,10 @@
-package ru.vyukov.bakapa.fs;
+package ru.vyukov.bakapa.dump.fs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import ru.vyukov.bakapa.dump.DumpResult;
+import ru.vyukov.bakapa.dump.mysql.DumpUtilWrapper;
 
 import java.io.*;
 import java.nio.file.*;
@@ -22,7 +24,7 @@ import static org.apache.commons.compress.utils.Sets.newHashSet;
  * @author Oleg Vyukov
  */
 @Slf4j
-public class DirectoryTarDump {
+public class DirectoryTarDump implements DumpUtilWrapper {
 
     private final Set<FileVisitOption> fileVisitOptions = unmodifiableSet(newHashSet(FileVisitOption.FOLLOW_LINKS));
 
@@ -39,7 +41,8 @@ public class DirectoryTarDump {
         this.target = target;
     }
 
-    public InputStream dump() throws IOException {
+    @Override
+    public DumpResult dump() throws IOException {
         singleExecutionCheck();
 
         final PipedInputStream in = new PipedInputStream();
@@ -47,7 +50,7 @@ public class DirectoryTarDump {
 
         runOnNewThread(() -> dump(out), onError(in));
 
-        return in;
+        return new FsDumpResult(in, thread);
     }
 
     private Void dump(PipedOutputStream out) throws IOException {
@@ -125,4 +128,8 @@ public class DirectoryTarDump {
     }
 
 
+    @Override
+    public void close() throws IOException {
+
+    }
 }

@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.mysql;
+package ru.vyukov.bakapa.dump.mysql;
 
 import ru.vyukov.bakapa.nativeutils.AbstractDumpUtilProcessBuilderTest;
 import ru.vyukov.bakapa.nativeutils.DumpUtilProcessBuilder;

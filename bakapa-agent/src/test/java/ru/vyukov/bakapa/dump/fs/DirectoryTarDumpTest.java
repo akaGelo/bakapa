@@ -1,9 +1,5 @@
-package ru.vyukov.bakapa.fs;
+package ru.vyukov.bakapa.dump.fs;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.ArchiveInputStream;
-import org.apache.commons.compress.archivers.ArchiveStreamFactory;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.NullOutputStream;
@@ -13,6 +9,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.rauschig.jarchivelib.Archiver;
 import org.rauschig.jarchivelib.ArchiverFactory;
+import ru.vyukov.bakapa.dump.DumpResult;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -50,27 +47,36 @@ public class DirectoryTarDumpTest {
     @Test
     public void dump() throws Exception {
         DirectoryTarDump directoryTarDump = new DirectoryTarDump(source.getRoot());
-        InputStream dump = directoryTarDump.dump();
+        DumpResult dumpResult = directoryTarDump.dump();
 
-        readArchiveStream(dump);
+        readArchiveStream(dumpResult.getInputStream());
 
         File extractedFile1 = new File(verify.getRoot(), file1.getAbsolutePath());
         File extractedFile2 = new File(verify.getRoot(), file2.getAbsolutePath());
 
         assertEqualsBody(file1, extractedFile1);
         assertEqualsBody(file2, extractedFile2);
+        assertTrue(dumpResult.isSuccess());
     }
 
 
     @Test
     public void singleFileDump() throws Exception {
         DirectoryTarDump directoryTarDump = new DirectoryTarDump(file1);
-        InputStream dump = directoryTarDump.dump();
+        DumpResult dumpResult = directoryTarDump.dump();
 
-        readArchiveStream(dump);
+        readArchiveStream(dumpResult.getInputStream());
 
         File extractedFile1 = new File(verify.getRoot(), file1.getAbsolutePath());
         assertEqualsBody(file1, extractedFile1);
+        assertTrue(dumpResult.isSuccess());
+    }
+
+    @Test(expected = IOException.class)
+    public void dumpIOException() throws Exception {
+        DirectoryTarDump directoryTarDump = new DirectoryTarDump(Paths.get("/etc/"));
+        DumpResult dumpResult = directoryTarDump.dump();
+        IOUtils.copy(dumpResult.getInputStream(), new NullOutputStream());
     }
 
 
@@ -98,10 +104,4 @@ public class DirectoryTarDumpTest {
     }
 
 
-    @Test(expected = IOException.class)
-    public void dumpIOException() throws Exception {
-        DirectoryTarDump directoryTarDump = new DirectoryTarDump(Paths.get("/etc/"));
-        InputStream dump = directoryTarDump.dump();
-        IOUtils.copy(dump, new NullOutputStream());
-    }
 }

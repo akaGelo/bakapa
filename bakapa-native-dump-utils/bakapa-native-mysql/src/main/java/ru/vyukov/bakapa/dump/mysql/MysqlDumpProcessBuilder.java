@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.mysql;
+package ru.vyukov.bakapa.dump.mysql;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;

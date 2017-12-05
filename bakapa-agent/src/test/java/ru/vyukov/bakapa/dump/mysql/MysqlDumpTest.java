@@ -1,35 +1,41 @@
-package ru.vyukov.bakapa.mysql;
+package ru.vyukov.bakapa.dump.mysql;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.NullOutputStream;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.util.SocketUtils;
 import pl.domzal.junit.docker.rule.DockerRule;
+import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupOptionsDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupTargetDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseLocationDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDTO;
+import ru.vyukov.bakapa.dump.ProcessDumpResult;
+import ru.vyukov.bakapa.dump.TestDumplLogger;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
-import static junit.framework.TestCase.fail;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static junit.framework.TestCase.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.assertFalse;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.executeSqlScript;
+import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupOptionsDTO.backupOptions;
 import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseLocationDTO.databaseLocation;
 import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDTO.userCredentials;
 
@@ -37,21 +43,19 @@ import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDT
  * @author Oleg Vyukov
  */
 @Slf4j
-@Ignore
 @RunWith(Parameterized.class)
 public class MysqlDumpTest {
 
     @Parameterized.Parameters(name = "mysql-server version {0}")
     public static Iterable<String> data() {
-//        return asList("latest", "8", "5");
-        return asList("latest");
+        return asList("latest", "8", "5");
     }
 
     private static final DatabaseLocationDTO location = databaseLocation().host("127.0.0.1").port(randomPort()).database(randomDatabase()).build();
 
     private static final DatabaseUserCredentialsDTO credentials = userCredentials().username("root").password("qwerty").build();
 
-    private final static DatabaseBackupTargetDTO.DatabaseBackupTargetDTOBuilder backupTargetBuilder = DatabaseBackupTargetDTO.localhostMysql().toBuilder()
+    private DatabaseBackupTargetDTO.DatabaseBackupTargetDTOBuilder backupTargetBuilder = DatabaseBackupTargetDTO.localhostMysql().toBuilder()
             .userCredentials(credentials).location(location);
 
 
@@ -62,6 +66,7 @@ public class MysqlDumpTest {
     private MysqlDump underTest;
 
     public MysqlDumpTest(String version) throws SQLException, IOException {
+        PrintStream nullStream = new PrintStream(new NullOutputStream());
 
         mysqlServerRule = DockerRule.builder()
                 .imageName("mysql:" + version)
@@ -69,6 +74,8 @@ public class MysqlDumpTest {
                 .env("MYSQL_ROOT_PASSWORD", credentials.getPassword())
                 .env("MYSQL_DATABASE", location.getDatabase())
                 .imageAlwaysPull(true)
+                .stdoutWriter(nullStream)
+                .stderrWriter(nullStream)
                 .build();
 
     }
@@ -82,23 +89,69 @@ public class MysqlDumpTest {
 
     @Test
     public void dumpAll() throws Exception {
-        underTest = new MysqlDump(backupTargetBuilder.build());
+        DatabaseBackupOptionsDTO options = backupOptions().build();
+        underTest = new MysqlDump(backupTargetBuilder.options(options).build());
 
-        InputStream inputStream = underTest.dump();
+        ProcessDumpResult dumpResult = underTest.dump();
+        InputStream inputStream = dumpResult.getInputStream();
+        TestDumplLogger.log(dumpResult.getErrorStream());
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        IOUtils.copy(inputStream, output);
+        String dumpedSql = IOUtils.toString(inputStream, Charset.defaultCharset());
+        assertThat(dumpedSql, allOf(
 
-        String dumpedSql = new String(output.toByteArray());
-        System.out.println(dumpedSql);
+                //test table
+                containsString("one"),
+                containsString("two"),
+
+                //ignored_table
+                containsString("five"),
+                containsString("six")
+        ));
+        assertTrue(dumpResult.isSuccess());
     }
 
 
     @Test
     public void dumpIgnoreTables() throws Exception {
-        underTest = new MysqlDump(backupTargetBuilder.build());
-        underTest.dump();
-        fail("not  implemended");
+
+        DatabaseBackupOptionsDTO options = backupOptions().excludeTable("test_ignore_table").build();
+        underTest = new MysqlDump(backupTargetBuilder.options(options).build());
+
+        ProcessDumpResult dumpResult = underTest.dump();
+        InputStream inputStream = dumpResult.getInputStream();
+        TestDumplLogger.log(dumpResult.getErrorStream());
+
+        String dumpedSql = IOUtils.toString(inputStream, Charset.defaultCharset());
+        assertThat(dumpedSql, allOf(
+
+                //test table
+                containsString("one"),
+                containsString("two")
+        ));
+
+        assertThat(dumpedSql, allOf(
+                not(containsString("four")),
+                not(containsString("five")),
+                not(containsString("six"))
+        ));
+        assertTrue(dumpResult.isSuccess());
+    }
+
+
+    @Test
+    public void testWrongCredentials() throws Exception {
+        DatabaseUserCredentialsDTO credentials = userCredentials().username("root").password("wrong").build();
+        underTest = new MysqlDump(backupTargetBuilder.userCredentials(credentials).build());
+
+        ProcessDumpResult dumpResult = underTest.dump();
+        InputStream inputStream = dumpResult.getInputStream();
+        TestDumplLogger.log(dumpResult.getErrorStream());
+
+        String dumpedSql = IOUtils.toString(inputStream, Charset.defaultCharset());
+        assertEquals("", dumpedSql);
+
+        dumpResult.waitFor(30, SECONDS);
+        assertFalse(dumpResult.isSuccess());
     }
 
 

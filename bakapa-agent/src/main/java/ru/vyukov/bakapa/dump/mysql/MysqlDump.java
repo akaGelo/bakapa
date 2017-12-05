@@ -1,20 +1,19 @@
-package ru.vyukov.bakapa.mysql;
+package ru.vyukov.bakapa.dump.mysql;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupOptionsDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupTargetDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseLocationDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDTO;
+import ru.vyukov.bakapa.dump.ProcessDumpResult;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Oleg Vyukov
  */
 @Slf4j
-public class MysqlDump implements Closeable {
+public class MysqlDump implements DumpUtilWrapper {
 
 
     private final DatabaseUserCredentialsDTO userCredentials;
@@ -32,7 +31,8 @@ public class MysqlDump implements Closeable {
     }
 
 
-    public InputStream dump() throws IOException {
+    @Override
+    public ProcessDumpResult dump() throws IOException {
 
         MysqlDumpProcessBuilder builder = new MysqlDumpProcessBuilder();
 
@@ -49,34 +49,15 @@ public class MysqlDump implements Closeable {
         builder.arg(database);
 
         process = builder.build();
-        errorStreamLogging(process.getErrorStream());
 
-        return process.getInputStream();
+        return new ProcessDumpResult(process);
     }
 
-    private void errorStreamLogging(InputStream errorStream) {
-        new Thread(() -> {
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(errorStream));
-                String line = null;
-                while (null != (line = bufferedReader.readLine())) {
-                    //TODO send to log
-                    log.error(line);
-                }
-            } catch (Exception e) {
-                log.error("ErrorStream problem", e);
-            }
-        }).start();
-
-    }
-
-
-    public boolean isSuccess() {
-        return 0 == process.exitValue();
-    }
 
     @Override
     public void close() throws IOException {
-
+        if (null != process) {
+            process.destroy();
+        }
     }
 }
