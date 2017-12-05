@@ -3,8 +3,7 @@ package ru.vyukov.bakapa.mysql;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
-import ru.vyukov.bakapa.nativeutils.AbstractDumpUtil;
-import ru.vyukov.bakapa.nativeutils.DumpUtilPrecessBuilder;
+import ru.vyukov.bakapa.nativeutils.DumpUtilProcessBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +21,7 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
  * @author Oleg Vyukov
  */
 @Slf4j
-public class MysqlDumpProcessBuilder extends AbstractDumpUtil implements DumpUtilPrecessBuilder<MysqlDumpProcessBuilder> {
+public class MysqlDumpProcessBuilder  implements DumpUtilProcessBuilder<MysqlDumpProcessBuilder> {
 
     private static final String[] EXPECTED_PATHS = new String[]{"/usr/bin/mysqldump", "/bin/mysqldump"};
 
@@ -41,7 +40,7 @@ public class MysqlDumpProcessBuilder extends AbstractDumpUtil implements DumpUti
 
 
     static MysqlDumpProcessBuilder nativeBuilder() throws IOException {
-        Path nativeMysqlDump = findNative(EXPECTED_PATHS);
+        Path nativeMysqlDump = DumpUtilProcessBuilder.findNative(EXPECTED_PATHS);
         if (null == nativeMysqlDump) {
             throw new IOException(nativeMysqlDump + " not found");
         }
@@ -56,7 +55,7 @@ public class MysqlDumpProcessBuilder extends AbstractDumpUtil implements DumpUti
     }
 
     private static Path nativePriorityBuilder() throws IOException {
-        Path nativeMysqlDump = findNative(EXPECTED_PATHS);
+        Path nativeMysqlDump = DumpUtilProcessBuilder.findNative(EXPECTED_PATHS);
         if (null != nativeMysqlDump) {
             return nativeMysqlDump;
         }

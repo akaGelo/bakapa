@@ -3,7 +3,8 @@ package ru.vyukov.bakapa.agent.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
+
+import org.mockito.junit.MockitoJUnitRunner;
 import ru.vyukov.bakapa.agent.service.backup.BackupServiceConfig;
 
 import static org.junit.Assert.assertEquals;

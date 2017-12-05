@@ -5,7 +5,6 @@
         <groupId>ru.vyukov</groupId>
         <artifactId>bakapa-native-dump-utils</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!--<relativePath>../</relativePath>-->
     </parent>
     <artifactId>bakapa-native-core</artifactId>
     <packaging>jar</packaging>
@@ -21,6 +20,19 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

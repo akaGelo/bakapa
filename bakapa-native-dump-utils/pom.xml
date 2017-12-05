@@ -5,7 +5,6 @@
         <groupId>ru.vyukov</groupId>
         <artifactId>bakapa</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!--<relativePath>../</relativePath>-->
     </parent>
 
     <artifactId>bakapa-native-dump-utils</artifactId>
@@ -13,7 +12,6 @@
 
     <modules>
         <module>bakapa-native-core</module>
-        <module>bakapa-native-tests</module>
         <module>bakapa-native-mysql</module>
     </modules>
 

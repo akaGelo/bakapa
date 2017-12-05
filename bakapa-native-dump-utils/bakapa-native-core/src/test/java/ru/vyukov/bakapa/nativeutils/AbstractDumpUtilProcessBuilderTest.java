@@ -1,8 +1,6 @@
-package ru.vyukov.bakapa.test;
+package ru.vyukov.bakapa.nativeutils;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
-import ru.vyukov.bakapa.nativeutils.DumpUtilPrecessBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,10 +20,10 @@ import static org.junit.Assert.*;
 public abstract class AbstractDumpUtilProcessBuilderTest {
 
 
-    @Test
+    @org.junit.Test
     public void cacheExecutableFile() throws IOException {
-        DumpUtilPrecessBuilder<?> process1 = getEmbeddedProcessBuilder();
-        DumpUtilPrecessBuilder<?> process2 = getEmbeddedProcessBuilder();
+        DumpUtilProcessBuilder<?> process1 = getEmbeddedProcessBuilder();
+        DumpUtilProcessBuilder<?> process2 = getEmbeddedProcessBuilder();
 
 
         Path p1Str = process1.getExecutable();
@@ -34,9 +32,9 @@ public abstract class AbstractDumpUtilProcessBuilderTest {
     }
 
 
-    @Test(timeout = 10_000)
+    @org.junit.Test(timeout = 10_000)
     public void version() throws Exception {
-        DumpUtilPrecessBuilder<?> mysqlDumpProcessBuilder = getEmbeddedProcessBuilder();
+        DumpUtilProcessBuilder<?> mysqlDumpProcessBuilder = getEmbeddedProcessBuilder();
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -58,7 +56,7 @@ public abstract class AbstractDumpUtilProcessBuilderTest {
     }
 
 
-    abstract protected DumpUtilPrecessBuilder<?> getEmbeddedProcessBuilder() throws IOException;
+    abstract protected DumpUtilProcessBuilder<?> getEmbeddedProcessBuilder() throws IOException;
 
 
     abstract public String getAssertThatVersion();

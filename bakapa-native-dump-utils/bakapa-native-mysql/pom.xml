@@ -5,7 +5,6 @@
         <groupId>ru.vyukov</groupId>
         <artifactId>bakapa-native-dump-utils</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!--<relativePath>../</relativePath>-->
     </parent>
     <artifactId>bakapa-native-mysql</artifactId>
 
@@ -16,11 +15,18 @@
             <artifactId>bakapa-native-core</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>ru.vyukov</groupId>
-            <artifactId>bakapa-native-tests</artifactId>
+            <artifactId>bakapa-native-core</artifactId>
+            <type>test-jar</type>
             <scope>test</scope>
+            <version>${project.version}</version>
         </dependency>
+
+
+
+
 
     </dependencies>
 

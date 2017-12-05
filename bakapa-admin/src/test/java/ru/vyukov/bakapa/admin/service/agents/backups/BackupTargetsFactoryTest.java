@@ -1,11 +1,12 @@
 package ru.vyukov.bakapa.admin.service.agents.backups;
 
+import org.mockito.junit.MockitoJUnitRunner;
 import ru.vyukov.bakapa.domain.BackupTargetType;
 import ru.vyukov.bakapa.dto.agent.AgentDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class BackupTargetsFactoryTest {
