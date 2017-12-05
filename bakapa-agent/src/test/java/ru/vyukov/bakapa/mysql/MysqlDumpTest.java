@@ -43,8 +43,8 @@ public class MysqlDumpTest {
 
     @Parameterized.Parameters(name = "mysql-server version {0}")
     public static Iterable<String> data() {
-        return asList("latest", "8", "5");
-//        return asList("latest");
+//        return asList("latest", "8", "5");
+        return asList("latest");
     }
 
     private static final DatabaseLocationDTO location = databaseLocation().host("127.0.0.1").port(randomPort()).database(randomDatabase()).build();

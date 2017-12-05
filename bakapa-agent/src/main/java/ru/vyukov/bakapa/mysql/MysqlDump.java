@@ -29,41 +29,26 @@ public class MysqlDump implements Closeable {
         userCredentials = databaseBackupTarget.getUserCredentials();
         location = databaseBackupTarget.getLocation();
         options = databaseBackupTarget.getOptions();
-        init();
     }
 
-
-    /**
-     * Extract native dump util and
-     */
-    private void init() throws IOException {
-//        ClassPathResource utilDistributive = new ClassPathResource("/native/mysql/mysqldump");
-//        extractedFile = File.createTempFile("mysqldump", "");
-//        try (InputStream source = utilDistributive.getInputStream()) {
-//            FileUtils.copyToFile(source, extractedFile);
-//        }
-//        extractedFile.setExecutable(true);
-
-        //TODO check mysqldump installed
-    }
 
     public InputStream dump() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/mysqldump");
-        List<String> command = processBuilder.command();
-        command.addAll(Arrays.asList(
-                "--host", location.getHost(), "--port", location.getPort() + "",
-                "-u" + userCredentials.getUsername(), "-p" + userCredentials.getPassword(),
-                "--single-transaction", "--quick",
-                "--routines", "--triggers", "--events"
-        ));
+
+        MysqlDumpProcessBuilder builder = new MysqlDumpProcessBuilder();
+
+        builder.args("--host", location.getHost())
+                .arg("--port").arg(location.getPort())
+                .args("-u" + userCredentials.getUsername(), "-p" + userCredentials.getPassword())
+                .args("--single-transaction", "--quick")
+                .args("--routines", "--triggers", "--events");
 
         final String database = location.getDatabase();
-
         for (String tableName : options.getExcludeTables()) {
-            command.add("--ignore-table=" + database + "." + tableName);
+            builder.arg("--ignore-table=" + database + "." + tableName);
         }
-        command.add(database);
-        process = processBuilder.start();
+        builder.arg(database);
+
+        process = builder.build();
         errorStreamLogging(process.getErrorStream());
 
         return process.getInputStream();

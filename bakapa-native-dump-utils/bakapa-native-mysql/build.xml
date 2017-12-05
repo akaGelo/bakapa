@@ -1,0 +1,17 @@
+<project name="MySqlDump" default="all">
+
+    <property name="AppImageBuilder" value="../appimagetool-x86_64.AppImage"/>
+
+    <target name="all">
+
+
+        <property name="outFile" value="target/classes/${ant.project.name}.AppImage"/>
+        <exec executable="${AppImageBuilder}">
+            <arg value="src/main/${ant.project.name}.AppDir"/>
+            <arg value="${outFile}"/>
+        </exec>
+        <chmod file="${outFile}" perm="ugo+rx" failonerror="true"/>
+    </target>
+
+
+</project>

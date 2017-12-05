@@ -5,12 +5,34 @@
         <groupId>ru.vyukov</groupId>
         <artifactId>bakapa-native-dump-utils</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <!--<relativePath>../</relativePath>-->
     </parent>
     <artifactId>bakapa-native-mysql</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>ru.vyukov</groupId>
+            <artifactId>bakapa-native-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.vyukov</groupId>
+            <artifactId>bakapa-native-tests</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -35,25 +57,12 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.1</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
-                    <groupId>ru.vyukov.bakapa</groupId>
-                    <artifactId>${project.artifactId}</artifactId>
-                    <version>${project.version}</version>
-                    <packaging>jar</packaging>
-                    <file>${project.basedir}/target/mysqldump.jar</file>
-                    <generatePom>true</generatePom>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>install-mysql</id>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
             </plugin>
 
 

@@ -18,7 +18,7 @@
 
 
         <dependency>
-            <groupId>ru.vyukov.bakapa</groupId>
+            <groupId>ru.vyukov</groupId>
             <artifactId>bakapa-native-mysql</artifactId>
             <version>${project.version}</version>
         </dependency>
