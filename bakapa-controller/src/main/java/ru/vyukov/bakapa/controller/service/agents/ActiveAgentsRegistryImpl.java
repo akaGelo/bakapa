@@ -7,7 +7,7 @@ import ru.vyukov.bakapa.controller.domain.agent.AgentAndInfo;
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.agent.Health;
 import ru.vyukov.bakapa.controller.domain.backup.BackupTask;
-import ru.vyukov.bakapa.dto.BackupTaskDTO;
+import ru.vyukov.bakapa.dto.backups.task.BackupTaskDTO;
 
 import java.util.Map;
 import java.util.Set;

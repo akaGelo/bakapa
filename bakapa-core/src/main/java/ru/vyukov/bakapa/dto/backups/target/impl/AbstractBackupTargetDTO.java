@@ -37,4 +37,8 @@ abstract class AbstractBackupTargetDTO {
     public boolean isFilesystemType() {
         return targetType.isFilesystem();
     }
+
+    public static AbstractBackupTargetDTO demo(String backupTargetId) {
+        return FilesystemBackupTargetDTO.demo(backupTargetId);
+    }
 }

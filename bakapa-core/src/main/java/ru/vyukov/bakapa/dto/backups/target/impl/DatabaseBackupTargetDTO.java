@@ -12,7 +12,7 @@ import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupOptionsDTO.
 
 @Data
 @NoArgsConstructor
-public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO  implements SummaryBackupTargetDTO {
+public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO implements SummaryBackupTargetDTO {
 
 
     @Valid
@@ -62,6 +62,5 @@ public class DatabaseBackupTargetDTO extends AbstractBackupTargetDTO  implements
     public String getNameReadable() {
         return getLocation().getDatabase();
     }
-
 
 }

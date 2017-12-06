@@ -1,10 +1,9 @@
 package ru.vyukov.bakapa.dump.mysql;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupOptionsDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupTargetDTO;
-import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseLocationDTO;
-import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDTO;
+import ru.vyukov.bakapa.dump.AbstractDatabaseDumpWrapperUtil;
+import ru.vyukov.bakapa.dump.DumpUtilWrapper;
 import ru.vyukov.bakapa.dump.ProcessDumpResult;
 
 import java.io.*;
@@ -13,21 +12,15 @@ import java.io.*;
  * @author Oleg Vyukov
  */
 @Slf4j
-public class MysqlDump implements DumpUtilWrapper {
+public class MySqlDump extends AbstractDatabaseDumpWrapperUtil implements DumpUtilWrapper {
 
-
-    private final DatabaseUserCredentialsDTO userCredentials;
-    private final DatabaseLocationDTO location;
-    private final DatabaseBackupOptionsDTO options;
 
     private Process process;
 
     private File extractedFile;
 
-    public MysqlDump(DatabaseBackupTargetDTO databaseBackupTarget) throws IOException {
-        userCredentials = databaseBackupTarget.getUserCredentials();
-        location = databaseBackupTarget.getLocation();
-        options = databaseBackupTarget.getOptions();
+    public MySqlDump(DatabaseBackupTargetDTO databaseBackupTarget) {
+        super(databaseBackupTarget);
     }
 
 

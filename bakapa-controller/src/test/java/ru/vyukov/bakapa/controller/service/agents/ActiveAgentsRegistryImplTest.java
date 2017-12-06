@@ -11,8 +11,7 @@ import ru.vyukov.bakapa.controller.domain.agent.AgentAndInfo.AgentAndInfoBuilder
 import ru.vyukov.bakapa.controller.domain.agent.Agent;
 import ru.vyukov.bakapa.controller.domain.agent.Health;
 import ru.vyukov.bakapa.controller.domain.backup.BackupTask;
-import ru.vyukov.bakapa.dto.BackupTaskDTO;
-import ru.vyukov.bakapa.dto.HealthDTO;
+import ru.vyukov.bakapa.dto.backups.task.BackupTaskDTO;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;

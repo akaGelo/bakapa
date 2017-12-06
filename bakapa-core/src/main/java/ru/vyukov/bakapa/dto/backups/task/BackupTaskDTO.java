@@ -1,10 +1,11 @@
-package ru.vyukov.bakapa.dto;
+package ru.vyukov.bakapa.dto.backups.task;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import ru.vyukov.bakapa.dto.backups.target.BackupTarget;
 import ru.vyukov.bakapa.dto.backups.target.SummaryBackupTargetDTO;
+import ru.vyukov.bakapa.dto.backups.target.impl.FilesystemBackupTargetDTO;
 
 import javax.validation.constraints.NotNull;
 
@@ -22,4 +23,8 @@ public class BackupTaskDTO {
     @NotNull
     @NonNull
     private SummaryBackupTargetDTO backupTarget;
+
+    public static BackupTaskDTO demo() {
+        return new BackupTaskDTO("testBackupId", FilesystemBackupTargetDTO.defaultExample());
+    }
 }

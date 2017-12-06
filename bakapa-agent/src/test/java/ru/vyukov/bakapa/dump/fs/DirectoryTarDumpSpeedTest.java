@@ -55,7 +55,7 @@ public class DirectoryTarDumpSpeedTest {
     public void test() throws IOException {
         Instant start = now();
 
-        DirectoryTarDump directoryTarDump = new DirectoryTarDump(file.toPath());
+        DirectoryTarDump directoryTarDump = new DirectoryTarDump(file);
         DumpResult dump = directoryTarDump.dump();
         IOUtils.copy(dump.getInputStream(), new NullOutputStream());
 

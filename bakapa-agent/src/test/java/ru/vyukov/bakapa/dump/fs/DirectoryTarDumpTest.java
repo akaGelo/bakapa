@@ -74,7 +74,7 @@ public class DirectoryTarDumpTest {
 
     @Test(expected = IOException.class)
     public void dumpIOException() throws Exception {
-        DirectoryTarDump directoryTarDump = new DirectoryTarDump(Paths.get("/etc/"));
+        DirectoryTarDump directoryTarDump = new DirectoryTarDump(new File("/etc/"));
         DumpResult dumpResult = directoryTarDump.dump();
         IOUtils.copy(dumpResult.getInputStream(), new NullOutputStream());
     }

@@ -1,4 +1,4 @@
-package ru.vyukov.bakapa.dump.mysql;
+package ru.vyukov.bakapa.dump;
 
 import ru.vyukov.bakapa.dump.DumpResult;
 import ru.vyukov.bakapa.dump.ProcessDumpResult;

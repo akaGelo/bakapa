@@ -44,7 +44,7 @@ import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDT
  */
 @Slf4j
 @RunWith(Parameterized.class)
-public class MysqlDumpTest {
+public class MySqlDumpTest {
 
     @Parameterized.Parameters(name = "mysql-server version {0}")
     public static Iterable<String> data() {
@@ -63,9 +63,9 @@ public class MysqlDumpTest {
     public DockerRule mysqlServerRule;
 
 
-    private MysqlDump underTest;
+    private MySqlDump underTest;
 
-    public MysqlDumpTest(String version) throws SQLException, IOException {
+    public MySqlDumpTest(String version) throws SQLException, IOException {
         PrintStream nullStream = new PrintStream(new NullOutputStream());
 
         mysqlServerRule = DockerRule.builder()
@@ -90,7 +90,7 @@ public class MysqlDumpTest {
     @Test
     public void dumpAll() throws Exception {
         DatabaseBackupOptionsDTO options = backupOptions().build();
-        underTest = new MysqlDump(backupTargetBuilder.options(options).build());
+        underTest = new MySqlDump(backupTargetBuilder.options(options).build());
 
         ProcessDumpResult dumpResult = underTest.dump();
         InputStream inputStream = dumpResult.getInputStream();
@@ -115,7 +115,7 @@ public class MysqlDumpTest {
     public void dumpIgnoreTables() throws Exception {
 
         DatabaseBackupOptionsDTO options = backupOptions().excludeTable("test_ignore_table").build();
-        underTest = new MysqlDump(backupTargetBuilder.options(options).build());
+        underTest = new MySqlDump(backupTargetBuilder.options(options).build());
 
         ProcessDumpResult dumpResult = underTest.dump();
         InputStream inputStream = dumpResult.getInputStream();
@@ -141,7 +141,7 @@ public class MysqlDumpTest {
     @Test
     public void testWrongCredentials() throws Exception {
         DatabaseUserCredentialsDTO credentials = userCredentials().username("root").password("wrong").build();
-        underTest = new MysqlDump(backupTargetBuilder.userCredentials(credentials).build());
+        underTest = new MySqlDump(backupTargetBuilder.userCredentials(credentials).build());
 
         ProcessDumpResult dumpResult = underTest.dump();
         InputStream inputStream = dumpResult.getInputStream();
@@ -156,7 +156,7 @@ public class MysqlDumpTest {
 
 
     private static String randomDatabase() {
-        return MysqlDumpTest.class.getSimpleName() + RandomStringUtils.randomAlphabetic(5);
+        return MySqlDumpTest.class.getSimpleName() + RandomStringUtils.randomAlphabetic(5);
     }
 
     private static Integer randomPort() {

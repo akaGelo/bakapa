@@ -1,13 +1,11 @@
 package ru.vyukov.bakapa.controller.domain.backup;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import ru.vyukov.bakapa.controller.domain.backup.target.AbstractBackupTarget;
 import ru.vyukov.bakapa.controller.domain.config.StorageConfig;
-import ru.vyukov.bakapa.dto.BackupTaskDTO;
 
 import javax.validation.constraints.NotNull;
 

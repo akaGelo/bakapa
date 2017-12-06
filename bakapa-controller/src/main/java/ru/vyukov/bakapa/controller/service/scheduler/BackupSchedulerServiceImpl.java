@@ -16,7 +16,6 @@ import ru.vyukov.bakapa.controller.service.backups.CreateBackupException;
 import ru.vyukov.bakapa.controller.service.backupsstorage.BackupsStorageService;
 import ru.vyukov.bakapa.controller.service.backupstargets.BackupsTargetsService;
 import ru.vyukov.bakapa.controller.service.scheduler.executor.BackupTaskExecutor;
-import ru.vyukov.bakapa.dto.BackupTaskDTO;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;

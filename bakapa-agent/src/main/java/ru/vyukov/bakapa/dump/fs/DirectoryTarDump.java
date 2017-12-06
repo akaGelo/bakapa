@@ -3,8 +3,9 @@ package ru.vyukov.bakapa.dump.fs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import ru.vyukov.bakapa.dto.backups.target.impl.FilesystemBackupTargetDTO;
 import ru.vyukov.bakapa.dump.DumpResult;
-import ru.vyukov.bakapa.dump.mysql.DumpUtilWrapper;
+import ru.vyukov.bakapa.dump.DumpUtilWrapper;
 
 import java.io.*;
 import java.nio.file.*;
@@ -33,12 +34,12 @@ public class DirectoryTarDump implements DumpUtilWrapper {
     private Thread thread;
 
 
-    public DirectoryTarDump(File target) {
-        this(target.toPath());
+    DirectoryTarDump(File target) {
+        this.target = target.toPath();
     }
 
-    public DirectoryTarDump(Path target) {
-        this.target = target;
+    public DirectoryTarDump(FilesystemBackupTargetDTO filesystemBackupTarget) {
+        this.target = Paths.get(filesystemBackupTarget.getPath());
     }
 
     @Override
