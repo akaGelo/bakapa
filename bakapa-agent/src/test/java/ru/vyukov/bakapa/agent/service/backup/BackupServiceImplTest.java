@@ -1,6 +1,7 @@
 package ru.vyukov.bakapa.agent.service.backup;
 
 import org.apache.commons.lang3.AnnotationUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,12 +37,13 @@ public class BackupServiceImplTest {
 
 
     @Test
+    @Ignore()
     public void backup() throws Exception {
         BackupTaskDTO backTask = BackupTaskDTO.demo();
         underTest.backup(backTask);
 
 
-//        fail("not implemented");
+        fail("not implemented");
     }
 
 

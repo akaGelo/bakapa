@@ -3,14 +3,12 @@ package ru.vyukov.bakapa.dump.mysql;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.NullOutputStream;
-import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.SocketUtils;
 import pl.domzal.junit.docker.rule.DockerRule;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupOptionsDTO;
 import ru.vyukov.bakapa.dto.backups.target.impl.DatabaseBackupTargetDTO;
@@ -44,7 +42,7 @@ import static ru.vyukov.bakapa.dto.backups.target.impl.DatabaseUserCredentialsDT
  */
 @Slf4j
 @RunWith(Parameterized.class)
-public class MySqlDumpTest {
+public class MySqlDumpTest extends  AbstractDatabaseDumpTest {
 
     @Parameterized.Parameters(name = "mysql-server version {0}")
     public static Iterable<String> data() {
@@ -107,6 +105,7 @@ public class MySqlDumpTest {
                 containsString("five"),
                 containsString("six")
         ));
+        dumpResult.waitFor(30, SECONDS);
         assertTrue(dumpResult.isSuccess());
     }
 
@@ -134,6 +133,7 @@ public class MySqlDumpTest {
                 not(containsString("five")),
                 not(containsString("six"))
         ));
+        dumpResult.waitFor(30, SECONDS);
         assertTrue(dumpResult.isSuccess());
     }
 
@@ -155,21 +155,13 @@ public class MySqlDumpTest {
     }
 
 
-    private static String randomDatabase() {
-        return MySqlDumpTest.class.getSimpleName() + RandomStringUtils.randomAlphabetic(5);
-    }
-
-    private static Integer randomPort() {
-        return SocketUtils.findAvailableTcpPort();
-    }
-
     private Connection getConnection() throws SQLException {
         //delay mysql started
         String url = null;
         Error lastException = null;
         //10 attempts with an interval per 3 second
         for (int i = 0; i < 10; i++) {
-            sleep3();
+            sleep5();
             try {
                 url = createUrl(location);
                 return DriverManager.getConnection(url, credentials.getUsername(), credentials.getPassword());
@@ -179,14 +171,6 @@ public class MySqlDumpTest {
             }
         }
         throw lastException;
-    }
-
-    private void sleep3() {
-        try {
-            Thread.sleep(3_000);
-        } catch (InterruptedException e) {
-            throw new AssertionError(e);
-        }
     }
 
     private String createUrl(DatabaseLocationDTO location) {
